@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    id 'dagger.hilt.android.plugin'
+
 }
 
 android {
@@ -26,6 +28,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    buildFeatures {
+        dataBinding true
+    }
 }
 
 dependencies {
@@ -36,4 +42,59 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.androidx.test.ext.junit
     androidTestImplementation libs.espresso.core
+
+
+    // other
+    implementation(platform('org.jetbrains.kotlin:kotlin-bom:1.9.10'))
+    implementation 'androidx.core:core:1.12.0'
+
+
+
+    // circle imageview
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    // sdp ssp
+    implementation 'com.intuit.ssp:ssp-android:1.1.0'
+    implementation 'com.intuit.sdp:sdp-android:1.1.0'
+
+
+
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.google.code.gson:gson:2.10.1'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+
+    // swipe refresh
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+
+
+    // shimmer layout
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
+
+
+    // Toast
+    implementation 'com.github.GrenderG:Toasty:1.5.2'
+
+
+    // MVVM Architecture
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.2'
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.6.2'
+    implementation 'com.google.dagger:hilt-android:2.48'
+    annotationProcessor 'com.google.dagger:hilt-compiler:2.48'
+
+
+    // glide
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
+    implementation 'com.github.bumptech.glide:glide:4.16.0'
+
+
+    // bottom bar
+    implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
+
+
+    // animation
+    implementation 'com.daimajia.androidanimations:library:2.4@aar'
 }
