@@ -16,6 +16,7 @@
 
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/btnBack"
                     android:layout_width="@dimen/_40sdp"
                     app:cardBackgroundColor="@color/main"
                     app:cardElevation="0dp"
@@ -95,11 +96,11 @@
                                     android:layout_height="wrap_content"
                                     android:text="4.0"
                                     android:layout_gravity="center_vertical"
-                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_marginLeft="@dimen/_5sdp"
                                     android:textColor="@color/black"
                                     android:fontFamily="@font/popsem"
                                     android:gravity="center_horizontal"
-                                    android:textSize="@dimen/_13ssp"/>
+                                    android:textSize="@dimen/_11ssp"/>
                             </LinearLayout>
 
                             <LinearLayout

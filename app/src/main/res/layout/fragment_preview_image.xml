@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black"
+        tools:context=".ui.fragments.field.PreviewImageFragment">
+
+        <com.jsibbold.zoomage.ZoomageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+        <ImageButton
+            android:id="@+id/btnBack"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="@dimen/_40sdp"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:background="@drawable/ic_back"/>
+
+    </RelativeLayout>
+</layout>

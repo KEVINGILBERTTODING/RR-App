@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -37,7 +38,7 @@ public class FieldDetailFragment extends Fragment {
     private FieldViewModel fieldViewModel;
     private ReviewViewModel reviewViewModel;
     private SharedPreferences sharedPreferences;
-    private String userId, fieldId;
+    private String userId, fieldId, image;
 
 
 
@@ -72,6 +73,21 @@ public class FieldDetailFragment extends Fragment {
     }
 
     private void listener() {
+        binding.btnBack.setOnClickListener(view -> {
+            getActivity().onBackPressed();
+        });
+        binding.ivField.setOnClickListener(view -> {
+            if (image != null) {
+                Fragment fragment = new PreviewImageFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("image", image);
+                fragment.setArguments(bundle);
+                fragmentTransaction(fragment);
+            }else {
+                showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+            }
+
+        });
     }
 
     private void getFieldDetail() {
@@ -83,8 +99,23 @@ public class FieldDetailFragment extends Fragment {
                         Glide.with(getContext()).load(fieldModelResponseModel.getData().getImage())
                                 .diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true)
                                 .into(binding.ivField);
-                        binding.tvAddress.setText(fieldModelResponseModel.getData().getAddress());
-                        binding.tvFieldName.setText(fieldModelResponseModel.getData().getName());
+
+                        image = fieldModelResponseModel.getData().getImage();
+
+
+
+                        if (!fieldModelResponseModel.getData().getAddress().isEmpty()) {
+                            binding.tvAddress.setText(fieldModelResponseModel.getData().getAddress());
+                        }else {
+                            binding.tvAddress.setText("-");
+                        }
+
+                        if (!fieldModelResponseModel.getData().getName().isEmpty()) {
+                            binding.tvFieldName.setText(fieldModelResponseModel.getData().getName());
+
+                        }else {
+                            binding.tvFieldName.setText("-");
+                        }
 
                     }else {
                         showToast(ConsOther.TOAST_ERR, fieldModelResponseModel.getMessage());
@@ -125,6 +156,7 @@ public class FieldDetailFragment extends Fragment {
 
         }
     }
+
 
     private void fragmentTransaction(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameMain, fragment)
