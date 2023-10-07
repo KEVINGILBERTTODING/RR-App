@@ -8,6 +8,7 @@ import com.example.rumahraga.data.repository.field.FieldRepository;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.util.constans.other.ConsOther;
+import com.example.rumahraga.util.constans.response.ConsResponse;
 
 import java.util.List;
 
@@ -29,8 +30,19 @@ public class FieldViewModel extends ViewModel {
         if (city != null) {
             return fieldRepository.getFieldCloser(city);
         }else {
-            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsOther.TOAST_ERR, null));
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE,  null));
 
+        }
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel<FieldModel>> getFieldById(String id) {
+        MutableLiveData<ResponseModel<FieldModel>> responseModelMutableLiveData = new MutableLiveData<>();
+        if (id != null && !id.isEmpty()) {
+            return fieldRepository.getFieldById(id);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
         }
 
         return responseModelMutableLiveData;

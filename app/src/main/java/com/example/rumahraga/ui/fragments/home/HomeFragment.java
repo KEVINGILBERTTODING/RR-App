@@ -23,6 +23,8 @@ import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.FragmentHomeBinding;
 import com.example.rumahraga.model.BannerModel;
 import com.example.rumahraga.model.CategoryModel;
@@ -32,6 +34,7 @@ import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.category.HomeCategoryAdapter;
 import com.example.rumahraga.ui.adapters.fields.HomeFieldAdapter;
 import com.example.rumahraga.ui.adapters.slider.BannerSliderAdapter;
+import com.example.rumahraga.ui.fragments.field.FieldDetailFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
@@ -141,9 +144,6 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                 if (listResponseModel.isStatus() == true ) {
                     BannerSliderAdapter bannerSliderAdapter = new BannerSliderAdapter(getContext(), listResponseModel.getData());
                     binding.imageSlider.setSliderAdapter(bannerSliderAdapter);
-                    showToast(ConsOther.TOAST_NORMAL, "berhasil");
-
-
                     binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
                     binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
                     binding.imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
@@ -175,6 +175,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                         binding.rvField.setAdapter(homeFieldAdapter);
                         binding.rvField.setLayoutManager(linearLayoutManager);
                         binding.rvField.setHasFixedSize(true);
+                        homeFieldAdapter.setItemClickListener(HomeFragment.this);
 
                         binding.shimmerField.setVisibility(View.GONE);
                         binding.rvField.setVisibility(View.VISIBLE);
@@ -207,6 +208,10 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         }
     }
 
+    private void fragmentTransaction(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameMain, fragment)
+                .commit();
+    }
 
     private void checkStatusGps() {
 
@@ -269,7 +274,18 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     }
 
     @Override
-    public void onItemClickListener(int positon, Object object) {
+    public void onItemClickListener(String type, int positon, Object object) {
+        // field on click
+        if (type.equals("field")) {
+            FieldModel fieldModel = (FieldModel) object;
+            Fragment fragment = new FieldDetailFragment();
+            Bundle arg = new Bundle();
+            arg.putString("field_id", fieldModel.getField_id());
+            fragment.setArguments(arg);
+            fragmentTransaction(fragment);
+
+        }
+
 
     }
 }

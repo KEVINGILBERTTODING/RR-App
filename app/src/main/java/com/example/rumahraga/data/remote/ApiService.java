@@ -4,6 +4,7 @@ import com.example.rumahraga.model.BannerModel;
 import com.example.rumahraga.model.CategoryModel;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.ResponseModel;
+import com.example.rumahraga.model.ReviewModel;
 import com.example.rumahraga.model.UserModel;
 
 import java.util.List;
@@ -46,6 +47,17 @@ public interface ApiService {
 
     @GET("user/get_banner")
     Call<ResponseModel<List<BannerModel>>> getAllBanner();
+
+    @GET("user/get_field_by_id")
+    Call<ResponseModel<FieldModel>> getFieldById(
+            @Query("id") String id
+    );
+
+    @GET("user/get_total_rating")
+    Call<ResponseModel<ReviewModel>> getTotalRating(
+            @Query("id") String id
+    );
+
 
 
 

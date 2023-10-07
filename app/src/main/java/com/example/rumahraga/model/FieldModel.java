@@ -13,7 +13,6 @@ public class FieldModel {
     private String address;
     private int price;
     private int is_available;
-
     public FieldModel(String field_id, String mitra_id, String category_id, String city_id, String name, String description, String image, String address, int price, int is_available) {
         this.field_id = field_id;
         this.mitra_id = mitra_id;
@@ -111,4 +110,8 @@ public class FieldModel {
     public void setIs_available(int is_available) {
         this.is_available = is_available;
     }
+
+
+
+
 }

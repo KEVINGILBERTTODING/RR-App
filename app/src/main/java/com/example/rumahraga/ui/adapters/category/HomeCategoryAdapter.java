@@ -41,8 +41,8 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
     @Override
     public void onBindViewHolder(@NonNull HomeCategoryAdapter.ViewHolder holder, int position) {
-        holder.tvName.setText(categoryModels.get(holder.getAdapterPosition()).getName());
-        Glide.with(context).load(categoryModels.get(holder.getAdapterPosition()).getImage())
+        holder.tvName.setText(categoryModels.get(holder.getBindingAdapterPosition()).getName());
+        Glide.with(context).load(categoryModels.get(holder.getBindingAdapterPosition()).getImage())
                 .override(300, 300).diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true)
                 .into(holder.ivCategory);
 
@@ -60,6 +60,14 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
             super(itemView);
             tvName = itemView.findViewById(R.id.tvCategories);
             ivCategory = itemView.findViewById(R.id.ivCategory);
+
+            itemView.setOnClickListener(view -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClickListener("category", getBindingAdapterPosition(), categoryModels.get(getBindingAdapterPosition()));
+                }
+            });
+
+            
         }
     }
 }

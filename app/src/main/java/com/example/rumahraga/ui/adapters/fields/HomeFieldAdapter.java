@@ -40,8 +40,8 @@ public class HomeFieldAdapter extends RecyclerView.Adapter<HomeFieldAdapter.View
 
     @Override
     public void onBindViewHolder(@NonNull HomeFieldAdapter.ViewHolder holder, int position) {
-        holder.tvFieldName.setText(fieldModelList.get(holder.getAdapterPosition()).getName());
-        Glide.with(context).load(fieldModelList.get(holder.getAdapterPosition()).getImage())
+        holder.tvFieldName.setText(fieldModelList.get(holder.getBindingAdapterPosition()).getName());
+        Glide.with(context).load(fieldModelList.get(holder.getBindingAdapterPosition()).getImage())
                 .skipMemoryCache(true).diskCacheStrategy(DiskCacheStrategy.ALL).into(holder.ivImage);
 
     }
@@ -58,6 +58,13 @@ public class HomeFieldAdapter extends RecyclerView.Adapter<HomeFieldAdapter.View
             super(itemView);
             tvFieldName = itemView.findViewById(R.id.tvFieldName);
             ivImage = itemView.findViewById(R.id.ivField);
+
+            itemView.setOnClickListener(view -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClickListener("field", getBindingAdapterPosition(), fieldModelList.get(getBindingAdapterPosition()));
+                }
+            });
+
         }
     }
 }
