@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.field.FieldDetailFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+
+
+            android:layout_height="wrap_content">
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="@dimen/_40sdp"
+                    app:cardBackgroundColor="@color/main"
+                    app:cardElevation="0dp"
+                    android:layout_marginLeft="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_40sdp"
+                    app:cardCornerRadius="@dimen/_10sdp"
+                    android:layout_height="@dimen/_40sdp">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/ic_back"/>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_15sdp"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/container_header_detail"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_marginLeft="@dimen/_14sdp"
+                            android:layout_marginRight="@dimen/_14sdp"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvFieldName"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Lapangan Futsal"
+                                android:textColor="@color/black"
+                                android:maxLength="30"
+                                android:fontFamily="@font/popsem"
+                                android:gravity="center_horizontal"
+                                android:textSize="@dimen/_17ssp"/>
+
+                            <androidx.cardview.widget.CardView
+                                android:layout_width="@dimen/_200sdp"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                app:cardElevation="0dp"
+                                android:layout_gravity="center_horizontal"
+                                app:cardCornerRadius="@dimen/_20sdp"
+                                android:layout_height="@dimen/_160sdp">
+                                <ImageView
+                                    android:id="@+id/ivField"
+                                    android:layout_width="match_parent"
+                                    android:background="@color/main"
+                                    android:layout_height="@dimen/_160sdp"/>
+                            </androidx.cardview.widget.CardView>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:orientation="horizontal">
+                                <RatingBar
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="@dimen/_30sdp"/>
+
+                                <TextView
+                                    android:id="@+id/tvRating"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="4.0"
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:textColor="@color/black"
+                                    android:fontFamily="@font/popsem"
+                                    android:gravity="center_horizontal"
+                                    android:textSize="@dimen/_13ssp"/>
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/_15sdp"
+                                android:orientation="horizontal">
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_60sdp"
+                                    app:cardBackgroundColor="@color/ightgray"
+                                    app:cardElevation="0dp"
+                                    app:cardCornerRadius="@dimen/_10sdp"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:padding="@dimen/_5sdp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:fontFamily="@font/popsem"
+                                        android:textSize="@dimen/_12ssp"
+                                        android:textColor="@color/main2"
+                                        android:text="Buka"/>
+                                </androidx.cardview.widget.CardView>
+                                <ImageView
+                                    android:layout_width="@dimen/_15sdp"
+                                    android:layout_height="@dimen/_15sdp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:src="@drawable/baseline_access_time_filled_24"/>
+
+                                <TextView
+                                    android:id="@+id/tvTime"
+                                    android:layout_width="wrap_content"
+                                    android:text="08.00 - 13.00"
+                                    android:fontFamily="@font/popmed"
+                                    android:textSize="@dimen/_11ssp"
+                                    android:layout_gravity="center_vertical"
+                                    android:layout_marginLeft="@dimen/_5sdp"
+                                    android:textColor="@color/gray"
+                                    android:layout_height="wrap_content"/>
+
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <ImageView
+                                    android:layout_width="@dimen/_15sdp"
+                                    android:layout_height="@dimen/_15sdp"
+                                    android:tint="@color/main"
+                                    android:src="@drawable/ic_marker"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:text="Lokasi"
+                                    android:layout_marginLeft="@dimen/_5sdp"
+                                    android:fontFamily="@font/popmed"
+                                    android:textSize="@dimen/_11ssp"
+                                    android:textColor="@color/main"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+                            <TextView
+                                android:id="@+id/tvAddress"
+                                android:layout_width="wrap_content"
+                                android:text="Jl. Menteri Supeno no.23"
+                                android:layout_marginLeft="@dimen/_5sdp"
+                                android:fontFamily="@font/popmed"
+                                android:textSize="@dimen/_11ssp"
+                                android:textColor="@color/gray"
+                                android:layout_height="wrap_content"/>
+
+
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:orientation="vertical"
+                            android:padding="@dimen/_14sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            android:background="@drawable/detail_container"
+                            android:layout_height="@dimen/_300sdp">
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:layout_height="@dimen/_20sdp"
+                                    android:src="@drawable/baseline_access_time_filled_24"
+                                    android:tint="@color/white"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:text="Jadwal"
+                                    android:layout_marginLeft="@dimen/_5sdp"
+                                    android:fontFamily="@font/popmed"
+                                    android:textSize="@dimen/_13ssp"
+                                    android:textColor="@color/white"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+
+
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+</layout>
