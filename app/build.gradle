@@ -95,7 +95,7 @@ dependencies {
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
 
     // image slider
-    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.2'
+    implementation 'com.github.smarteist:Android-Image-Slider:1.4.0'
 
     // gms
     implementation 'com.google.android.gms:play-services-location:21.0.1'

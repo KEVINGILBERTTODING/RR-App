@@ -75,7 +75,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:id="@+id/rlSlider"
-            android:layout_height="@dimen/_250sdp">
+            android:layout_height="@dimen/_260sdp">
 
             <androidx.cardview.widget.CardView
                 app:cardCornerRadius="@dimen/_20sdp"
@@ -86,15 +86,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <com.denzcoskun.imageslider.ImageSlider
-                    android:id="@+id/image_slider"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_100sdp"
-                    app:iss_auto_cycle="true"
-                    app:iss_period="1000"
-                    app:iss_delay="1000"
-                    app:iss_text_align="CENTER"/>
 
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/imageSlider"
+                    android:layout_width="match_parent"
+                    android:layout_height="140dp"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorGravity="center_horizontal|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="3dp"
+                    app:sliderIndicatorRadius="2dp"
+                    app:sliderIndicatorSelectedColor="#5A5A5A"
+                    app:sliderIndicatorUnselectedColor="#FFF"
+                    app:sliderScrollTimeInSec="1"
+                    app:sliderStartAutoCycle="true">
+
+                </com.smarteist.autoimageslider.SliderView>
             </androidx.cardview.widget.CardView>
 
 

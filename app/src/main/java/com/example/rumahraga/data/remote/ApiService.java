@@ -1,5 +1,6 @@
 package com.example.rumahraga.data.remote;
 
+import com.example.rumahraga.model.BannerModel;
 import com.example.rumahraga.model.CategoryModel;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.ResponseModel;
@@ -42,6 +43,9 @@ public interface ApiService {
     Call<ResponseModel<List<FieldModel>>> getFieldCloser(
             @Query("city") String city
     );
+
+    @GET("user/get_banner")
+    Call<ResponseModel<List<BannerModel>>> getAllBanner();
 
 
 

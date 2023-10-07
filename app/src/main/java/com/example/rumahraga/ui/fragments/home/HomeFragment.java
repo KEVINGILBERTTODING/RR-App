@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.location.Geocoder;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -19,27 +20,30 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.provider.Settings;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import com.example.rumahraga.databinding.FragmentHomeBinding;
+import com.example.rumahraga.model.BannerModel;
 import com.example.rumahraga.model.CategoryModel;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.category.HomeCategoryAdapter;
 import com.example.rumahraga.ui.adapters.fields.HomeFieldAdapter;
+import com.example.rumahraga.ui.adapters.slider.BannerSliderAdapter;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
+import com.example.rumahraga.viewmodel.banner.BannerViewModel;
 import com.example.rumahraga.viewmodel.category.CategoryViewModel;
 import com.example.rumahraga.viewmodel.field.FieldViewModel;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationServices;
-
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
+import com.smarteist.autoimageslider.SliderView;
 
 import java.util.List;
 
@@ -52,9 +56,9 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private SharedPreferences sharedPreferences;
     private CategoryViewModel categoryViewModel;
     private FusedLocationProviderClient fusedLocationClient;
-    private LocationCallback locationCallback;
     private String cityName;
     private FieldViewModel fieldViewModel;
+    private BannerViewModel bannerViewModel;
 
 
     @Override
@@ -63,14 +67,8 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         // Inflate the layout for this fragment
         binding=FragmentHomeBinding.inflate(inflater,container,false);
         init();
-
-
-
         checkStatusGps();
-
-
-
-
+        getImageSlider();
 
         return binding.getRoot();
     }
@@ -79,9 +77,10 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listener();
+        getCategory();
+
 
         binding.tvUsername.setText(sharedPreferences.getString(ConsSharedPref.NAME, ""));
-        getCategory();
 
     }
 
@@ -90,8 +89,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
         fieldViewModel = new ViewModelProvider(this).get(FieldViewModel.class);
-
-
+        bannerViewModel = new ViewModelProvider(this).get(BannerViewModel.class);
 
     }
 
@@ -136,30 +134,30 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         });
     }
 
-    private void getLocation() {
-        // CHECK PERMISSION GET LOCATION
-        if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-        }
+    private void getImageSlider() {
+        bannerViewModel.getAllBanner().observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<BannerModel>>>() {
+            @Override
+            public void onChanged(ResponseModel<List<BannerModel>> listResponseModel) {
+                if (listResponseModel.isStatus() == true ) {
+                    BannerSliderAdapter bannerSliderAdapter = new BannerSliderAdapter(getContext(), listResponseModel.getData());
+                    binding.imageSlider.setSliderAdapter(bannerSliderAdapter);
+                    showToast(ConsOther.TOAST_NORMAL, "berhasil");
 
-        // GET CITY NAME
-        fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
-            if (location != null) {
-                Geocoder geocoder = new Geocoder(requireContext());
-                try {
-                    cityName = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1).get(0).getLocality();
-                    getFieldCloser(cityName);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    binding.shimmerField.setVisibility(View.GONE);
-                    binding.lrFieldEmpty.setVisibility(View.VISIBLE);
-                    binding.tvFieldEmpty.setText("Lokasi tidak ditemukan");
 
+                    binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM); //set indicator animation by using IndicatorAnimationType. :WORM or THIN_WORM or COLOR or DROP or FILL or NONE or SCALE or SCALE_DOWN or SLIDE and SWAP!!
+                    binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+                    binding.imageSlider.setAutoCycleDirection(SliderView.AUTO_CYCLE_DIRECTION_BACK_AND_FORTH);
+                    binding.imageSlider.setIndicatorSelectedColor(Color.WHITE);
+                    binding.imageSlider.setIndicatorUnselectedColor(Color.GRAY);
+                    binding.imageSlider.setScrollTimeInSec(4); //set scroll delay in seconds :
+                    binding.imageSlider.startAutoCycle();
+                }else {
+                    showToast(ConsOther.TOAST_ERR, listResponseModel.getMessage());
                 }
             }
         });
-
     }
+
 
 
     private void getFieldCloser(String cityName) {
