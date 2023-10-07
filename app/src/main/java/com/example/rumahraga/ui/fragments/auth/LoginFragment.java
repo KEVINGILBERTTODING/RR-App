@@ -1,6 +1,8 @@
 package com.example.rumahraga.ui.fragments.auth;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,7 +21,8 @@ import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.UserModel;
 import com.example.rumahraga.ui.activities.main.MainActivity;
 import com.example.rumahraga.util.constans.other.ConsOther;
-import com.example.rumahraga.viewmodel.AuthViewModel;
+import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
+import com.example.rumahraga.viewmodel.auth.AuthViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
@@ -29,6 +32,8 @@ public class LoginFragment extends Fragment {
 
     private FragmentLoginBinding binding;
     private AuthViewModel authViewModel;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -37,6 +42,7 @@ public class LoginFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = FragmentLoginBinding.inflate(inflater, container, false);
         init();
+        validateLogin();
 
 
 
@@ -51,6 +57,8 @@ public class LoginFragment extends Fragment {
 
     private void init() {
         authViewModel = new ViewModelProvider(this).get(AuthViewModel.class);
+        sharedPreferences = getContext().getSharedPreferences(ConsSharedPref.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
     }
 
 
@@ -80,6 +88,8 @@ public class LoginFragment extends Fragment {
                                 showToast(ConsOther.TOAST_SUCCESS, "Berhasil");
                                 startActivity(new Intent(getContext(), MainActivity.class));
                                 getActivity().finish();
+                                saveUserInfo(userModelResponseModel.getData().getUser_id(), userModelResponseModel.getData().getEmail(),
+                                        userModelResponseModel.getData().getUsername(), userModelResponseModel.getData().getName());
                             }else {
                                 showToast(ConsOther.TOAST_ERR, userModelResponseModel.getMessage());
                             }
@@ -97,6 +107,22 @@ public class LoginFragment extends Fragment {
         }else {
             Toasty.error(getContext(), message, Toasty.LENGTH_SHORT).show();
 
+        }
+    }
+
+    private void saveUserInfo(String userId, String email, String username, String name) {
+        editor.putBoolean(ConsSharedPref.LOGIN_SESSION, true);
+        editor.putString(ConsSharedPref.USER_ID, userId);
+        editor.putString(ConsSharedPref.EMAIL, email);
+        editor.putString(ConsSharedPref.USERNAME, username);
+        editor.putString(ConsSharedPref.NAME, name);
+        editor.apply();
+    }
+
+    private void validateLogin() {
+        if (sharedPreferences.getBoolean(ConsSharedPref.LOGIN_SESSION, false) == true) {
+         startActivity(new Intent(getContext(), MainActivity.class));
+         getActivity().finish();
         }
     }
 

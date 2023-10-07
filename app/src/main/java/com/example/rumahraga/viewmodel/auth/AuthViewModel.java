@@ -1,10 +1,10 @@
-package com.example.rumahraga.viewmodel;
+package com.example.rumahraga.viewmodel.auth;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.rumahraga.data.repository.AuthRepository;
+import com.example.rumahraga.data.repository.auth.AuthRepository;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.UserModel;
 import com.example.rumahraga.util.constans.response.ConsResponse;

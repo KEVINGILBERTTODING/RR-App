@@ -94,7 +94,11 @@ dependencies {
     // bottom bar
     implementation 'com.github.ibrahimsn98:SmoothBottomBar:1.7.9'
 
+    // image slider
+    implementation 'com.github.denzcoskun:ImageSlideshow:0.1.2'
 
-    // animation
-    implementation 'com.daimajia.androidanimations:library:2.4@aar'
+    // gms
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+
+
 }

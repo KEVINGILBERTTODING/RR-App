@@ -1,4 +1,4 @@
-package com.example.rumahraga.data.repository;
+package com.example.rumahraga.data.repository.auth;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;

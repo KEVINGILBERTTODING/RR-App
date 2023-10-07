@@ -1,15 +1,22 @@
 package com.example.rumahraga.data.remote;
 
+import com.example.rumahraga.model.CategoryModel;
+import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.UserModel;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ApiService {
     public static final String END_POINT = "http://192.168.100.6/rumah_raga/api/";
+    public static final String BASE_URL = "http://192.168.100.6/rumah_raga/";
 
     @FormUrlEncoded
     @POST("auth/login")
@@ -26,6 +33,14 @@ public interface ApiService {
             @Field("email") String email,
             @Field("name") String name,
             @Field("password") String password
+    );
+
+    @GET("user/get_all_category")
+    Call<ResponseModel<List<CategoryModel>>> getAllCategory();
+
+    @GET("user/field_closer")
+    Call<ResponseModel<List<FieldModel>>> getFieldCloser(
+            @Query("city") String city
     );
 
 

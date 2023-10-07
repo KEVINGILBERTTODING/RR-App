@@ -9,5 +9,21 @@
     <FrameLayout
         android:id="@+id/frameMain"
         android:layout_width="match_parent"
+        android:layout_above="@id/bottomBar"
         android:layout_height="match_parent"/>
+    <me.ibrahimsn.lib.SmoothBottomBar
+        android:id="@+id/bottomBar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:backgroundColor="@color/white"
+        android:layout_alignParentBottom="true"
+        app:iconTint="@color/gray"
+        app:itemFontFamily="@font/popmed"
+        app:indicatorColor="@color/main"
+        app:textColor="@color/white"
+        app:iconTintActive="@color/white"
+        app:menu="@menu/bottom_bar"/>
+
+
+
 </RelativeLayout>

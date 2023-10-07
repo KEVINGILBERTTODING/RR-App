@@ -1,6 +1,5 @@
 package com.example.rumahraga.ui.fragments.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,13 +12,11 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.rumahraga.R;
-import com.example.rumahraga.databinding.FragmentLoginBinding;
 import com.example.rumahraga.databinding.FragmentRegisterBinding;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.UserModel;
-import com.example.rumahraga.ui.activities.main.MainActivity;
 import com.example.rumahraga.util.constans.other.ConsOther;
-import com.example.rumahraga.viewmodel.AuthViewModel;
+import com.example.rumahraga.viewmodel.auth.AuthViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
