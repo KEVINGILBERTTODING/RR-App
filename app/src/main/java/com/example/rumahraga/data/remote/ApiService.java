@@ -2,6 +2,7 @@ package com.example.rumahraga.data.remote;
 
 import com.example.rumahraga.model.BannerModel;
 import com.example.rumahraga.model.CategoryModel;
+import com.example.rumahraga.model.CityModel;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.JamModel;
 import com.example.rumahraga.model.ResponseModel;
@@ -70,6 +71,14 @@ public interface ApiService {
             @Query("id") String id
     );
 
+    @GET("user/get_all_city")
+    Call<ResponseModel<List<CityModel>>> getAllCity();
+
+    @GET("user/get_field_filter")
+    Call<ResponseModel<List<FieldModel>>> filterField(
+            @Query("city_name") String cityName,
+            @Query("category_name") String categoryName
+     );
 
 
 

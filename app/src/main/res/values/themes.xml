@@ -22,5 +22,10 @@
         <item name="colorControlActivated">@color/yellow</item>
     </style>
 
+    <style name="filterDropDown" parent="Theme.Material3.Light.NoActionBar">
+        <item name="fontFamily">@font/popmed</item>
+
+    </style>
+
 
 </resources>

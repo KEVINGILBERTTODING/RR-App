@@ -59,4 +59,14 @@ public class FieldViewModel extends ViewModel {
         }
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel<List<FieldModel>>> filterField(String cityName, String categoryName) {
+        MutableLiveData<ResponseModel<List<FieldModel>>> responseModelMutableLiveData = new MutableLiveData<>();
+        if (cityName != null && categoryName != null && !cityName.isEmpty() && !categoryName.isEmpty()) {
+            return fieldRepository.filterField(cityName, categoryName);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+        return responseModelMutableLiveData;
+    }
 }
