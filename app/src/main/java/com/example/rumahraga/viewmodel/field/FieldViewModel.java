@@ -69,4 +69,8 @@ public class FieldViewModel extends ViewModel {
         }
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel<List<FieldModel>>> getAllField() {
+        return fieldRepository.getAllField();
+    }
 }

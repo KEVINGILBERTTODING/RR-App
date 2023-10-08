@@ -125,4 +125,29 @@ public class FieldRepository {
         });
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel<List<FieldModel>>> getAllField() {
+        MutableLiveData<ResponseModel<List<FieldModel>>> responseModelMutableLiveData = new MutableLiveData<>();
+        apiService.getAllField().enqueue(new Callback<ResponseModel<List<FieldModel>>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<List<FieldModel>>> call, Response<ResponseModel<List<FieldModel>>> response) {
+                if (response.isSuccessful()) {
+                    responseModelMutableLiveData.setValue(new ResponseModel<>(true, ConsResponse.SUCCESS_MESSAGE, response.body().getData()));
+                }else {
+                    Gson gson = new Gson();
+                    ResponseModel responseModel = gson.fromJson(response.errorBody().charStream(), ResponseModel.class);
+                    responseModelMutableLiveData.setValue(new ResponseModel<>(false, responseModel.getMessage(), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<List<FieldModel>>> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.SERVER_ERROR, null));
+
+
+            }
+        });
+        return responseModelMutableLiveData;
+    }
+
 }

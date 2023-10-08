@@ -66,7 +66,7 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         listener();
-        getField();
+        getAllField();
         getAllCity();
         getAllCategory();
 
@@ -85,7 +85,7 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
         binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                getField();
+                getAllField();
                 binding.swipeRefresh.setRefreshing(false);
             }
         });
@@ -109,36 +109,34 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
 
     }
 
-    private void getField(){
+    private void getAllField(){
         binding.shimmer.setVisibility(View.VISIBLE);
         binding.shimmer.startShimmer();
         binding.rvField.setVisibility(View.GONE);
         binding.tvEmpty.setVisibility(View.GONE);
 
-
-
-//            fieldViewModel.getAl().observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<FieldModel>>>() {
-//                @Override
-//                public void onChanged(ResponseModel<List<FieldModel>> listResponseModel) {
-//                    binding.rvField.setVisibility(View.VISIBLE);
-//                    binding.shimmer.setVisibility(View.GONE);
-//                    if (listResponseModel.isStatus() == true) {
-//                        if (listResponseModel.getData().size() > 0) {
-//                            fieldModelList = listResponseModel.getData();
-//                            fieldMainAdapter = new FieldMainAdapter(getContext(), fieldModelList);
-//                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-//                            binding.rvField.setLayoutManager(linearLayoutManager);
-//                            binding.rvField.setAdapter(fieldMainAdapter);
-//                            binding.rvField.setHasFixedSize(true);
-//                            fieldMainAdapter.setItemClickListener(FieldAllFragment.this);
-//                        }else {
-//                            binding.tvEmpty.setVisibility(View.VISIBLE);
-//                        }
-//                    }else {
-//                        showToast(ConsOther.TOAST_ERR, listResponseModel.getMessage());
-//                    }
-//                }
-//            });
+            fieldViewModel.getAllField().observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<FieldModel>>>() {
+                @Override
+                public void onChanged(ResponseModel<List<FieldModel>> listResponseModel) {
+                    binding.rvField.setVisibility(View.VISIBLE);
+                    binding.shimmer.setVisibility(View.GONE);
+                    if (listResponseModel.isStatus() == true) {
+                        if (listResponseModel.getData().size() > 0) {
+                            fieldModelList = listResponseModel.getData();
+                            fieldMainAdapter = new FieldMainAdapter(getContext(), fieldModelList);
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                            binding.rvField.setLayoutManager(linearLayoutManager);
+                            binding.rvField.setAdapter(fieldMainAdapter);
+                            binding.rvField.setHasFixedSize(true);
+                            fieldMainAdapter.setItemClickListener(FieldAllFragment.this);
+                        }else {
+                            binding.tvEmpty.setVisibility(View.VISIBLE);
+                        }
+                    }else {
+                        showToast(ConsOther.TOAST_ERR, listResponseModel.getMessage());
+                    }
+                }
+            });
 
 
     }

@@ -70,7 +70,7 @@
                         app:smsp_searchHeaderTextColor="@color/white"
                         app:smsp_floatingLabelColor="@color/main"
                         app:smsp_floatingLabelText="Kategori Olahraga"
-                        app:smsp_hint="Pilih lokasi"
+                        app:smsp_hint="Pilih olahraga"
                         app:smsp_enableSearchHeader="true"
                         app:smsp_hintColor="@color/black"
                         app:smsp_itemSize="@dimen/_11ssp"

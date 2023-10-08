@@ -120,6 +120,8 @@ public class FieldCategoryFragment extends Fragment implements ItemClickListener
                             binding.tvEmpty.setVisibility(View.VISIBLE);
                         }
                     }else {
+                        binding.tvEmpty.setText("Tidak ada data");
+                        binding.tvEmpty.setVisibility(View.VISIBLE);
                         showToast(ConsOther.TOAST_ERR, listResponseModel.getMessage());
                     }
                 }

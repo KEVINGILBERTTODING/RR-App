@@ -80,6 +80,9 @@ public interface ApiService {
             @Query("category_name") String categoryName
      );
 
+    @GET("user/get_field_all")
+    Call<ResponseModel<List<FieldModel>>> getAllField();
+
 
 
 }
