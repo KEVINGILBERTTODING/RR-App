@@ -46,5 +46,17 @@ public class FieldViewModel extends ViewModel {
         }
 
         return responseModelMutableLiveData;
+
+
+    }
+
+    public LiveData<ResponseModel<List<FieldModel>>> getFieldByCategory(String id) {
+        MutableLiveData<ResponseModel<List<FieldModel>>> responseModelMutableLiveData = new MutableLiveData<>();
+        if (id != null && !id.isEmpty()) {
+            return fieldRepository.getFieldByCategory(id);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+        return responseModelMutableLiveData;
     }
 }

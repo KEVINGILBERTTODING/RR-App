@@ -65,6 +65,11 @@ public interface ApiService {
             @Query("date") String date
     );
 
+    @GET("user/get_field_categories")
+    Call<ResponseModel<List<FieldModel>>> getFieldByCategory(
+            @Query("id") String id
+    );
+
 
 
 

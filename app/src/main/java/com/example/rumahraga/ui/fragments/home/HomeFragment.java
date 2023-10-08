@@ -34,6 +34,7 @@ import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.category.HomeCategoryAdapter;
 import com.example.rumahraga.ui.adapters.fields.HomeFieldAdapter;
 import com.example.rumahraga.ui.adapters.slider.BannerSliderAdapter;
+import com.example.rumahraga.ui.fragments.field.FieldCategoryFragment;
 import com.example.rumahraga.ui.fragments.field.FieldDetailFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
@@ -122,6 +123,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                     binding.rvCategory.setLayoutManager(linearLayoutManager);
                     binding.rvCategory.setAdapter(homeCategoryAdapter);
                     binding.rvCategory.setHasFixedSize(true);
+                    homeCategoryAdapter.setItemClickListener(HomeFragment.this);
 
                     binding.shimmerCategories.setVisibility(View.GONE);
                     binding.rvCategory.setVisibility(View.VISIBLE);
@@ -284,6 +286,14 @@ public class HomeFragment extends Fragment implements ItemClickListener {
             fragment.setArguments(arg);
             fragmentTransaction(fragment);
 
+        }else if (type.equals("category")) {
+            CategoryModel categoryModel= (CategoryModel) object;
+            Fragment fragment = new FieldCategoryFragment();
+            Bundle arg = new Bundle();
+            arg.putString("name", categoryModel.getName());
+            arg.putString("category_id", categoryModel.getCategory_id());
+            fragment.setArguments(arg);
+            fragmentTransaction(fragment);
         }
 
 

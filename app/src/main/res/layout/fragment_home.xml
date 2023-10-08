@@ -60,7 +60,7 @@
                     android:layout_width="match_parent"
                     android:id="@+id/sarchBar"
                     android:layout_marginTop="@dimen/_5sdp"
-                    app:queryHint="Cari..."
+                    app:queryHint="Semarang selatan"
                     app:queryBackground="@drawable/container_searchbar"
                     android:background="@drawable/container_searchbar"
                     app:iconifiedByDefault="false"
