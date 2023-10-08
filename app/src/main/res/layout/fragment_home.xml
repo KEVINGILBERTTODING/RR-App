@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/background"
+        android:animateLayoutChanges="true"
         tools:context=".ui.fragments.home.HomeFragment">
 
         <ImageView
@@ -20,6 +21,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:id="@+id/rlMain"
+            android:animateLayoutChanges="true"
+
             android:background="@drawable/main_header"
             android:layout_height="@dimen/_220sdp">
             <ImageView
@@ -58,7 +61,7 @@
 
                 <androidx.appcompat.widget.SearchView
                     android:layout_width="match_parent"
-                    android:id="@+id/sarchBar"
+                    android:id="@+id/searchBar"
                     android:layout_marginTop="@dimen/_5sdp"
                     app:queryHint="Semarang selatan"
                     app:queryBackground="@drawable/container_searchbar"
@@ -73,94 +76,99 @@
         </RelativeLayout>
 
         <RelativeLayout
+            android:id="@+id/rlMainContent"
             android:layout_width="match_parent"
-            android:id="@+id/rlSlider"
-            android:layout_height="@dimen/_260sdp">
-
-            <androidx.cardview.widget.CardView
-                app:cardCornerRadius="@dimen/_20sdp"
-                app:cardElevation="0dp"
-                android:layout_marginLeft="@dimen/_14sdp"
-                android:layout_marginRight="@dimen/_14sdp"
-                android:layout_alignParentBottom="true"
+            android:animateLayoutChanges="true"
+            android:layout_height="wrap_content">
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:id="@+id/rlSlider"
+                android:layout_height="@dimen/_260sdp">
 
-
-                <com.smarteist.autoimageslider.SliderView
-                    android:id="@+id/imageSlider"
-                    android:layout_width="match_parent"
-                    android:layout_height="140dp"
-                    app:sliderAnimationDuration="600"
-                    app:sliderAutoCycleDirection="back_and_forth"
-                    app:sliderAutoCycleEnabled="true"
-                    app:sliderIndicatorAnimationDuration="600"
-                    app:sliderIndicatorGravity="center_horizontal|bottom"
-                    app:sliderIndicatorMargin="15dp"
-                    app:sliderIndicatorOrientation="horizontal"
-                    app:sliderIndicatorPadding="3dp"
-                    app:sliderIndicatorRadius="2dp"
-                    app:sliderIndicatorSelectedColor="#5A5A5A"
-                    app:sliderIndicatorUnselectedColor="#FFF"
-                    app:sliderScrollTimeInSec="1"
-                    app:sliderStartAutoCycle="true">
-
-                </com.smarteist.autoimageslider.SliderView>
-            </androidx.cardview.widget.CardView>
-
-
-        </RelativeLayout>
-
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_below="@id/rlSlider"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_14sdp"
+                <androidx.cardview.widget.CardView
+                    app:cardCornerRadius="@dimen/_20sdp"
+                    app:cardElevation="0dp"
                     android:layout_marginLeft="@dimen/_14sdp"
                     android:layout_marginRight="@dimen/_14sdp"
-                    android:layout_marginBottom="@dimen/_6sdp"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/ivBall"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:src="@drawable/ic_ball"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mau main apa?"
-                        android:includeFontPadding="false"
-                        android:layout_centerVertical="true"
-                        android:layout_toRightOf="@id/ivBall"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/popmed"
-                        android:textSize="@dimen/_13ssp"/>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lihat semua"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:fontFamily="@font/popreg"
-                        android:textSize="@dimen/_10ssp"/>
-                </RelativeLayout>
-
-                <RelativeLayout
+                    android:layout_alignParentBottom="true"
                     android:layout_width="match_parent"
-                    android:layout_marginLeft="@dimen/_14sdp"
                     android:layout_height="wrap_content">
+
+
+                    <com.smarteist.autoimageslider.SliderView
+                        android:id="@+id/imageSlider"
+                        android:layout_width="match_parent"
+                        android:layout_height="140dp"
+                        app:sliderAnimationDuration="600"
+                        app:sliderAutoCycleDirection="back_and_forth"
+                        app:sliderAutoCycleEnabled="true"
+                        app:sliderIndicatorAnimationDuration="600"
+                        app:sliderIndicatorGravity="center_horizontal|bottom"
+                        app:sliderIndicatorMargin="15dp"
+                        app:sliderIndicatorOrientation="horizontal"
+                        app:sliderIndicatorPadding="3dp"
+                        app:sliderIndicatorRadius="2dp"
+                        app:sliderIndicatorSelectedColor="#5A5A5A"
+                        app:sliderIndicatorUnselectedColor="#FFF"
+                        app:sliderScrollTimeInSec="1"
+                        app:sliderStartAutoCycle="true">
+
+                    </com.smarteist.autoimageslider.SliderView>
+                </androidx.cardview.widget.CardView>
+
+
+            </RelativeLayout>
+
+            <androidx.core.widget.NestedScrollView
+                android:layout_width="match_parent"
+                android:layout_below="@id/rlSlider"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:layout_marginRight="@dimen/_14sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/ivBall"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:src="@drawable/ic_ball"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mau main apa?"
+                            android:includeFontPadding="false"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/ivBall"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/popmed"
+                            android:textSize="@dimen/_13ssp"/>
+
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Lihat semua"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:fontFamily="@font/popreg"
+                            android:textSize="@dimen/_10ssp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:layout_height="wrap_content">
 
                         <com.facebook.shimmer.ShimmerFrameLayout
                             android:id="@+id/shimmerCategories"
@@ -178,129 +186,178 @@
                             </LinearLayout>
 
                         </com.facebook.shimmer.ShimmerFrameLayout>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvCategory"
-                        android:visibility="gone"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
-
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:id="@+id/lrCategoriesEmpty"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:orientation="vertical">
-                        <ImageButton
-                            android:id="@+id/btnCategoriesRefresh"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/ic_refresh"/>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:fontFamily="@font/popreg"
-                            android:id="@+id/tvCategories"
-                            android:textSize="@dimen/_12ssp"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:layout_height="wrap_content"
-                            android:text="Kategori tidak ditemukan"/>
-                    </LinearLayout>
-                </RelativeLayout>
-
-
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:orientation="horizontal"
-                    android:layout_marginTop="@dimen/_14sdp"
-                    android:layout_marginLeft="@dimen/_14sdp"
-                    android:layout_marginRight="@dimen/_14sdp"
-                    android:layout_marginBottom="@dimen/_6sdp"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:id="@+id/ivMarker"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:src="@drawable/ic_marker"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Terdekat"
-                        android:layout_centerVertical="true"
-                        android:includeFontPadding="false"
-                        android:layout_toRightOf="@id/ivMarker"
-                        android:layout_marginLeft="@dimen/_5sdp"
-                        android:textColor="@color/black"
-                        android:fontFamily="@font/popmed"
-                        android:textSize="@dimen/_13ssp"/>
-
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lihat semua"
-                        android:layout_centerVertical="true"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:fontFamily="@font/popreg"
-                        android:textSize="@dimen/_10ssp"/>
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginLeft="@dimen/_14sdp"
-                    android:layout_height="wrap_content">
-
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmerField"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <LinearLayout
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvCategory"
+                            android:visibility="gone"
                             android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:id="@+id/lrCategoriesEmpty"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-                            <include layout="@layout/placeholder_home_field"/>
-                            <include layout="@layout/placeholder_home_field"/>
-                            <include layout="@layout/placeholder_home_field"/>
-                            <include layout="@layout/placeholder_home_field"/>
-                            <include layout="@layout/placeholder_home_field"/>
+                            android:layout_centerHorizontal="true"
+                            android:orientation="vertical">
+                            <ImageButton
+                                android:id="@+id/btnCategoriesRefresh"
+                                android:layout_width="@dimen/_30sdp"
+                                android:layout_height="@dimen/_30sdp"
+                                android:background="@drawable/ic_refresh"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:fontFamily="@font/popreg"
+                                android:id="@+id/tvCategories"
+                                android:textSize="@dimen/_12ssp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_height="wrap_content"
+                                android:text="Kategori tidak ditemukan"/>
                         </LinearLayout>
+                    </RelativeLayout>
 
-                    </com.facebook.shimmer.ShimmerFrameLayout>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvField"
-                        android:visibility="gone"
+
+
+                    <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"/>
+                        android:orientation="horizontal"
+                        android:layout_marginTop="@dimen/_14sdp"
+                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:layout_marginRight="@dimen/_14sdp"
+                        android:layout_marginBottom="@dimen/_6sdp"
+                        android:layout_height="wrap_content">
+                        <ImageView
+                            android:id="@+id/ivMarker"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:src="@drawable/ic_marker"/>
 
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:gravity="center"
-                        android:visibility="gone"
-                        android:id="@+id/lrFieldEmpty"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Terdekat"
+                            android:layout_centerVertical="true"
+                            android:includeFontPadding="false"
+                            android:layout_toRightOf="@id/ivMarker"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:textColor="@color/black"
+                            android:fontFamily="@font/popmed"
+                            android:textSize="@dimen/_13ssp"/>
 
 
                         <TextView
                             android:layout_width="wrap_content"
-                            android:fontFamily="@font/popreg"
-                            android:id="@+id/tvFieldEmpty"
-                            android:textSize="@dimen/_12ssp"
-                            android:layout_marginTop="@dimen/_5sdp"
                             android:layout_height="wrap_content"
-                            android:text="Lokasi tidak ditemukan"/>
-                    </LinearLayout>
-                </RelativeLayout>
+                            android:text="Lihat semua"
+                            android:layout_centerVertical="true"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:fontFamily="@font/popreg"
+                            android:textSize="@dimen/_10ssp"/>
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:layout_height="wrap_content">
+
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmerField"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                <include layout="@layout/placeholder_home_field"/>
+                                <include layout="@layout/placeholder_home_field"/>
+                                <include layout="@layout/placeholder_home_field"/>
+                                <include layout="@layout/placeholder_home_field"/>
+                                <include layout="@layout/placeholder_home_field"/>
+                            </LinearLayout>
+
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvField"
+                            android:visibility="gone"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            android:id="@+id/lrFieldEmpty"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:orientation="vertical">
 
 
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:fontFamily="@font/popreg"
+                                android:id="@+id/tvFieldEmpty"
+                                android:textSize="@dimen/_12ssp"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:layout_height="wrap_content"
+                                android:text="Lokasi tidak ditemukan"/>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlMainField"
+            android:visibility="gone"
+            android:animateLayoutChanges="true"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/_minus50sdp"
+            android:layout_below="@id/rlMain"
+            android:layout_marginRight="@dimen/_14sdp"
+            android:layout_marginLeft="@dimen/_14sdp"
+            android:layout_height="match_parent">
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:layout_width="match_parent"
+                android:id="@+id/shimmerFieldMain"
+                android:animateLayoutChanges="true"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <include layout="@layout/placeholder_field_main"/>
+                    <include layout="@layout/placeholder_field_main"/>
+                    <include layout="@layout/placeholder_field_main"/>
+                </LinearLayout>
+
+            </com.facebook.shimmer.ShimmerFrameLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:visibility="gone"
+                android:text="Lapangan tidak ditemukan"
+                android:fontFamily="@font/popmed"
+                android:textSize="@dimen/_12ssp"
+                android:id="@+id/tvEmpty"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvMainField"
+
+                android:visibility="gone"
+                tools:listitem="@layout/list_field_main"
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </RelativeLayout>
+
+
+
 
         <RelativeLayout
             android:id="@+id/vOverlay"

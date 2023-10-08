@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -14,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.FragmentHomeBinding;
@@ -24,6 +26,7 @@ import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.category.HomeCategoryAdapter;
+import com.example.rumahraga.ui.adapters.fields.FieldMainAdapter;
 import com.example.rumahraga.ui.adapters.fields.HomeFieldAdapter;
 import com.example.rumahraga.ui.adapters.slider.BannerSliderAdapter;
 import com.example.rumahraga.ui.fragments.field.FieldCategoryFragment;
@@ -108,6 +111,27 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 
         binding.btnSaveMyLocation.setOnClickListener(view -> {
             saveMyLocation();
+        });
+
+
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                binding.rlMainField.setVisibility(View.VISIBLE);
+                binding.rlMainContent.setVisibility(View.GONE);
+                filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    binding.rlMainContent.setVisibility(View.VISIBLE);
+                    binding.rlMainField.setVisibility(View.GONE);
+
+                }
+                return false;
+            }
         });
 
     }
@@ -216,6 +240,41 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                 }
             }
         });
+    }
+
+
+    private void filter(String query) {
+        if (query != null) {
+            binding.shimmerFieldMain.setVisibility(View.VISIBLE);
+            binding.shimmerFieldMain.startShimmer();
+            binding.rvMainField.setVisibility(View.GONE);
+            binding.rvMainField.setAdapter(null);
+
+                fieldViewModel.getFieldCloser(query).observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<FieldModel>>>() {
+                    @Override
+                    public void onChanged(ResponseModel<List<FieldModel>> listResponseModel) {
+                        if (listResponseModel.isStatus() == true) {
+                            FieldMainAdapter fieldMainAdapter = new FieldMainAdapter(getContext(), listResponseModel.getData());
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+                            binding.rvMainField.setLayoutManager(linearLayoutManager);
+                            binding.rvMainField.setAdapter(fieldMainAdapter);
+                            binding.rvMainField.setHasFixedSize(true);
+                            binding.shimmerFieldMain.setVisibility(View.GONE);
+                            binding.tvEmpty.setVisibility(View.GONE);
+                            fieldMainAdapter.setItemClickListener(HomeFragment.this);
+                            binding.rvMainField.setVisibility(View.VISIBLE);
+                        }else {
+                            binding.shimmerFieldMain.setVisibility(View.GONE);
+                            binding.rvMainField.setVisibility(View.VISIBLE);
+                            binding.tvEmpty.setVisibility(View.VISIBLE);
+                            binding.tvEmpty.setText("Lapangan tidak ditemukan");
+                            showToast(ConsResponse.ERROR_MESSAGE, listResponseModel.getMessage());
+                        }
+                    }
+                });
+
+        }
+
     }
 
 
