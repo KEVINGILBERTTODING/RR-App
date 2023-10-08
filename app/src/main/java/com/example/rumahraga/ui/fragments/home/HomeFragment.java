@@ -1,33 +1,25 @@
 package com.example.rumahraga.ui.fragments.home;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.Geocoder;
-import android.location.LocationManager;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-
-import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 
 import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.FragmentHomeBinding;
 import com.example.rumahraga.model.BannerModel;
 import com.example.rumahraga.model.CategoryModel;
+import com.example.rumahraga.model.CityModel;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.listener.ItemClickListener;
@@ -41,14 +33,14 @@ import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
 import com.example.rumahraga.viewmodel.banner.BannerViewModel;
 import com.example.rumahraga.viewmodel.category.CategoryViewModel;
+import com.example.rumahraga.viewmodel.city.CityViewModel;
 import com.example.rumahraga.viewmodel.field.FieldViewModel;
-import com.google.android.gms.location.FusedLocationProviderClient;
-import com.google.android.gms.location.LocationCallback;
-import com.google.android.gms.location.LocationServices;
+import com.example.rumahraga.viewmodel.user.UserViewModel;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -59,10 +51,13 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private FragmentHomeBinding binding;
     private SharedPreferences sharedPreferences;
     private CategoryViewModel categoryViewModel;
-    private FusedLocationProviderClient fusedLocationClient;
-    private String cityName;
+    private String cityName, userId;
     private FieldViewModel fieldViewModel;
     private BannerViewModel bannerViewModel;
+    private CityViewModel cityViewModel;
+    private List<String> cityList;
+    private UserViewModel userViewModel;
+    private SharedPreferences.Editor editor;
 
 
     @Override
@@ -71,7 +66,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         // Inflate the layout for this fragment
         binding=FragmentHomeBinding.inflate(inflater,container,false);
         init();
-        checkStatusGps();
+
         getImageSlider();
 
         return binding.getRoot();
@@ -82,6 +77,9 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         super.onViewCreated(view, savedInstanceState);
         listener();
         getCategory();
+        getCity();
+        getFieldCloser();
+
 
 
         binding.tvUsername.setText(sharedPreferences.getString(ConsSharedPref.NAME, ""));
@@ -91,20 +89,25 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(ConsSharedPref.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext());
         fieldViewModel = new ViewModelProvider(this).get(FieldViewModel.class);
         bannerViewModel = new ViewModelProvider(this).get(BannerViewModel.class);
+        cityViewModel = new ViewModelProvider(this).get(CityViewModel.class);
+        cityName = sharedPreferences.getString(ConsSharedPref.CITY, null);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
+        userId = sharedPreferences.getString(ConsSharedPref.USER_ID, "");
+        editor = sharedPreferences.edit();
 
     }
 
     private void listener(){
-        binding.lrFieldEmpty.setOnClickListener(view -> {
-            checkStatusGps();
 
-        });
 
         binding.btnCategoriesRefresh.setOnClickListener(view -> {
             getCategory();
+        });
+
+        binding.btnSaveMyLocation.setOnClickListener(view -> {
+            saveMyLocation();
         });
 
     }
@@ -139,6 +142,45 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         });
     }
 
+    private void initSpinnerLocation() {
+
+
+            binding.spinnerLocation.setItem(cityList);
+            binding.spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                    showToast(ConsOther.TOAST_NORMAL, cityList.get(i));
+                    cityName = cityList.get(i);
+
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> adapterView) {
+
+                }
+            });
+
+
+    }
+
+    private void saveMyLocation() {
+        userViewModel.updateLocation(userId, cityName).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            @Override
+            public void onChanged(ResponseModel responseModel) {
+                if (responseModel.isStatus() == true) {
+                    editor.putString(ConsSharedPref.CITY, cityName);
+                    editor.apply();
+                    binding.rlLocation.setVisibility(View.GONE);
+                    binding.vOverlay.setVisibility(View.GONE);
+                    getFieldCloser();
+                }else {
+                    showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+                }
+
+            }
+        });
+    }
+
     private void getImageSlider() {
         bannerViewModel.getAllBanner().observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<BannerModel>>>() {
             @Override
@@ -160,44 +202,71 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         });
     }
 
+    private void getCity() {
+        cityViewModel.getAllCity().observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<CityModel>>>() {
+            @Override
+            public void onChanged(ResponseModel<List<CityModel>> listResponseModel) {
+                if (listResponseModel.isStatus() == true) {
+                    cityList = new ArrayList<>();
 
-
-    private void getFieldCloser(String cityName) {
-        binding.shimmerField.setVisibility(View.VISIBLE);
-        binding.shimmerField.startShimmer();
-        binding.rvField.setVisibility(View.GONE);
-        binding.lrFieldEmpty.setVisibility(View.GONE);
-        if (cityName != null) {
-            fieldViewModel.getFieldCloser(cityName).observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<FieldModel>>>() {
-                @Override
-                public void onChanged(ResponseModel<List<FieldModel>> listResponseModel) {
-                    if (listResponseModel.isStatus() == true) {
-                        HomeFieldAdapter homeFieldAdapter = new HomeFieldAdapter(getContext(), listResponseModel.getData());
-                        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-                        binding.rvField.setAdapter(homeFieldAdapter);
-                        binding.rvField.setLayoutManager(linearLayoutManager);
-                        binding.rvField.setHasFixedSize(true);
-                        homeFieldAdapter.setItemClickListener(HomeFragment.this);
-
-                        binding.shimmerField.setVisibility(View.GONE);
-                        binding.rvField.setVisibility(View.VISIBLE);
-                        binding.lrFieldEmpty.setVisibility(View.GONE);
-                    }else {
-                        binding.shimmerField.setVisibility(View.GONE);
-                        binding.lrFieldEmpty.setVisibility(View.VISIBLE);
-                        binding.tvFieldEmpty.setText("Lokasi tidak ditemukan");
-                        showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
-                        showToast(ConsResponse.ERROR_MESSAGE, listResponseModel.getMessage());
+                    for (int i = 0; i < listResponseModel.getData().size(); i++){
+                        cityList.add(listResponseModel.getData().get(i).getNama());
                     }
+                    initSpinnerLocation();
                 }
-            });
-        }else {
-            binding.shimmerField.setVisibility(View.GONE);
-            binding.lrFieldEmpty.setVisibility(View.VISIBLE);
-            binding.tvFieldEmpty.setText("Lokasi tidak ditemukan");
-            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
-        }
+            }
+        });
     }
+
+
+
+    private void getFieldCloser() {
+        if (cityName != null) {
+            binding.vOverlay.setVisibility(View.GONE);
+            binding.rlLocation.setVisibility(View.GONE);
+            binding.shimmerField.setVisibility(View.VISIBLE);
+            binding.shimmerField.startShimmer();
+            binding.rvField.setVisibility(View.GONE);
+            binding.lrFieldEmpty.setVisibility(View.GONE);
+            if (cityName != null) {
+                fieldViewModel.getFieldCloser(cityName).observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<FieldModel>>>() {
+                    @Override
+                    public void onChanged(ResponseModel<List<FieldModel>> listResponseModel) {
+                        if (listResponseModel.isStatus() == true) {
+                            HomeFieldAdapter homeFieldAdapter = new HomeFieldAdapter(getContext(), listResponseModel.getData());
+                            LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+                            binding.rvField.setAdapter(homeFieldAdapter);
+                            binding.rvField.setLayoutManager(linearLayoutManager);
+                            binding.rvField.setHasFixedSize(true);
+                            homeFieldAdapter.setItemClickListener(HomeFragment.this);
+
+                            binding.shimmerField.setVisibility(View.GONE);
+                            binding.rvField.setVisibility(View.VISIBLE);
+                            binding.lrFieldEmpty.setVisibility(View.GONE);
+                        }else {
+                            binding.shimmerField.setVisibility(View.GONE);
+                            binding.lrFieldEmpty.setVisibility(View.VISIBLE);
+                            binding.tvFieldEmpty.setText("Tidak ada lapangan terdekat");
+                            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+                            showToast(ConsResponse.ERROR_MESSAGE, listResponseModel.getMessage());
+                        }
+                    }
+                });
+            }else {
+                binding.shimmerField.setVisibility(View.GONE);
+                binding.lrFieldEmpty.setVisibility(View.VISIBLE);
+                binding.tvFieldEmpty.setText("Lokasi tidak ditemukan");
+                showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+            }
+        }else {
+            binding.vOverlay.setVisibility(View.VISIBLE);
+            binding.rlLocation.setVisibility(View.VISIBLE);
+
+        }
+
+    }
+
+
 
     private void showToast(String type, String message) {
         if (type.equals(ConsOther.TOAST_SUCCESS)) {
@@ -215,65 +284,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                 .commit();
     }
 
-    private void checkStatusGps() {
 
-        // check status gps
-        LocationManager locationManager = (LocationManager) getContext().getSystemService(Context.LOCATION_SERVICE);
-        if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            // notify user
-            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext());
-            dialog.setMessage("GPS tidak aktif");
-            dialog.setPositiveButton("Aktifkan", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    Intent myIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(myIntent);
-                    binding.shimmerField.setVisibility(View.GONE);
-                    binding.lrFieldEmpty.setVisibility(View.VISIBLE);
-                    binding.tvFieldEmpty.setText("Lokasi tidak ditemukan");
-                }
-            });
-            dialog.setNegativeButton("Batal", new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface paramDialogInterface, int paramInt) {
-                    binding.shimmerField.setVisibility(View.GONE);
-                    binding.lrFieldEmpty.setVisibility(View.VISIBLE);
-                    binding.tvFieldEmpty.setText("Lokasi tidak ditemukan");
-                }
-            });
-            dialog.show();
-
-
-
-        }else {
-            // CHECK PERMISSION GET LOCATION
-            if (ContextCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                ActivityCompat.requestPermissions(requireActivity(), new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, 101);
-            }
-
-            // GET CITY NAME
-            fusedLocationClient.getLastLocation().addOnSuccessListener(requireActivity(), location -> {
-                if (location != null) {
-                    Geocoder geocoder = new Geocoder(requireContext());
-                    try {
-                        cityName = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1).get(0).getLocality();
-                        getFieldCloser(cityName);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        binding.shimmerField.setVisibility(View.GONE);
-                        binding.lrFieldEmpty.setVisibility(View.VISIBLE);
-                        binding.tvFieldEmpty.setText("Lokasi tidak ditemukan");
-
-                    }
-                }
-            });
-
-        }
-
-
-
-    }
 
     @Override
     public void onItemClickListener(String type, int positon, Object object) {

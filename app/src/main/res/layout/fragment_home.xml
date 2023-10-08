@@ -285,11 +285,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
                         android:orientation="vertical">
-                        <ImageButton
-                            android:id="@+id/btnFieldRefresh"
-                            android:layout_width="@dimen/_30sdp"
-                            android:layout_height="@dimen/_30sdp"
-                            android:background="@drawable/ic_refresh"/>
+
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -305,6 +301,132 @@
 
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+
+        <RelativeLayout
+            android:id="@+id/vOverlay"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@color/overlay"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/rlLocation"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/container_main"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_marker"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popmed"
+                            android:layout_height="wrap_content"
+                            android:text="Simpan lokasi Anda"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_11ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popreg"
+                            android:layout_height="wrap_content"
+                            android:text="Anda dapat mengubah lokasi pada menu profile"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/login_container"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
+                        android:id="@+id/spinnerLocation"
+                        android:layout_width="match_parent"
+                        style="@style/filterDropDown"
+                        android:layout_height="wrap_content"
+                        app:smsp_searchHeaderBackgroundColor="@color/main"
+                        app:smsp_searchHint="Cari lokasi"
+                        app:smsp_searchHeaderTextColor="@color/white"
+                        app:smsp_floatingLabelColor="@color/main"
+                        app:smsp_floatingLabelText="Lokasi Saya"
+                        app:smsp_hint="Pilih lokasi"
+                        app:smsp_enableSearchHeader="true"
+                        app:smsp_hintColor="@color/black"
+                        app:smsp_searchHeaderText="Cari lokasi"
+                        app:smsp_isSearchable="true"
+                        app:smsp_enableFloatingLabel="true"
+                        app:smsp_itemColor="@color/black"
+                        app:smsp_itemSize="@dimen/_11ssp"
+                        android:textSize="@dimen/_11ssp"
+                        app:smsp_itemListColor="@color/black"
+                        app:smsp_itemListHintBackgroundColor="#808080"
+                        app:smsp_itemListHintColor="#FFFFFF"
+                        app:smsp_selectedItemListColor="@color/main" />
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:text="Simpan lokasi saya"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:id="@+id/btnSaveMyLocation"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
 
 
 

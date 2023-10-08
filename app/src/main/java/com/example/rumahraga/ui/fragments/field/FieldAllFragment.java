@@ -34,6 +34,7 @@ import com.example.rumahraga.viewmodel.city.CityViewModel;
 import com.example.rumahraga.viewmodel.field.FieldViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -104,6 +105,13 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
 
         binding.btnFilter.setOnClickListener(view -> {
             initFilterDialog();
+        });
+
+        binding.btnShort.setOnClickListener(view -> {
+            // urutkan dari bawah ke atas
+            Collections.reverse(fieldModelList);
+            fieldMainAdapter.notifyDataSetChanged();
+
         });
 
 
@@ -271,7 +279,7 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
         spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(ConsOther.TOAST_NORMAL, cityModelList.get(i));
+
                 locationName = cityModelList.get(i).toString();
             }
 
@@ -284,7 +292,7 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
         spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                showToast(ConsOther.TOAST_NORMAL, categoryModelList.get(i));
+
                 categoryName = categoryModelList.get(i).toString();
             }
 

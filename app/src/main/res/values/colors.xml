@@ -4,6 +4,7 @@
     <color name="gray">#AAAAAA</color>
     <color name="ightgray">#E6E5E5</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="overlay">#88000000</color>
     <color name="background">#CCE5C8</color>
     <color name="main">#27C386</color>
     <color name="main2">#80EB58</color>

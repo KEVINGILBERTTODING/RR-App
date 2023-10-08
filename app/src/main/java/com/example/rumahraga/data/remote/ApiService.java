@@ -83,6 +83,13 @@ public interface ApiService {
     @GET("user/get_field_all")
     Call<ResponseModel<List<FieldModel>>> getAllField();
 
+    @FormUrlEncoded
+    @POST("user/update_location")
+    Call<ResponseModel> updateLocation(
+            @Field("user_id") String userId,
+            @Field("city_name") String cityName
+    );
+
 
 
 }
