@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
 
@@ -27,20 +28,25 @@ import com.example.rumahraga.databinding.FragmentFieldDetailBinding;
 import com.example.rumahraga.model.BookedModel;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.JamModel;
+import com.example.rumahraga.model.PaymentMethodModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.ReviewModel;
 import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.booked.BookedAdapter;
 import com.example.rumahraga.ui.adapters.jam.JamAdapter;
+import com.example.rumahraga.ui.adapters.spinner.SpinnerPaymentMethodAdapter;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
 import com.example.rumahraga.viewmodel.field.FieldViewModel;
 import com.example.rumahraga.viewmodel.jam.JamViewModel;
+import com.example.rumahraga.viewmodel.payment.PaymentViewModel;
 import com.example.rumahraga.viewmodel.review.ReviewViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sahana.horizontalcalendar.OnDateSelectListener;
 import com.sahana.horizontalcalendar.model.DateModel;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,7 +66,10 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
     private JamViewModel jamViewModel;
     private JamAdapter jamAdapter;
     private BookedAdapter bookedAdapter;
+    private int rentPrice, totalPrice, finalTotalTransaction;
     private List<BookedModel> bookedModelList;
+    private BottomSheetBehavior bottomSheetBehaviorCheckOut;
+    private PaymentViewModel paymentViewModel;
 
 
 
@@ -83,6 +92,10 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
         getFieldDetail();
         getTotalRating();
         getDataBooked();
+        initBottomSheetCheckout();
+        countTotalTransaction();
+        getPaymentMethod();
+        bottomSheetBehaviorCheckOut.setState(BottomSheetBehavior.STATE_HIDDEN);
 
     }
 
@@ -95,6 +108,8 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
         jamViewModel = new ViewModelProvider(this).get(JamViewModel.class);
         bookedModelList = new ArrayList<>();
         bookedAdapter = new BookedAdapter(getContext(),bookedModelList);
+        paymentViewModel = new ViewModelProvider(this).get(PaymentViewModel.class);
+
 
     }
 
@@ -131,9 +146,38 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                 getHour(date);
                 bookedModelList.clear();
                 binding.rvBookedDate.setAdapter(null);
+                countTotalTransaction();
                 binding.swipeRefresh.setRefreshing(false);
+                getPaymentMethod();
             }
         });
+
+        binding.btnDetailTransaksi.setOnClickListener(view -> {
+            showBottomSheetCheckOut();
+        });
+
+        binding.vOverlay.setOnClickListener(view -> {
+            hiddenBottomSheetCheckout();
+        });
+    }
+
+    private void countTotalTransaction() {
+        if (bookedModelList != null && bookedModelList.size() > 0) {
+            totalPrice = bookedModelList.size() * rentPrice;
+            finalTotalTransaction = totalPrice + 2500;
+
+            formatRupiah(binding.tvTotalPrice, totalPrice);
+            binding.btnDetailTransaksi.setEnabled(true);
+            binding.btnDetailTransaksi.setClickable(true);
+            binding.tvTotalHour.setText(String.valueOf(bookedModelList.size()) + " Jam");
+            formatRupiah(binding.tvFinalTotalTransaction, finalTotalTransaction);
+            formatRupiah(binding.tvCheckOutPrice, finalTotalTransaction);
+
+        }else {
+            binding.tvTotalPrice.setText("Rp. 0");
+            binding.btnDetailTransaksi.setEnabled(false);
+            binding.btnDetailTransaksi.setClickable(false);
+        }
     }
 
     private void getFieldDetail() {
@@ -153,6 +197,10 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                                 .into(binding.ivField);
 
                         image = fieldModelResponseModel.getData().getImage();
+                        rentPrice = fieldModelResponseModel.getData().getPrice();
+                        formatRupiah(binding.tvRentPrice, fieldModelResponseModel.getData().getPrice());
+
+
 
 
 
@@ -168,6 +216,9 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                         }else {
                             binding.tvFieldName.setText("-");
                         }
+
+
+
 
                         // jika field tidak tersedia
                         if (fieldModelResponseModel.getData().getIs_available() == 1) {
@@ -251,6 +302,51 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
             showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
         }
     }
+
+    private void getPaymentMethod() {
+        paymentViewModel.getAllPayment().observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<PaymentMethodModel>>>() {
+            @Override
+            public void onChanged(ResponseModel<List<PaymentMethodModel>> listResponseModel) {
+                if (listResponseModel.isStatus() == true) {
+                    SpinnerPaymentMethodAdapter spinnerPaymentMethodAdapter = new SpinnerPaymentMethodAdapter(getContext(), listResponseModel.getData());
+                    binding.spinnerPaymentMethod.setAdapter(spinnerPaymentMethodAdapter);
+
+                }else {
+                    showToast(ConsOther.TOAST_ERR, "Gagal memuat metode pembayaran");
+                    binding.btnCheckOut.setEnabled(false);
+                    binding.btnCheckOut.setClickable(false);
+                }
+            }
+        });
+    }
+
+    private void initBottomSheetCheckout() {
+        bottomSheetBehaviorCheckOut = BottomSheetBehavior.from(binding.bottomSheetCheckOut);
+        bottomSheetBehaviorCheckOut.setHideable(true);
+        bottomSheetBehaviorCheckOut.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hiddenBottomSheetCheckout();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    private void hiddenBottomSheetCheckout() {
+        bottomSheetBehaviorCheckOut.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
+    }
+
+    private void showBottomSheetCheckOut() {
+        bottomSheetBehaviorCheckOut.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+    }
     private void showToast(String type, String message) {
         if (type.equals(ConsOther.TOAST_SUCCESS)) {
             Toasty.success(getContext(), message, Toasty.LENGTH_SHORT).show();
@@ -262,14 +358,11 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
         }
     }
 
-    private void deleteBookedList(int position) {
 
-    }
 
     private void getDataBooked() {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.rvBookedDate.setLayoutManager(linearLayoutManager);
-        bookedAdapter.setItemClickListener(FieldDetailFragment.this);
         binding.rvBookedDate.setAdapter(bookedAdapter);
     }
 
@@ -279,26 +372,35 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                 .commit();
     }
 
+    private void formatRupiah(TextView textView, int nominal) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        textView.setText("Rp. "+decimalFormat.format(nominal));
+    }
+
     @Override
-    public void onItemClickListener(String type, int positon, Object object) {
+    public void onItemClickListener(String type, int postion, Object object) {
         // adapter jam diklik
         if (type.equals("hour")) {
             JamModel  jamModel = (JamModel) object;
-            showToast(ConsOther.TOAST_NORMAL, jamModel.getJam());
             if (jamModel.getIs_available() == 1) {
                 jamModel.setIs_available(2);
-                jamAdapter.notifyItemChanged(positon);
-                jamAdapter.notifyItemRangeChanged(positon, jamAdapter.getItemCount());
-
+                jamAdapter.notifyItemChanged(postion);
+                jamAdapter.notifyItemRangeChanged(postion, jamAdapter.getItemCount());
                 // menambahkan daftar booked
                 bookedModelList.add(new BookedModel(date, jamModel.getJam()));
                 bookedAdapter.notifyDataSetChanged();
+
+                // refresh item
                 getDataBooked();
+
+                // total transaksi
+
+                countTotalTransaction();
 
             }else if (jamModel.getIs_available() == 2) {
                 jamModel.setIs_available(1);
-                jamAdapter.notifyItemChanged(positon);
-                jamAdapter.notifyItemRangeChanged(positon, jamAdapter.getItemCount());
+                jamAdapter.notifyItemChanged(postion);
+                jamAdapter.notifyItemRangeChanged(postion, jamAdapter.getItemCount());
 
                 // cek dan hapus data booked
                 for (BookedModel bookedModel : bookedModelList) {
@@ -308,15 +410,16 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                     }
                 }
                 bookedAdapter.notifyDataSetChanged();
+
+                // refresh item
                 getDataBooked();
+
+                // total transaksi
+                countTotalTransaction();
             }
 
         }
-        // adapter booked di klik
-        else if (type.equals("delete")) {
-            BookedModel bookedModel = (BookedModel) object;
-            showToast(ConsOther.TOAST_NORMAL, bookedModel.getJam());
-        }
+
 
     }
 }

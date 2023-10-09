@@ -5,6 +5,7 @@ import com.example.rumahraga.model.CategoryModel;
 import com.example.rumahraga.model.CityModel;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.JamModel;
+import com.example.rumahraga.model.PaymentMethodModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.ReviewModel;
 import com.example.rumahraga.model.UserModel;
@@ -89,6 +90,9 @@ public interface ApiService {
             @Field("user_id") String userId,
             @Field("city_name") String cityName
     );
+
+    @GET("user/get_payment")
+    Call<ResponseModel<List<PaymentMethodModel>>> getAllPayment();
 
 
 

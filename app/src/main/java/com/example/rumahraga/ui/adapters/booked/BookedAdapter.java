@@ -43,12 +43,7 @@ public class BookedAdapter extends RecyclerView.Adapter<BookedAdapter.ViewHolder
         holder.tvJam.setText(bookedModelList.get(holder.getBindingAdapterPosition()).getJam());
         holder.tvDate.setText(bookedModelList.get(holder.getBindingAdapterPosition()).getOrder_date());
 
-        holder.btnDelete.setOnClickListener(view -> {
-            if (itemClickListener != null) {
-                itemClickListener.onItemClickListener("delete", holder.getBindingAdapterPosition(), bookedModelList.get(holder.getBindingAdapterPosition()));
 
-            }
-        });
 
     }
 
