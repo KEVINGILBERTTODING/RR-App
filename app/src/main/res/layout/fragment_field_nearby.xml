@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@color/background"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.field.FieldCategoryFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingTop="@dimen/_40sdp"
+                android:paddingBottom="@dimen/_14sdp"
+                android:paddingLeft="@dimen/_14sdp"
+                android:background="@drawable/main_header"
+                android:paddingRight="@dimen/_14sdp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <ImageButton
+                            android:layout_width="@dimen/_25sdp"
+                            android:id="@+id/btnBack"
+                            android:layout_centerVertical="true"
+                            android:backgroundTint="@color/black"
+                            android:layout_height="@dimen/_25sdp"
+                            android:background="@drawable/ic_back"/>
+                        <TextView
+                            android:id="@+id/tvCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@id/btnBack"
+                            android:layout_marginLeft="@dimen/_7sdp"
+                            android:includeFontPadding="false"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/popsem"
+                            android:layout_marginRight="@dimen/_7sdp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_18ssp"/>
+                    </RelativeLayout>
+
+
+
+                    <androidx.appcompat.widget.SearchView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:queryHint="Nama lapangan atau olahraga"
+                        android:id="@+id/searchBar"
+                        app:queryBackground="@drawable/container_searchbar"
+                        app:iconifiedByDefault="false"
+                        android:background="@drawable/container_searchbar"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:padding="@dimen/_14sdp"
+                android:id="@+id/swipeRefresh"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <include layout="@layout/placeholder_field_main"/>
+                            <include layout="@layout/placeholder_field_main"/>
+                            <include layout="@layout/placeholder_field_main"/>
+                            <include layout="@layout/placeholder_field_main"/>
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvField"
+                        tools:listitem="@layout/list_field_main"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvEmpty"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tidak ada data"
+            android:visibility="gone"
+            android:fontFamily="@font/popmed"
+            android:textSize="@dimen/_13ssp"
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"/>
+
+
+    </RelativeLayout>
+</layout>

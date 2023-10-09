@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:contentPadding="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_5sdp"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/btnDelete"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:text="2023-02-02"
+                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="@font/popmed"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvJam"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:text="00:00"
+                    android:textSize="@dimen/_12ssp"
+                    android:fontFamily="@font/popmed"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <ImageButton
+                android:id="@+id/btnDelete"
+                android:layout_width="@dimen/_25sdp"
+                android:layout_alignParentEnd="true"
+                android:background="@drawable/ic_star"
+                android:layout_height="@dimen/_25sdp"/>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
@@ -23,10 +24,13 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.FragmentFieldDetailBinding;
+import com.example.rumahraga.model.BookedModel;
 import com.example.rumahraga.model.FieldModel;
 import com.example.rumahraga.model.JamModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.ReviewModel;
+import com.example.rumahraga.model.listener.ItemClickListener;
+import com.example.rumahraga.ui.adapters.booked.BookedAdapter;
 import com.example.rumahraga.ui.adapters.jam.JamAdapter;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
@@ -38,6 +42,7 @@ import com.sahana.horizontalcalendar.OnDateSelectListener;
 import com.sahana.horizontalcalendar.model.DateModel;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -45,7 +50,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
 
 @AndroidEntryPoint
-public class FieldDetailFragment extends Fragment {
+public class FieldDetailFragment extends Fragment implements ItemClickListener {
 
     private FragmentFieldDetailBinding binding;
     private FieldViewModel fieldViewModel;
@@ -53,6 +58,9 @@ public class FieldDetailFragment extends Fragment {
     private SharedPreferences sharedPreferences;
     private String userId, fieldId, image, date;
     private JamViewModel jamViewModel;
+    private JamAdapter jamAdapter;
+    private BookedAdapter bookedAdapter;
+    private List<BookedModel> bookedModelList;
 
 
 
@@ -74,6 +82,7 @@ public class FieldDetailFragment extends Fragment {
 
         getFieldDetail();
         getTotalRating();
+        getDataBooked();
 
     }
 
@@ -84,6 +93,8 @@ public class FieldDetailFragment extends Fragment {
         fieldId = getArguments().getString("field_id", null);
         reviewViewModel = new ViewModelProvider(this).get(ReviewViewModel.class);
         jamViewModel = new ViewModelProvider(this).get(JamViewModel.class);
+        bookedModelList = new ArrayList<>();
+        bookedAdapter = new BookedAdapter(getContext(),bookedModelList);
 
     }
 
@@ -118,6 +129,8 @@ public class FieldDetailFragment extends Fragment {
                 getFieldDetail();
                 getTotalRating();
                 getHour(date);
+                bookedModelList.clear();
+                binding.rvBookedDate.setAdapter(null);
                 binding.swipeRefresh.setRefreshing(false);
             }
         });
@@ -209,12 +222,25 @@ public class FieldDetailFragment extends Fragment {
 
                     if (listResponseModel.isStatus() == true) {
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext() , 4);
-                        JamAdapter jamAdapter = new JamAdapter(getContext(), listResponseModel.getData());
+                        jamAdapter = new JamAdapter(getContext(), listResponseModel.getData());
                         binding.rvDate.setLayoutManager(gridLayoutManager);
                         binding.rvDate.setAdapter(jamAdapter);
                         binding.rvDate.setHasFixedSize(true);
+                        jamAdapter.setItemClickListener(FieldDetailFragment.this);
                         binding.shimmerDate.setVisibility(View.GONE);
                         binding.rvDate.setVisibility(View.VISIBLE);
+
+                        if (bookedModelList != null && bookedModelList.size() > 0) {
+                            for(int i =0; i < listResponseModel.getData().size(); i++) {
+                                for (BookedModel bookedModel : bookedModelList) {
+                                    if (bookedModel.getOrder_date().equals(date) && bookedModel.getJam().equals(listResponseModel.getData().get(i).getJam())) {
+                                        listResponseModel.getData().get(i).setIs_available(2);
+                                    }
+                                }
+                            }
+                        }
+
+
                     }else {
                         showToast(ConsOther.TOAST_ERR, "Gagal mengambil tanggal");
                     }
@@ -236,10 +262,61 @@ public class FieldDetailFragment extends Fragment {
         }
     }
 
+    private void deleteBookedList(int position) {
+
+    }
+
+    private void getDataBooked() {
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        binding.rvBookedDate.setLayoutManager(linearLayoutManager);
+        bookedAdapter.setItemClickListener(FieldDetailFragment.this);
+        binding.rvBookedDate.setAdapter(bookedAdapter);
+    }
+
 
     private void fragmentTransaction(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameMain, fragment)
                 .commit();
     }
 
+    @Override
+    public void onItemClickListener(String type, int positon, Object object) {
+        // adapter jam diklik
+        if (type.equals("hour")) {
+            JamModel  jamModel = (JamModel) object;
+            showToast(ConsOther.TOAST_NORMAL, jamModel.getJam());
+            if (jamModel.getIs_available() == 1) {
+                jamModel.setIs_available(2);
+                jamAdapter.notifyItemChanged(positon);
+                jamAdapter.notifyItemRangeChanged(positon, jamAdapter.getItemCount());
+
+                // menambahkan daftar booked
+                bookedModelList.add(new BookedModel(date, jamModel.getJam()));
+                bookedAdapter.notifyDataSetChanged();
+                getDataBooked();
+
+            }else if (jamModel.getIs_available() == 2) {
+                jamModel.setIs_available(1);
+                jamAdapter.notifyItemChanged(positon);
+                jamAdapter.notifyItemRangeChanged(positon, jamAdapter.getItemCount());
+
+                // cek dan hapus data booked
+                for (BookedModel bookedModel : bookedModelList) {
+                    if (bookedModel.getOrder_date().equals(date) && bookedModel.getJam().equals(jamModel.getJam())) {
+                        bookedModelList.remove(bookedModel);
+                        break; //
+                    }
+                }
+                bookedAdapter.notifyDataSetChanged();
+                getDataBooked();
+            }
+
+        }
+        // adapter booked di klik
+        else if (type.equals("delete")) {
+            BookedModel bookedModel = (BookedModel) object;
+            showToast(ConsOther.TOAST_NORMAL, bookedModel.getJam());
+        }
+
+    }
 }

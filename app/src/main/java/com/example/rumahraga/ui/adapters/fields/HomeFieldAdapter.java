@@ -48,7 +48,12 @@ public class HomeFieldAdapter extends RecyclerView.Adapter<HomeFieldAdapter.View
 
     @Override
     public int getItemCount() {
-        return fieldModelList.size();
+        if (fieldModelList != null && fieldModelList.size() > 5) {
+            return 5;
+        }else {
+            return fieldModelList.size();
+
+        }
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

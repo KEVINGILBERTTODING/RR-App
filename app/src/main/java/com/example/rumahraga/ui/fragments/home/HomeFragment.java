@@ -31,6 +31,7 @@ import com.example.rumahraga.ui.adapters.fields.HomeFieldAdapter;
 import com.example.rumahraga.ui.adapters.slider.BannerSliderAdapter;
 import com.example.rumahraga.ui.fragments.field.FieldCategoryFragment;
 import com.example.rumahraga.ui.fragments.field.FieldDetailFragment;
+import com.example.rumahraga.ui.fragments.field.FieldNearbyFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
@@ -87,6 +88,12 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 
         binding.tvUsername.setText(sharedPreferences.getString(ConsSharedPref.NAME, ""));
 
+        if (cityName != null) {
+            binding.searchBar.setQueryHint(cityName);
+        }else {
+            binding.searchBar.setQueryHint("Cari nama kota");
+        }
+
     }
 
     private void init() {
@@ -132,6 +139,10 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                 }
                 return false;
             }
+        });
+
+        binding.tvSeeAllField.setOnClickListener(view -> {
+            fragmentTransaction(new FieldNearbyFragment());
         });
 
     }

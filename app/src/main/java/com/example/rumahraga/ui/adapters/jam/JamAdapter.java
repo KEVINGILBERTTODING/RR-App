@@ -12,16 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.rumahraga.R;
 import com.example.rumahraga.model.JamModel;
+import com.example.rumahraga.model.listener.ItemClickListener;
 
 import java.util.List;
 
 public class JamAdapter extends RecyclerView.Adapter<JamAdapter.ViewHolder> {
     private Context context;
     private List<JamModel> jamModelList;
+    private ItemClickListener itemClickListener;
 
     public JamAdapter(Context context, List<JamModel> jamModelList) {
         this.context = context;
         this.jamModelList = jamModelList;
+    }
+
+    public void setItemClickListener(ItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
     }
 
     @NonNull
@@ -37,6 +43,22 @@ public class JamAdapter extends RecyclerView.Adapter<JamAdapter.ViewHolder> {
 
         if (jamModelList.get(holder.getBindingAdapterPosition()).getIs_available() == 0) {
             holder.cvStatus.setCardBackgroundColor(context.getColor(R.color.red));
+        }else if (jamModelList.get(holder.getBindingAdapterPosition()).getIs_available() == 1){
+            holder.cvStatus.setCardBackgroundColor(context.getColor(R.color.main2));
+
+            holder.itemView.setOnClickListener(view -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClickListener("hour", holder.getBindingAdapterPosition(), jamModelList.get(holder.getBindingAdapterPosition()));
+                }
+            });
+        }else if (jamModelList.get(holder.getBindingAdapterPosition()).getIs_available() == 2){
+            holder.cvStatus.setCardBackgroundColor(context.getColor(R.color.yellow));
+
+            holder.itemView.setOnClickListener(view -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClickListener("hour", holder.getBindingAdapterPosition(), jamModelList.get(holder.getBindingAdapterPosition()));
+                }
+            });
         }
         
 

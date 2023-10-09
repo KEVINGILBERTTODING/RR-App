@@ -15,8 +15,12 @@ public class FieldModel {
     private int is_available;
     private String city_name;
     private String rating;
+    private String category_name;
+
+
+
     public FieldModel(String field_id, String mitra_id, String category_id, String city_id, String name, String description, String image, String address, int price, int is_available,
-                      String city_name, String rating) {
+                      String city_name, String rating, String category_name) {
         this.field_id = field_id;
         this.mitra_id = mitra_id;
         this.category_id = category_id;
@@ -29,6 +33,7 @@ public class FieldModel {
         this.is_available = is_available;
         this.city_name = city_name;
         this.rating= rating;
+        this.category_name = category_name;
     }
 
 
@@ -131,5 +136,13 @@ public class FieldModel {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getCategory_name() {
+        return category_name;
+    }
+
+    public void setCategory_name(String category_name) {
+        this.category_name = category_name;
     }
 }
