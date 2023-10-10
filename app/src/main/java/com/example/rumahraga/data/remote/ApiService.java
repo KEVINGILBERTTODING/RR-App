@@ -1,5 +1,6 @@
 package com.example.rumahraga.data.remote;
 
+import com.example.rumahraga.model.TransactionModel;
 import com.example.rumahraga.model.BannerModel;
 import com.example.rumahraga.model.BookedModel;
 import com.example.rumahraga.model.CategoryModel;
@@ -118,6 +119,11 @@ public interface ApiService {
     @POST("user/insert_detail_transaction")
     Call<ResponseModel> insertDetailTransaction(
             @Body List<BookedModel> bookedModel
+    );
+
+    @GET("user/get_transactions")
+    Call<ResponseModel<List<TransactionModel>>> getMyTransaction(
+            @Query("id") String id
     );
 
 

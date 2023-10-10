@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel;
 import com.example.rumahraga.data.repository.transaction.TransactionRepository;
 import com.example.rumahraga.model.BookedModel;
 import com.example.rumahraga.model.ResponseModel;
+import com.example.rumahraga.model.TransactionModel;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 
 import java.util.HashMap;
@@ -43,6 +44,17 @@ public class TransactionViewModel extends ViewModel {
         }else {
             responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.ERROR_MESSAGE, null));
         }
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel<List<TransactionModel>>> getMyTransactions(String userId) {
+        MutableLiveData<ResponseModel<List<TransactionModel>>> responseModelMutableLiveData = new MutableLiveData<>();
+        if (userId != null && !userId.isEmpty()) {
+            return transactionRepository.getMyTransactions(userId);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+
         return responseModelMutableLiveData;
     }
 }

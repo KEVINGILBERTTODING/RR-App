@@ -5,16 +5,18 @@ import java.io.Serializable;
 public class BookedModel implements Serializable {
     private String order_date;
     private String transaction_code;
+    private String field_id;
     private String jam_id;
     private int price;
     private String jam;
 
-    public BookedModel(String order_date, String transaction_code, String jam_id, int price, String jam) {
+    public BookedModel(String order_date, String transaction_code, String jam_id, int price, String jam, String field_id) {
         this.order_date = order_date;
         this.transaction_code = transaction_code;
         this.jam_id = jam_id;
         this.price = price;
         this.jam = jam;
+        this.field_id = field_id;
     }
 
     public String getOrder_date() {
@@ -54,5 +56,13 @@ public class BookedModel implements Serializable {
 
     public void setJam(String jam) {
         this.jam = jam;
+    }
+
+    public String getField_id() {
+        return field_id;
+    }
+
+    public void setField_id(String field_id) {
+        this.field_id = field_id;
     }
 }

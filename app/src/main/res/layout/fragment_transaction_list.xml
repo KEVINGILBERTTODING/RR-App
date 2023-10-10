@@ -92,7 +92,9 @@
 
             <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
                 android:layout_width="match_parent"
-                android:padding="@dimen/_14sdp"
+                android:paddingLeft="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:paddingRight="@dimen/_14sdp"
                 android:id="@+id/swipeRefresh"
                 android:layout_height="wrap_content">
                 <LinearLayout
@@ -114,7 +116,7 @@
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvField"
+                        android:id="@+id/rvTransactions"
                         tools:listitem="@layout/list_transactions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>

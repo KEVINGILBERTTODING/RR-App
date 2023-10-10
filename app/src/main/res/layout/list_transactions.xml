@@ -7,7 +7,6 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        app:contentPadding="@dimen/_10sdp"
         app:cardElevation="0dp"
         app:cardCornerRadius="@dimen/_15sdp"
         android:layout_height="wrap_content">
@@ -15,12 +14,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="@dimen/_14sdp"
+            android:background="@drawable/card_stroke"
             android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Terkonfirmasi"
+                android:id="@+id/tvStatus"
                 android:layout_gravity="end"
                 android:textSize="@dimen/_11ssp"
                 android:fontFamily="@font/popreg"
@@ -32,13 +34,14 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvImage"
-                    android:layout_width="@dimen/_50sdp"
+                    android:layout_width="@dimen/_60sdp"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
-                    android:layout_height="@dimen/_50sdp">
+                    android:layout_height="@dimen/_60sdp">
                     <ImageView
-                        android:id="@+id/ivCategory"
+                        android:id="@+id/ivField"
                         android:src="@color/main"
+                        android:scaleType="fitXY"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </androidx.cardview.widget.CardView>
@@ -53,16 +56,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/popmed"
-                        android:textSize="@dimen/_12ssp"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_13ssp"
                         android:text="Tri lomba juang"/>
 
                     <TextView
-                        android:id="@+id/tvTimeStamp"
+                        android:id="@+id/tvDate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/popreg"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_10ssp"
+                        android:textSize="@dimen/_11ssp"
                         android:text="2023-02-02  19:02:02"/>
                 </LinearLayout>
 
@@ -79,6 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
+                android:gravity="center_vertical"
                 android:layout_marginTop="@dimen/_7sdp"
                 android:orientation="horizontal">
                 <TextView
@@ -86,7 +91,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/popreg"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_12ssp"
                     android:text="Total Sewa: "/>
                 <TextView
                     android:id="@+id/tvTotalPrice"
@@ -94,7 +99,7 @@
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/popreg"
                     android:textColor="@color/main"
-                    android:textSize="@dimen/_10ssp"
+                    android:textSize="@dimen/_12ssp"
                     android:text="RP. 20000.000"/>
             </LinearLayout>
 
