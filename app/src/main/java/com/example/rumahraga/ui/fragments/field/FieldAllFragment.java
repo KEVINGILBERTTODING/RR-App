@@ -117,9 +117,11 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
         });
 
         binding.btnShort.setOnClickListener(view -> {
-            // urutkan dari bawah ke atas
-            Collections.reverse(fieldModelList);
-            fieldMainAdapter.notifyDataSetChanged();
+           if (fieldModelList != null) {
+               // urutkan dari bawah ke atas
+               Collections.reverse(fieldModelList);
+               fieldMainAdapter.notifyDataSetChanged();
+           }
 
         });
 
@@ -164,8 +166,6 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
         binding.rvField.setVisibility(View.GONE);
         binding.tvEmpty.setVisibility(View.GONE);
          binding.rvField.setAdapter(null);
-
-
 
 
             fieldViewModel.filterField(cityName, cagoryName).observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<FieldModel>>>() {

@@ -73,8 +73,11 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
 
     private void listener() {
         binding.btnShort.setOnClickListener(view -> {
-            Collections.reverse(transactionModels);
-            transactionsAdapter.notifyDataSetChanged();
+            if (transactionModels != null) {
+                Collections.reverse(transactionModels);
+                transactionsAdapter.notifyDataSetChanged();
+            }
+
         });
         binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -98,24 +101,7 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
         });
     }
 
-    private void filter(String newText) {
-        ArrayList<TransactionModel> filteredList = new ArrayList<>();
-        for (TransactionModel item : transactionModels) {
-            if (item != null && item.getField_name().toLowerCase().contains(newText.toLowerCase())) {
-                filteredList.add(item);
-            }
-            transactionsAdapter.filter(filteredList);
 
-            if (!filteredList.isEmpty()) {
-                binding.tvEmpty.setVisibility(View.GONE);
-                transactionsAdapter.filter(filteredList);
-            }else {
-                binding.tvEmpty.setText("Lapangan tidak ditemukan");
-                binding.tvEmpty.setVisibility(View.VISIBLE);
-
-            }
-        }
-    }
 
     private void getMyTransactions() {
         binding.shimmer.setVisibility(View.VISIBLE);
@@ -152,6 +138,28 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
                 }
             }
         });
+
+    }
+
+    private void filter(String newText) {
+        if (transactionModels != null) {
+            ArrayList<TransactionModel> filteredList = new ArrayList<>();
+            for (TransactionModel item : transactionModels) {
+                if (item != null && item.getField_name().toLowerCase().contains(newText.toLowerCase())) {
+                    filteredList.add(item);
+                }
+                transactionsAdapter.filter(filteredList);
+
+                if (!filteredList.isEmpty()) {
+                    binding.tvEmpty.setVisibility(View.GONE);
+                    transactionsAdapter.filter(filteredList);
+                }else {
+                    binding.tvEmpty.setText("Lapangan tidak ditemukan");
+                    binding.tvEmpty.setVisibility(View.VISIBLE);
+
+                }
+            }
+        }
 
     }
 
