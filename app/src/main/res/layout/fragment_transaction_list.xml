@@ -107,10 +107,10 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
-                            <include layout="@layout/placeholder_field_main"/>
-                            <include layout="@layout/placeholder_field_main"/>
-                            <include layout="@layout/placeholder_field_main"/>
-                            <include layout="@layout/placeholder_field_main"/>
+                            <include layout="@layout/placeholder_list_transactions"/>
+                            <include layout="@layout/placeholder_list_transactions"/>
+                            <include layout="@layout/placeholder_list_transactions"/>
+                            <include layout="@layout/placeholder_list_transactions"/>
                         </LinearLayout>
                     </com.facebook.shimmer.ShimmerFrameLayout>
                     <androidx.recyclerview.widget.RecyclerView

@@ -17,14 +17,14 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Terkonfirmasi"
+            <androidx.cardview.widget.CardView
+                app:cardElevation="0dp"
                 android:layout_gravity="end"
-                android:textSize="@dimen/_11ssp"
-                android:fontFamily="@font/popreg"
-                android:textColor="@color/main"/>
+                app:cardBackgroundColor="@color/background"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_5sdp"
+                android:layout_height="@dimen/_15sdp"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/_7sdp"
@@ -38,7 +38,7 @@
                     android:layout_height="@dimen/_50sdp">
                     <ImageView
                         android:id="@+id/ivCategory"
-                        android:src="@color/main"
+                        android:src="@color/background"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
                 </androidx.cardview.widget.CardView>
@@ -48,22 +48,22 @@
                     android:layout_toRightOf="@id/cvImage"
                     android:layout_marginLeft="@dimen/_6sdp"
                     android:orientation="vertical">
-                    <TextView
-                        android:id="@+id/tvFieldName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/popmed"
-                        android:textSize="@dimen/_12ssp"
-                        android:text="Tri lomba juang"/>
 
-                    <TextView
-                        android:id="@+id/tvTimeStamp"
+                    <androidx.cardview.widget.CardView
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/background"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/popreg"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_10ssp"
-                        android:text="2023-02-02  19:02:02"/>
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        android:layout_height="@dimen/_20sdp"/>
+
+                    <androidx.cardview.widget.CardView
+                        app:cardElevation="0dp"
+                        app:cardBackgroundColor="@color/background"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_5sdp"
+                        app:cardCornerRadius="@dimen/_5sdp"
+                        android:layout_height="@dimen/_15sdp"/>
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -75,28 +75,14 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:background="@color/gray"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <androidx.cardview.widget.CardView
+                app:cardElevation="0dp"
                 android:layout_gravity="end"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/popreg"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_10ssp"
-                    android:text="Total Sewa: "/>
-                <TextView
-                    android:id="@+id/tvTotalPrice"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/popreg"
-                    android:textColor="@color/main"
-                    android:textSize="@dimen/_10ssp"
-                    android:text="RP. 20000.000"/>
-            </LinearLayout>
+                app:cardBackgroundColor="@color/background"
+                android:layout_width="@dimen/_120sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_5sdp"
+                android:layout_height="@dimen/_20sdp"/>
 
             <LinearLayout
                 android:id="@+id/lrReview"

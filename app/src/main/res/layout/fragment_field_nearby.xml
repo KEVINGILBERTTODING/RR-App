@@ -32,7 +32,6 @@
                             android:layout_width="@dimen/_25sdp"
                             android:id="@+id/btnBack"
                             android:layout_centerVertical="true"
-                            android:backgroundTint="@color/black"
                             android:layout_height="@dimen/_25sdp"
                             android:background="@drawable/ic_back"/>
                         <TextView
@@ -46,7 +45,7 @@
                             android:layout_marginTop="@dimen/_5sdp"
                             android:fontFamily="@font/popsem"
                             android:layout_marginRight="@dimen/_7sdp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/_18ssp"/>
                     </RelativeLayout>
 
