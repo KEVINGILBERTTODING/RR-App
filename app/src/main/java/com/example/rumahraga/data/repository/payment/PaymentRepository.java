@@ -50,4 +50,28 @@ public class PaymentRepository {
 
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel<PaymentMethodModel>> getPaymentDetail(String id) {
+        MutableLiveData<ResponseModel<PaymentMethodModel>> responseModelMutableLiveData = new MutableLiveData<>();
+        apiService.getPaymentDetail(id).enqueue(new Callback<ResponseModel<PaymentMethodModel>>() {
+            @Override
+            public void onResponse(Call<ResponseModel<PaymentMethodModel>> call, Response<ResponseModel<PaymentMethodModel>> response) {
+                if (response.isSuccessful() == true) {
+                    responseModelMutableLiveData.setValue(new ResponseModel<>(true, ConsResponse.SUCCESS_MESSAGE, response.body().getData()));
+                }else {
+                    Gson gson = new Gson();
+                    ResponseModel responseModel = gson.fromJson(response.errorBody().charStream(), ResponseModel.class);
+                    responseModelMutableLiveData.setValue(new ResponseModel<>(false, responseModel.getMessage(), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel<PaymentMethodModel>> call, Throwable t) {
+
+                responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.SERVER_ERROR, null));
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
 }

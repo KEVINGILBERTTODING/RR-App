@@ -1,6 +1,7 @@
 package com.example.rumahraga.data.remote;
 
 import com.example.rumahraga.model.BannerModel;
+import com.example.rumahraga.model.BookedModel;
 import com.example.rumahraga.model.CategoryModel;
 import com.example.rumahraga.model.CityModel;
 import com.example.rumahraga.model.FieldModel;
@@ -11,12 +12,19 @@ import com.example.rumahraga.model.ReviewModel;
 import com.example.rumahraga.model.UserModel;
 
 import java.util.List;
+import java.util.Map;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Query;
 
 public interface ApiService {
@@ -93,6 +101,18 @@ public interface ApiService {
 
     @GET("user/get_payment")
     Call<ResponseModel<List<PaymentMethodModel>>> getAllPayment();
+
+    @GET("user/get_payment_detail")
+    Call<ResponseModel<PaymentMethodModel>> getPaymentDetail(
+            @Query("id") String id
+    );
+
+    @Multipart
+    @POST("user/insert_transaction")
+    Call<ResponseModel> insertTransaction(
+            @PartMap Map<String, RequestBody> textData,
+            @Part MultipartBody.Part filePart
+            );
 
 
 

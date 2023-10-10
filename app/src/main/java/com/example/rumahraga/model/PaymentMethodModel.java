@@ -1,5 +1,8 @@
 package com.example.rumahraga.model;
 
+import com.example.rumahraga.data.remote.ApiService;
+import com.google.android.gms.common.api.Api;
+
 public class PaymentMethodModel {
     private String payment_id;
     private String payment_name;
@@ -50,7 +53,12 @@ public class PaymentMethodModel {
     }
 
     public String getImage() {
-        return image;
+        if (image != null) {
+            return ApiService.BASE_URL + "data/payment/" + image;
+        }else {
+            return image;
+
+        }
     }
 
     public void setImage(String image) {

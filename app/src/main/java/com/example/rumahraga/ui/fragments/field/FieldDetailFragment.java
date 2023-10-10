@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.booked.BookedAdapter;
 import com.example.rumahraga.ui.adapters.jam.JamAdapter;
 import com.example.rumahraga.ui.adapters.spinner.SpinnerPaymentMethodAdapter;
+import com.example.rumahraga.ui.fragments.transaction.PaymentFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
@@ -46,6 +48,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.sahana.horizontalcalendar.OnDateSelectListener;
 import com.sahana.horizontalcalendar.model.DateModel;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,7 +65,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
     private FieldViewModel fieldViewModel;
     private ReviewViewModel reviewViewModel;
     private SharedPreferences sharedPreferences;
-    private String userId, fieldId, image, date;
+    private String userId, fieldId, image, date, paymentId, mitraId, transactionCode;
     private JamViewModel jamViewModel;
     private JamAdapter jamAdapter;
     private BookedAdapter bookedAdapter;
@@ -70,6 +73,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
     private List<BookedModel> bookedModelList;
     private BottomSheetBehavior bottomSheetBehaviorCheckOut;
     private PaymentViewModel paymentViewModel;
+    private SpinnerPaymentMethodAdapter spinnerPaymentMethodAdapter;
 
 
 
@@ -96,6 +100,10 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
         countTotalTransaction();
         getPaymentMethod();
         bottomSheetBehaviorCheckOut.setState(BottomSheetBehavior.STATE_HIDDEN);
+        // init transaction code
+        String timeStamp = String.valueOf(System.currentTimeMillis());
+        transactionCode = "TRX" + userId + timeStamp;
+        showToast(ConsOther.TOAST_NORMAL, transactionCode);
 
     }
 
@@ -159,6 +167,39 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
         binding.vOverlay.setOnClickListener(view -> {
             hiddenBottomSheetCheckout();
         });
+
+        binding.btnCheckOut.setOnClickListener(view -> {
+            if (paymentId != null) {
+                Fragment fragment = new PaymentFragment();
+                Bundle bundle = new Bundle();
+                bundle.putString("payment_id", paymentId);
+                bundle.putInt("final_price", finalTotalTransaction);
+                bundle.putString("field_id", fieldId);
+                bundle.putString("mitra_id", mitraId);
+                bundle.putString("transaction_code", transactionCode);
+                bundle.putSerializable("item_list", (Serializable) bookedModelList);
+                fragment.setArguments(bundle);
+                fragmentTransaction(fragment);
+            }else {
+                showToast(ConsOther.TOAST_ERR, "Anda belum memilih metode pembayaran");
+            }
+
+        });
+
+        binding.spinnerPaymentMethod.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                paymentId = spinnerPaymentMethodAdapter.getPaymentId(i);
+
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+                int firstItemIndex = 0;
+                paymentId = spinnerPaymentMethodAdapter.getPaymentId(firstItemIndex);
+            }
+        });
     }
 
     private void countTotalTransaction() {
@@ -192,6 +233,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                     if (fieldModelResponseModel.isStatus() == true && fieldModelResponseModel.getData() != null) {
                         binding.lrMain.setVisibility(View.VISIBLE);
                         binding.shimmerMain.setVisibility(View.GONE);
+                        mitraId = fieldModelResponseModel.getData().getMitra_id();
                         Glide.with(getContext()).load(fieldModelResponseModel.getData().getImage())
                                 .diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true)
                                 .into(binding.ivField);
@@ -308,7 +350,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
             @Override
             public void onChanged(ResponseModel<List<PaymentMethodModel>> listResponseModel) {
                 if (listResponseModel.isStatus() == true) {
-                    SpinnerPaymentMethodAdapter spinnerPaymentMethodAdapter = new SpinnerPaymentMethodAdapter(getContext(), listResponseModel.getData());
+                    spinnerPaymentMethodAdapter = new SpinnerPaymentMethodAdapter(getContext(), listResponseModel.getData());
                     binding.spinnerPaymentMethod.setAdapter(spinnerPaymentMethodAdapter);
 
                 }else {
@@ -387,7 +429,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                 jamAdapter.notifyItemChanged(postion);
                 jamAdapter.notifyItemRangeChanged(postion, jamAdapter.getItemCount());
                 // menambahkan daftar booked
-                bookedModelList.add(new BookedModel(date, jamModel.getJam()));
+                bookedModelList.add(new BookedModel(date, transactionCode, fieldId, jamModel.getJam_id(), rentPrice, jamModel.getJam()));
                 bookedAdapter.notifyDataSetChanged();
 
                 // refresh item

@@ -1,11 +1,21 @@
 package com.example.rumahraga.model;
 
-public class BookedModel {
+import java.io.Serializable;
+
+public class BookedModel implements Serializable {
     private String order_date;
+    private String transaction_code;
+    private String field_id;
+    private String jam_id;
+    private int price;
     private String jam;
 
-    public BookedModel(String order_date, String jam) {
+    public BookedModel(String order_date, String transaction_code, String field_id, String jam_id, int price, String jam) {
         this.order_date = order_date;
+        this.transaction_code = transaction_code;
+        this.field_id = field_id;
+        this.jam_id = jam_id;
+        this.price = price;
         this.jam = jam;
     }
 
@@ -15,6 +25,38 @@ public class BookedModel {
 
     public void setOrder_date(String order_date) {
         this.order_date = order_date;
+    }
+
+    public String getTransaction_code() {
+        return transaction_code;
+    }
+
+    public void setTransaction_code(String transaction_code) {
+        this.transaction_code = transaction_code;
+    }
+
+    public String getField_id() {
+        return field_id;
+    }
+
+    public void setField_id(String field_id) {
+        this.field_id = field_id;
+    }
+
+    public String getJam_id() {
+        return jam_id;
+    }
+
+    public void setJam_id(String jam_id) {
+        this.jam_id = jam_id;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getJam() {

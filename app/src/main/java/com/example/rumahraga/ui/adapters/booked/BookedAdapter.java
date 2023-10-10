@@ -54,12 +54,10 @@ public class BookedAdapter extends RecyclerView.Adapter<BookedAdapter.ViewHolder
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         private TextView tvDate, tvJam;
-        private ImageButton btnDelete;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvJam = itemView.findViewById(R.id.tvJam);
-            btnDelete = itemView.findViewById(R.id.btnDelete);
 
         }
     }
