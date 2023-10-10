@@ -103,8 +103,6 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
         // init transaction code
         String timeStamp = String.valueOf(System.currentTimeMillis());
         transactionCode = "TRX" + userId + timeStamp;
-        showToast(ConsOther.TOAST_NORMAL, transactionCode);
-
     }
 
     private void init() {

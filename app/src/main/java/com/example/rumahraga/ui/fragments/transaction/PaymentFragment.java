@@ -97,6 +97,7 @@ public class PaymentFragment extends Fragment {
         binding.rvOrder.setLayoutManager(linearLayoutManager);
         binding.rvOrder.setAdapter(bookedAdapter);
         binding.btnUploadReceipt.setEnabled(false);
+        binding.btnOpenBottomSheet.setEnabled(false);
 
         formatRupiah(binding.tvTotalPrice, totalTransaction);
         formatRupiah(binding.tvCheckOutPrice, totalTransaction);
@@ -124,6 +125,9 @@ public class PaymentFragment extends Fragment {
 
     }
     private void getPaymentDetail() {
+        binding.shimmerMain.setVisibility(View.VISIBLE);
+        binding.shimmerMain.startShimmer();
+        binding.lrMain.setVisibility(View.GONE);
         if (payment_id != null) {
             paymentViewModel.getPaymentDetail(payment_id).observe(getViewLifecycleOwner(), new Observer<ResponseModel<PaymentMethodModel>>() {
                 @Override
@@ -138,14 +142,22 @@ public class PaymentFragment extends Fragment {
 
                         binding.tvCredential.setText(paymentMethodModelResponseModel.getData().getCredential());
                         paymentImage = paymentMethodModelResponseModel.getData().getImage();
+
+                        binding.btnOpenBottomSheet.setEnabled(true);
+
+                        // hide shimmer
+                        binding.shimmerMain.setVisibility(View.GONE);
+                        binding.lrMain.setVisibility(View.VISIBLE);
                     }else {
                         showToast(ConsOther.TOAST_ERR, "Gagal memuat detail transaksi");
+                        binding.btnOpenBottomSheet.setEnabled(false);
                     }
 
                 }
             });
         }else {
             showToast(ConsOther.TOAST_ERR, "Gagal memuat metode pembayaran");
+            binding.btnOpenBottomSheet.setEnabled(false);
         }
 
     }

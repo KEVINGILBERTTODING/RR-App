@@ -47,7 +47,7 @@
                             android:layout_marginTop="@dimen/_5sdp"
                             android:fontFamily="@font/popsem"
                             android:layout_marginRight="@dimen/_7sdp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/white"
                             android:textSize="@dimen/_18ssp"/>
                     </RelativeLayout>
 

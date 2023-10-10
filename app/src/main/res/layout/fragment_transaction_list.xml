@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/background"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.field.FieldCategoryFragment">
+        tools:context=".ui.fragments.transaction.TransactionListFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -33,7 +34,7 @@
                             android:id="@+id/tvCategories"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Lapangan"
+                            android:text="Riwayat Transaksi"
                             android:layout_centerVertical="true"
                             android:layout_toLeftOf="@id/btnFilter"
                             android:layout_marginLeft="@dimen/_7sdp"
@@ -49,19 +50,6 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentEnd="true"
                             android:orientation="horizontal">
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                app:cardElevation="0dp"
-                                app:cardBackgroundColor="@color/main3"
-                                android:id="@+id/btnFilter"
-                                app:cardCornerRadius="@dimen/_5sdp">
-                                <ImageView
-                                    android:layout_width="@dimen/_20sdp"
-                                    android:layout_height="@dimen/_20sdp"
-                                    android:layout_gravity="center_vertical|center_horizontal"
-                                    android:src="@drawable/ic_filter"/>
-                            </androidx.cardview.widget.CardView>
 
                             <androidx.cardview.widget.CardView
                                 android:layout_width="@dimen/_30sdp"
@@ -127,7 +115,7 @@
                     </com.facebook.shimmer.ShimmerFrameLayout>
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvField"
-                        tools:listitem="@layout/list_field_main"
+                        tools:listitem="@layout/list_transactions"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
 
@@ -146,7 +134,6 @@
             android:textSize="@dimen/_13ssp"
             android:textColor="@color/black"
             android:layout_centerInParent="true"/>
-
 
     </RelativeLayout>
 </layout>

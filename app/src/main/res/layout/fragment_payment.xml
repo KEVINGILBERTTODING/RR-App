@@ -51,108 +51,182 @@
                     <androidx.core.widget.NestedScrollView
                         android:layout_width="match_parent"
                         android:layout_above="@id/bottomLayout"
-                        android:layout_height="wrap_content">
+                        android:layout_height="match_parent">
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:orientation="vertical"
                             android:layout_height="wrap_content">
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_70sdp"
-                                app:cardElevation="0dp"
-                                app:cardCornerRadius="@dimen/_10sdp"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_height="@dimen/_70sdp">
-                                <ImageView
-                                    android:id="@+id/ivPayment"
+                            <com.facebook.shimmer.ShimmerFrameLayout
+                                android:layout_width="match_parent"
+                                android:id="@+id/shimmerMain"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
                                     android:layout_width="match_parent"
-                                    android:layout_height="match_parent"/>
-                            </androidx.cardview.widget.CardView>
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="@dimen/_70sdp"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        android:layout_gravity="center_horizontal"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_70sdp"/>
 
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text="Klik gambar untuk memperbesar"
-                                android:fontFamily="@font/popreg"
-                                android:textSize="@dimen/_9ssp"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:id="@+id/tvPaymentName"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text="QRIS Rumah Raga"
-                                android:fontFamily="@font/popmed"
-                                android:textSize="@dimen/_11ssp"/>
 
 
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:id="@+id/tvCredential"
-                                android:textColor="@color/black"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:text="13435779232332"
-                                android:fontFamily="@font/popmed"
-                                android:textSize="@dimen/_16ssp"/>
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_25sdp"
+                                        android:gravity="center"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:text="Klik gambar untuk memperbesar"
+                                        android:fontFamily="@font/popreg"
+                                        android:textSize="@dimen/_9ssp"/>
 
-                            <View
-                                android:layout_width="match_parent"
-                                android:layout_marginTop="@dimen/_5sdp"
-                                android:layout_height="@dimen/_1sdp"
-                                android:background="@color/gray"/>
-
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:layout_marginTop="@dimen/_20sdp"
-                                android:text="Total yang harus dibayar"
-                                android:fontFamily="@font/popmed"
-                                android:textSize="@dimen/_9ssp"/>
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:gravity="center"
-                                android:id="@+id/tvTotalPrice"
-                                android:background="@drawable/spinner_stroke"
-                                android:textColor="@color/main"
-                                android:text="Rp. 500.000"
-                                android:padding="@dimen/_5sdp"
-                                android:fontFamily="@font/popsem"
-                                android:textSize="@dimen/_20ssp"/>
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_25sdp"
+                                        android:gravity="center"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:text="Klik gambar untuk memperbesar"
+                                        android:fontFamily="@font/popreg"
+                                        android:textSize="@dimen/_9ssp"/>
 
 
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:gravity="center"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:text="Klik gambar untuk memperbesar"
+                                        android:fontFamily="@font/popreg"
+                                        android:textSize="@dimen/_9ssp"/>
+
+
+
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:gravity="center"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:text="Klik gambar untuk memperbesar"
+                                        android:fontFamily="@font/popreg"
+                                        android:textSize="@dimen/_9ssp"/>
+
+                                </LinearLayout>
+                            </com.facebook.shimmer.ShimmerFrameLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
-                                android:layout_marginTop="@dimen/_20sdp"
+                                android:id="@+id/lrMain"
+                                android:visibility="gone"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
+
+                                <ImageView
+                                    android:id="@+id/ivPayment"
+                                    android:layout_width="@dimen/_80sdp"
+                                    android:layout_gravity="center_horizontal"
+                                    android:layout_height="@dimen/_80sdp"/>
+
 
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:text="Klik gambar untuk memperbesar"
+                                    android:fontFamily="@font/popreg"
+                                    android:textSize="@dimen/_9ssp"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:id="@+id/tvPaymentName"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:text="QRIS Rumah Raga"
+                                    android:fontFamily="@font/popmed"
+                                    android:textSize="@dimen/_11ssp"/>
+
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:id="@+id/tvCredential"
                                     android:textColor="@color/black"
                                     android:layout_marginTop="@dimen/_5sdp"
-                                    android:text="Daftar pemesanan"
+                                    android:text="13435779232332"
                                     android:fontFamily="@font/popmed"
-                                    android:textSize="@dimen/_13ssp"/>
-                                <androidx.recyclerview.widget.RecyclerView
+                                    android:textSize="@dimen/_16ssp"/>
+
+                                <View
                                     android:layout_width="match_parent"
-                                    android:id="@+id/rvOrder"
-                                    tools:listitem="@layout/list_booked"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:layout_height="@dimen/_1sdp"
+                                    android:background="@color/gray"/>
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:layout_marginTop="@dimen/_20sdp"
+                                    android:text="Total yang harus dibayar"
+                                    android:fontFamily="@font/popmed"
+                                    android:textSize="@dimen/_9ssp"/>
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center"
+                                    android:id="@+id/tvTotalPrice"
+                                    android:background="@drawable/spinner_stroke"
+                                    android:textColor="@color/main"
+                                    android:text="Rp. 500.000"
+                                    android:padding="@dimen/_5sdp"
+                                    android:fontFamily="@font/popsem"
+                                    android:textSize="@dimen/_20ssp"/>
+
+
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_marginTop="@dimen/_20sdp"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/black"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:text="Daftar pemesanan"
+                                        android:fontFamily="@font/popmed"
+                                        android:textSize="@dimen/_13ssp"/>
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/rvOrder"
+                                        android:layout_height="wrap_content"/>
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
 
                             </LinearLayout>
 
 
-                        </LinearLayout>
                     </androidx.core.widget.NestedScrollView>
 
                     <RelativeLayout
@@ -181,7 +255,6 @@
                                 android:id="@+id/tvCheckOutPrice"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Rp. 200.000"
                                 android:textColor="@color/black"
                                 android:includeFontPadding="false"
                                 android:fontFamily="@font/popsem"
@@ -287,7 +360,7 @@
                         android:layout_height="@dimen/_20sdp"
                         android:layout_gravity="center_vertical"
                         android:tint="@color/white"
-                        android:src="@drawable/ic_order_list"/>
+                        android:src="@drawable/ic_receipt"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -326,15 +399,7 @@
                         android:background="@drawable/login_container"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/popmed"
-                            android:textSize="@dimen/_13ssp"
-                            android:textColor="@color/main"
-                            android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="@dimen/_20sdp"
-                            android:text="Bukti pembayaran"/>
+
 
 
                         <RelativeLayout
@@ -343,17 +408,34 @@
                             <ImageView
                                 android:id="@+id/ivPaymentReceipt"
                                 android:layout_width="match_parent"
-                                android:layout_height="@dimen/_300sdp"/>
+                                android:layout_height="@dimen/_200sdp"/>
 
-                            <TextView
+                            <LinearLayout
                                 android:id="@+id/tvImageClick"
                                 android:layout_width="wrap_content"
-                                android:fontFamily="@font/popreg"
-                                android:textSize="@dimen/_10ssp"
+                                android:orientation="vertical"
                                 android:layout_centerInParent="true"
-                                android:layout_gravity="center_horizontal|center_vertical"
-                                android:layout_height="wrap_content"
-                                android:text="Klik untuk memilih gambar"/>
+                                android:layout_height="wrap_content">
+
+                                <ImageView
+                                    android:layout_width="@dimen/_65sdp"
+                                    android:src="@drawable/ic_picture"
+                                    android:layout_gravity="center_horizontal"
+                                    android:tint="@color/gray"
+                                    android:layout_height="@dimen/_65sdp"/>
+                                <TextView
+
+                                    android:layout_width="wrap_content"
+                                    android:fontFamily="@font/popreg"
+                                    android:textSize="@dimen/_10ssp"
+                                    android:gravity="center_horizontal"
+                                    android:layout_marginTop="@dimen/_5sdp"
+                                    android:layout_gravity="center_horizontal|center_vertical"
+                                    android:layout_height="wrap_content"
+                                    android:text="Klik untuk memilih gambar"/>
+                            </LinearLayout>
+
+
                         </RelativeLayout>
 
 
