@@ -375,43 +375,15 @@
                             android:gravity="end"
                             android:layout_marginTop="@dimen/_10sdp"
                             android:layout_height="wrap_content">
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_centerVertical="true"
-                                android:layout_height="wrap_content"
-                                android:id="@+id/lrBayar"
-                                android:layout_marginRight="@dimen/_10sdp"
-                                android:orientation="vertical">
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Total pembayaran"
-                                    android:textColor="@color/main"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:fontFamily="@font/popreg"
-                                    android:textSize="@dimen/_11ssp"/>
-                                <TextView
-                                    android:id="@+id/tvBayarr"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:text="Rp. 200.000"
-                                    android:textColor="@color/black"
-                                    android:includeFontPadding="false"
-                                    android:fontFamily="@font/popsem"
-                                    android:textSize="@dimen/_15ssp"/>
 
-
-
-                            </LinearLayout>
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnUploadReceipt"
                                 android:layout_width="wrap_content"
                                 app:cornerRadius="@dimen/_5sdp"
                                 android:layout_centerVertical="true"
-                                android:layout_toRightOf="@id/lrBayar"
                                 android:layout_height="wrap_content"
-                                android:text="Bayar sekarang"/>
+                                android:text="Kirim bukti pembayaran"/>
                         </RelativeLayout>
 
 

@@ -1,6 +1,7 @@
 package com.example.rumahraga.ui.fragments.transaction;
 
 import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -23,6 +24,7 @@ import android.provider.OpenableColumns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -33,12 +35,15 @@ import com.example.rumahraga.model.BookedModel;
 import com.example.rumahraga.model.PaymentMethodModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.ui.adapters.booked.BookedAdapter;
+import com.example.rumahraga.ui.fragments.home.HomeFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
 import com.example.rumahraga.viewmodel.payment.PaymentViewModel;
 import com.example.rumahraga.viewmodel.transaction.TransactionViewModel;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -67,6 +72,7 @@ public class PaymentFragment extends Fragment {
     private File file;
     private BottomSheetBehavior bottomSheetBehavior;
     private TransactionViewModel transactionViewModel;
+    private Dialog dialogUplaoding;
 
 
 
@@ -90,6 +96,7 @@ public class PaymentFragment extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         binding.rvOrder.setLayoutManager(linearLayoutManager);
         binding.rvOrder.setAdapter(bookedAdapter);
+        binding.btnUploadReceipt.setEnabled(false);
 
         formatRupiah(binding.tvTotalPrice, totalTransaction);
         formatRupiah(binding.tvCheckOutPrice, totalTransaction);
@@ -199,8 +206,16 @@ public class PaymentFragment extends Fragment {
     }
 
     private void transaction() {
+        dialogUplaoding = new Dialog(getContext());
+        dialogUplaoding.setContentView(R.layout.dialog_uploading);
+        dialogUplaoding.setCancelable(false);
+        dialogUplaoding.setCanceledOnTouchOutside(false);
+        dialogUplaoding.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        final TextView tvMessage = dialogUplaoding.findViewById(R.id.tvMessage);
+        tvMessage.setText("Sedang mengirim bukti pembayaran Anda");
+        dialogUplaoding.show();
 
-        if (transactionCode != null && userId != null && mitraId != null && payment_id !=  null ) {
+        if (transactionCode != null && userId != null && mitraId != null && payment_id !=  null && bookedModelList != null && bookedModelList.size() > 0) {
             HashMap map = new HashMap();
             map.put("transaction_code", RequestBody.create(MediaType.parse("text/plain"), transactionCode));
             map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userId));
@@ -228,20 +243,18 @@ public class PaymentFragment extends Fragment {
     }
 
     private void insertDetailTransaction(){
-        if (bookedModelList != null && bookedModelList.size() > 0) {
+        dialogUplaoding.dismiss();
             transactionViewModel.insertDetailTransaction(bookedModelList).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
                     if (responseModel.isStatus() == true) {
-                        showToast(ConsOther.TOAST_SUCCESS, "berhasil");
+                        showSuccessDialog();
                     }else {
-                        showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+                        showFailedDialog(responseModel.getMessage());
                     }
                 }
             });
-        }else {
-            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
-        }
+
     }
 
     private void hideBottomSheet() {
@@ -266,10 +279,46 @@ public class PaymentFragment extends Fragment {
     }
 
     private void fragmentTransaction(Fragment fragment) {
-        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameMain, fragment)
+        getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameMain, fragment)
                 .commit();
     }
 
+    private void showSuccessDialog() {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_success);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        final TextView tvMessage = dialog.findViewById(R.id.tvMessage);
+        final Button btnOke = dialog.findViewById(R.id.btnOke);
+        btnOke.setText("Kembali ke home");
+        tvMessage.setText("Pembayaran anda telah berhasil, mohon menunggu validasi pembayaran Anda");
+        dialog.show();
+
+        btnOke.setOnClickListener(view -> {
+            fragmentTransaction(new HomeFragment());
+            dialog.dismiss();
+        });
+
+    }
+
+    private void showFailedDialog(String message) {
+        Dialog dialog = new Dialog(getContext());
+        dialog.setContentView(R.layout.dialog_failed);
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        final TextView tvMessage = dialog.findViewById(R.id.tvMessage);
+        final Button btnOke = dialog.findViewById(R.id.btnOke);
+        btnOke.setText("oke");
+        tvMessage.setText(message);
+        dialog.show();
+
+        btnOke.setOnClickListener(view -> {
+            dialog.dismiss();
+        });
+
+    }
     private void checkPermissionExternalStorage() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
             getContentLauncher.launch("image/*");
@@ -293,9 +342,12 @@ public class PaymentFragment extends Fragment {
                     binding.ivPaymentReceipt.setVisibility(View.VISIBLE);
                     binding.ivPaymentReceipt.setImageURI(uri);
                     binding.tvImageClick.setVisibility(View.GONE);
+                    binding.btnUploadReceipt.setEnabled(true);
+
 
                 } else {
                     showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+                    binding.btnUploadReceipt.setEnabled(false);
                 }
             }
     );
