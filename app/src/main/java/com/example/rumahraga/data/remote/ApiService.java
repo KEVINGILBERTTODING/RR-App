@@ -115,5 +115,11 @@ public interface ApiService {
             );
 
 
+    @POST("user/insert_detail_transaction")
+    Call<ResponseModel> insertDetailTransaction(
+            @Body List<BookedModel> bookedModel
+    );
+
+
 
 }

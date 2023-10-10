@@ -200,25 +200,48 @@ public class PaymentFragment extends Fragment {
 
     private void transaction() {
 
-        HashMap map = new HashMap();
-        map.put("transaction_code", RequestBody.create(MediaType.parse("text/plain"), transactionCode));
-        map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userId));
-        map.put("mitra_id", RequestBody.create(MediaType.parse("text/plain"), mitraId));
-        map.put("payment_id", RequestBody.create(MediaType.parse("text/plain"), payment_id));
-        map.put("total_price", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(totalTransaction)));
+        if (transactionCode != null && userId != null && mitraId != null && payment_id !=  null ) {
+            HashMap map = new HashMap();
+            map.put("transaction_code", RequestBody.create(MediaType.parse("text/plain"), transactionCode));
+            map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userId));
+            map.put("mitra_id", RequestBody.create(MediaType.parse("text/plain"), mitraId));
+            map.put("payment_id", RequestBody.create(MediaType.parse("text/plain"), payment_id));
+            map.put("total_price", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(totalTransaction)));
 
-        RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
-        MultipartBody.Part filePart = MultipartBody.Part.createFormData("payment_receipt", file.getName(), requestBody);
-        transactionViewModel.insertTransaction(map, filePart).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
-            @Override
-            public void onChanged(ResponseModel responseModel) {
-                if (responseModel.isStatus() == true) {
-                    showToast(ConsOther.TOAST_NORMAL, "Success");
-                }else {
-                    showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("payment_receipt", file.getName(), requestBody);
+            transactionViewModel.insertTransaction(map, filePart).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.isStatus() == true) {
+                       insertDetailTransaction();
+                    }else {
+                        showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+                    }
                 }
-            }
-        });
+            });
+        }else {
+            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+        }
+
+
+    }
+
+    private void insertDetailTransaction(){
+        if (bookedModelList != null && bookedModelList.size() > 0) {
+            transactionViewModel.insertDetailTransaction(bookedModelList).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.isStatus() == true) {
+                        showToast(ConsOther.TOAST_SUCCESS, "berhasil");
+                    }else {
+                        showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+                    }
+                }
+            });
+        }else {
+            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+        }
     }
 
     private void hideBottomSheet() {
