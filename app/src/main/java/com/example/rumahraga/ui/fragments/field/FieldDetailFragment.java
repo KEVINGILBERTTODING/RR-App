@@ -427,7 +427,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                 jamAdapter.notifyItemChanged(postion);
                 jamAdapter.notifyItemRangeChanged(postion, jamAdapter.getItemCount());
                 // menambahkan daftar booked
-                bookedModelList.add(new BookedModel(date, transactionCode, fieldId, jamModel.getJam_id(), rentPrice, jamModel.getJam()));
+                bookedModelList.add(new BookedModel(date, transactionCode, jamModel.getJam_id(), rentPrice, jamModel.getJam()));
                 bookedAdapter.notifyDataSetChanged();
 
                 // refresh item

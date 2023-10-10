@@ -231,6 +231,7 @@ public class PaymentFragment extends Fragment {
             HashMap map = new HashMap();
             map.put("transaction_code", RequestBody.create(MediaType.parse("text/plain"), transactionCode));
             map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userId));
+            map.put("field_id", RequestBody.create(MediaType.parse("text/palin"), fieldId));
             map.put("mitra_id", RequestBody.create(MediaType.parse("text/plain"), mitraId));
             map.put("payment_id", RequestBody.create(MediaType.parse("text/plain"), payment_id));
             map.put("total_price", RequestBody.create(MediaType.parse("text/plain"), String.valueOf(totalTransaction)));
