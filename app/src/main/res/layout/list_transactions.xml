@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_toRightOf="@id/cvImage"
-                    android:layout_marginLeft="@dimen/_6sdp"
+                    android:layout_marginLeft="@dimen/_10sdp"
                     android:orientation="vertical">
                     <TextView
                         android:id="@+id/tvFieldName"
@@ -92,7 +92,7 @@
                     android:fontFamily="@font/popreg"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
-                    android:text="Total Sewa: "/>
+                    android:text="Total Pembayaran: "/>
                 <TextView
                     android:id="@+id/tvTotalPrice"
                     android:layout_width="match_parent"

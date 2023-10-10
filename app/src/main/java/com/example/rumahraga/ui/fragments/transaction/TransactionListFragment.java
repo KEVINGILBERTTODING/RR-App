@@ -6,10 +6,12 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,11 +21,14 @@ import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.FragmentTransactionListBinding;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.TransactionModel;
+import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.transactions.TransactionsAdapter;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
 import com.example.rumahraga.viewmodel.transaction.TransactionViewModel;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -31,12 +36,13 @@ import es.dmoral.toasty.Toasty;
 
 
 @AndroidEntryPoint
-public class TransactionListFragment extends Fragment {
+public class TransactionListFragment extends Fragment implements ItemClickListener {
 
     private FragmentTransactionListBinding binding;
     private SharedPreferences sharedPreferences;
     private TransactionViewModel transactionViewModel;
     private String userId;
+    private List<TransactionModel> transactionModels;
     private TransactionsAdapter transactionsAdapter;
 
     @Override
@@ -66,6 +72,49 @@ public class TransactionListFragment extends Fragment {
     }
 
     private void listener() {
+        binding.btnShort.setOnClickListener(view -> {
+            Collections.reverse(transactionModels);
+            transactionsAdapter.notifyDataSetChanged();
+        });
+        binding.searchBar.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+
+        binding.swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getMyTransactions();
+                binding.swipeRefresh.setRefreshing(false);
+            }
+        });
+    }
+
+    private void filter(String newText) {
+        ArrayList<TransactionModel> filteredList = new ArrayList<>();
+        for (TransactionModel item : transactionModels) {
+            if (item != null && item.getField_name().toLowerCase().contains(newText.toLowerCase())) {
+                filteredList.add(item);
+            }
+            transactionsAdapter.filter(filteredList);
+
+            if (!filteredList.isEmpty()) {
+                binding.tvEmpty.setVisibility(View.GONE);
+                transactionsAdapter.filter(filteredList);
+            }else {
+                binding.tvEmpty.setText("Lapangan tidak ditemukan");
+                binding.tvEmpty.setVisibility(View.VISIBLE);
+
+            }
+        }
     }
 
     private void getMyTransactions() {
@@ -78,11 +127,15 @@ public class TransactionListFragment extends Fragment {
             @Override
             public void onChanged(ResponseModel<List<TransactionModel>> listResponseModel) {
                 if (listResponseModel.isStatus() == true) {
+                    transactionModels = listResponseModel.getData();
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-                    transactionsAdapter = new TransactionsAdapter(getContext(), listResponseModel.getData());
+                    transactionsAdapter = new TransactionsAdapter(getContext(), transactionModels);
                     binding.rvTransactions.setLayoutManager(linearLayoutManager);
                     binding.rvTransactions.setAdapter(transactionsAdapter);
                     binding.rvTransactions.setHasFixedSize(true);
+
+                    // click listener
+                    transactionsAdapter.setItemClickListener(TransactionListFragment.this);
 
 
                     // hide shimmer
@@ -92,7 +145,7 @@ public class TransactionListFragment extends Fragment {
                 }else {
                     binding.rvTransactions.setVisibility(View.GONE);
                     binding.shimmer.setVisibility(View.GONE);
-                    binding.tvEmpty.setVisibility(View.GONE);
+                    binding.tvEmpty.setVisibility(View.VISIBLE);
                     binding.tvEmpty.setText("Tidak ada transaksi");
                     showToast(ConsOther.TOAST_ERR, listResponseModel.getMessage());
 
@@ -119,4 +172,18 @@ public class TransactionListFragment extends Fragment {
     }
 
 
+    @Override
+    public void onItemClickListener(String type, int positon, Object object) {
+        TransactionModel transactionModel = (TransactionModel) object;
+        Fragment fragment = new TransactionDetailFragment();
+        Bundle arg = new Bundle();
+        arg.putString("transaction_code", transactionModel.getTransaction_code());
+        arg.putString("payment_name", transactionModel.getPayment_name());
+        arg.putString("order_date", transactionModel.getCreated_at());
+        arg.putInt("status", transactionModel.getStatus());
+        arg.putInt("total_price", transactionModel.getTotal_price());
+        arg.putString("reason", transactionModel.getReason());
+        fragment.setArguments(arg);
+        fragmentTransaction(new TransactionDetailFragment());
+    }
 }

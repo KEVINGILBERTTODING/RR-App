@@ -36,52 +36,52 @@
                     android:padding="@dimen/_10sdp"
                     android:orientation="vertical">
 
-                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                        android:id="@+id/spinnerLocation"
-                        android:layout_width="match_parent"
-                        style="@style/filterDropDown"
-                        android:layout_height="wrap_content"
-                        app:smsp_searchHeaderBackgroundColor="@color/main"
-                        app:smsp_searchHint="Cari lokasi"
-                        app:smsp_searchHeaderTextColor="@color/white"
-                        app:smsp_floatingLabelColor="@color/main"
-                        app:smsp_floatingLabelText="Lokasi Pencarian"
-                        app:smsp_hint="Pilih lokasi"
-                        app:smsp_enableSearchHeader="true"
-                        app:smsp_hintColor="@color/black"
-                        app:smsp_searchHeaderText="Cari lokasi"
-                        app:smsp_isSearchable="true"
-                        app:smsp_enableFloatingLabel="true"
-                        app:smsp_itemColor="@color/black"
-                        app:smsp_itemSize="@dimen/_11ssp"
-                        android:textSize="@dimen/_11ssp"
-                        app:smsp_itemListColor="@color/black"
-                        app:smsp_itemListHintBackgroundColor="#808080"
-                        app:smsp_itemListHintColor="#FFFFFF"
-                        app:smsp_selectedItemListColor="@color/main" />
 
-                    <com.chivorn.smartmaterialspinner.SmartMaterialSpinner
-                        android:id="@+id/spinnerCategory"
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputSpinnerCity"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                         android:layout_width="match_parent"
-                        style="@style/filterDropDown"
                         android:layout_height="wrap_content"
-                        app:smsp_searchHeaderBackgroundColor="@color/main"
-                        app:smsp_searchHint="Cari lokasi"
-                        app:smsp_searchHeaderTextColor="@color/white"
-                        app:smsp_floatingLabelColor="@color/main"
-                        app:smsp_floatingLabelText="Kategori Olahraga"
-                        app:smsp_hint="Pilih olahraga"
-                        app:smsp_enableSearchHeader="true"
-                        app:smsp_hintColor="@color/black"
-                        app:smsp_itemSize="@dimen/_11ssp"
-                        app:smsp_searchHeaderText="Cari lokasi"
-                        app:smsp_isSearchable="true"
-                        app:smsp_enableFloatingLabel="true"
-                        app:smsp_itemColor="@color/black"
-                        app:smsp_itemListColor="@color/black"
-                        app:smsp_itemListHintBackgroundColor="#808080"
-                        app:smsp_itemListHintColor="#FFFFFF"
-                        app:smsp_selectedItemListColor="@color/main" />
+                        android:layout_marginStart="10dp"
+                        android:hint="Pilih kota"
+                        android:layout_marginEnd="5dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputSpinnerCategory"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:hint="Pilih kategori"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_marginEnd="5dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"

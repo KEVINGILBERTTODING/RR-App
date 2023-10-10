@@ -17,8 +17,10 @@ public class TransactionModel {
     private String updated_at;
     private String field_name;
     private String field_image;
+    private String payment_name;
 
-    public TransactionModel(int transaction_id, String transaction_code, int mitra_id, int field_id, String user_id, int status, int total_price, String reason, int payment_id, String payment_receipt, String created_at, String updated_at, String field_name, String field_image) {
+    public TransactionModel(int transaction_id, String transaction_code, int mitra_id, int field_id, String user_id, int status, int total_price, String reason, int payment_id, String payment_receipt, String created_at,
+                            String updated_at, String field_name, String field_image, String payment_name) {
         this.transaction_id = transaction_id;
         this.transaction_code = transaction_code;
         this.mitra_id = mitra_id;
@@ -33,6 +35,7 @@ public class TransactionModel {
         this.updated_at = updated_at;
         this.field_name = field_name;
         this.field_image = field_image;
+        this.payment_name = payment_name;
     }
 
     public int getTransaction_id() {
@@ -149,5 +152,13 @@ public class TransactionModel {
 
     public void setField_image(String field_image) {
         this.field_image = field_image;
+    }
+
+    public String getPayment_name() {
+        return payment_name;
+    }
+
+    public void setPayment_name(String payment_name) {
+        this.payment_name = payment_name;
     }
 }

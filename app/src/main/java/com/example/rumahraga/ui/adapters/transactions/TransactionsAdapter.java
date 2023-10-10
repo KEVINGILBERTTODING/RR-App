@@ -19,6 +19,7 @@ import com.example.rumahraga.model.TransactionModel;
 import com.example.rumahraga.model.listener.ItemClickListener;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapter.ViewHolder> {
@@ -71,6 +72,11 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         holder.tvTotalPrice.setText("Rp. " + decimalFormat.format(transactionModels.get(holder.getBindingAdapterPosition()).getTotal_price()));
 
+    }
+
+    public void filter(ArrayList<TransactionModel> transactionModels ){
+        this.transactionModels = transactionModels;
+        notifyDataSetChanged();
     }
 
     @Override

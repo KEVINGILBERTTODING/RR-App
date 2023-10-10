@@ -40,9 +40,14 @@ import com.example.rumahraga.viewmodel.category.CategoryViewModel;
 import com.example.rumahraga.viewmodel.city.CityViewModel;
 import com.example.rumahraga.viewmodel.field.FieldViewModel;
 import com.example.rumahraga.viewmodel.user.UserViewModel;
+import com.google.android.material.textfield.TextInputLayout;
+import com.leo.searchablespinner.SearchableSpinner;
+import com.leo.searchablespinner.interfaces.OnItemSelectListener;
 import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
 import com.smarteist.autoimageslider.SliderAnimations;
 import com.smarteist.autoimageslider.SliderView;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +64,9 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private FieldViewModel fieldViewModel;
     private BannerViewModel bannerViewModel;
     private CityViewModel cityViewModel;
-    private List<String> cityList;
     private UserViewModel userViewModel;
+    private ArrayList arrayListCity;
+    private Boolean isTextInputLayoutClicked = false;
     private SharedPreferences.Editor editor;
 
 
@@ -180,20 +186,40 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private void initSpinnerLocation() {
 
 
-            binding.spinnerLocation.setItem(cityList);
-            binding.spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    showToast(ConsOther.TOAST_NORMAL, cityList.get(i));
-                    cityName = cityList.get(i);
+        final SearchableSpinner searchableSpinnerCity;
 
+        searchableSpinnerCity= new SearchableSpinner(getContext());
+        searchableSpinnerCity.setWindowTitle("Pilih Kota Anda");
+        searchableSpinnerCity.setSpinnerListItems(arrayListCity);
+
+
+        // listener spinner
+        searchableSpinnerCity.setOnItemSelectListener(new OnItemSelectListener() {
+            @Override
+            public void setOnItemSelectListener(int position, @NotNull String selectedString) {
+                if (isTextInputLayoutClicked) {
+                    binding.textInputSpinnerCity.getEditText().setText(selectedString);
+                    cityName = selectedString;
+                    showToast(ConsOther.TOAST_NORMAL, selectedString);
                 }
 
-                @Override
-                public void onNothingSelected(AdapterView<?> adapterView) {
 
-                }
-            });
+            }
+        });
+
+
+        binding.textInputSpinnerCity.getEditText().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isTextInputLayoutClicked = true;
+                searchableSpinnerCity.setHighlightSelectedItem(true);
+                searchableSpinnerCity.show();
+
+            }
+        });
+
+
+
 
 
     }
@@ -242,10 +268,10 @@ public class HomeFragment extends Fragment implements ItemClickListener {
             @Override
             public void onChanged(ResponseModel<List<CityModel>> listResponseModel) {
                 if (listResponseModel.isStatus() == true) {
-                    cityList = new ArrayList<>();
+                    arrayListCity = new ArrayList<>();
 
                     for (int i = 0; i < listResponseModel.getData().size(); i++){
-                        cityList.add(listResponseModel.getData().get(i).getNama());
+                        arrayListCity.add(listResponseModel.getData().get(i).getNama());
                     }
                     initSpinnerLocation();
                 }

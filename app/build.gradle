@@ -109,6 +109,7 @@ dependencies {
 
     // custom spinner
     implementation 'com.github.chivorns:smartmaterialspinner:1.5.0'
+    implementation 'com.github.leoncydsilva:SearchableSpinner:1.0.1'
 
 
 }

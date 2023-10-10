@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -32,6 +33,11 @@ import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.viewmodel.category.CategoryViewModel;
 import com.example.rumahraga.viewmodel.city.CityViewModel;
 import com.example.rumahraga.viewmodel.field.FieldViewModel;
+import com.google.android.material.textfield.TextInputLayout;
+import com.leo.searchablespinner.SearchableSpinner;
+import com.leo.searchablespinner.interfaces.OnItemSelectListener;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,12 +51,13 @@ import es.dmoral.toasty.Toasty;
 public class FieldAllFragment extends Fragment implements ItemClickListener {
     private FieldViewModel fieldViewModel;
     private CityViewModel cityViewModel;
-    String locationName, categoryName;
+    private String locationName, categoryName;
+    private Boolean isTextInputLayoutClicked = false;
 
     private FragmentFieldAllBinding binding;
     private List<FieldModel> fieldModelList;
     private FieldMainAdapter fieldMainAdapter;
-    private List<String> cityModelList, categoryModelList;
+    private ArrayList<String> arrayListCity, arrayListCategory;
     private CategoryViewModel categoryViewModel;
 
     @Override
@@ -78,6 +85,8 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
         fieldViewModel = new ViewModelProvider(this).get(FieldViewModel.class);
         cityViewModel = new ViewModelProvider(this).get(CityViewModel.class);
         categoryViewModel = new ViewModelProvider(this).get(CategoryViewModel.class);
+        arrayListCity = new ArrayList<>();
+        arrayListCategory = new ArrayList<>();
 
 
     }
@@ -195,9 +204,9 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
             public void onChanged(ResponseModel<List<CityModel>> listResponseModel) {
                 if (listResponseModel.isStatus() == true) {
 
-                    cityModelList = new ArrayList<>();
+                    arrayListCity = new ArrayList<>();
                     for (int i = 0; i < listResponseModel.getData().size(); i++) {
-                        cityModelList.add(listResponseModel.getData().get(i).getNama());
+                        arrayListCity.add(listResponseModel.getData().get(i).getNama());
                     }
                 }else {
                     showToast(ConsOther.TOAST_ERR, "Gagal mengambil lokasi");
@@ -211,9 +220,9 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
             @Override
             public void onChanged(ResponseModel<List<CategoryModel>> listResponseModel) {
                 if (listResponseModel.isStatus() == true) {
-                    categoryModelList = new ArrayList<>();
+                    arrayListCategory = new ArrayList<>();
                     for (int i = 0; i <listResponseModel.getData().size(); i++ ) {
-                        categoryModelList.add(listResponseModel.getData().get(i).getName());
+                        arrayListCategory.add(listResponseModel.getData().get(i).getName());
                     }
                 }else {
                     showToast(ConsOther.TOAST_ERR, "Gagal mengambil kategori olahraga");
@@ -266,41 +275,78 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
         Dialog dialog = new Dialog(getContext());
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.setContentView(R.layout.dialog_filter);
-        final SmartMaterialSpinner spinnerLocation, spinnerCategory;
+
         final Button btnFilter = dialog.findViewById(R.id.btnFilter);
-        spinnerLocation = dialog.findViewById(R.id.spinnerLocation);
-        spinnerCategory = dialog.findViewById(R.id.spinnerCategory);
-        spinnerLocation.setItem(cityModelList);
-        spinnerCategory.setItem(categoryModelList);
+
+        // custom spinner
+        final TextInputLayout textInputLayoutSpinnerCity,  textInputLayoutSpinnerCategory;
+        textInputLayoutSpinnerCity = dialog.findViewById(R.id.textInputSpinnerCity);
+        textInputLayoutSpinnerCategory = dialog.findViewById(R.id.textInputSpinnerCategory);
+        textInputLayoutSpinnerCity.setOnKeyListener(null);
+        textInputLayoutSpinnerCategory.setOnKeyListener(null);
+
+        final SearchableSpinner searchableSpinnerCity,searchableSpinnerCategory;
+        searchableSpinnerCity= new SearchableSpinner(getContext());
+        searchableSpinnerCategory= new SearchableSpinner(getContext());
+        searchableSpinnerCity.setWindowTitle("Pilih Kota");
+        searchableSpinnerCategory.setWindowTitle("Pilih Jenis Olahraga");
+        searchableSpinnerCity.setSpinnerListItems(arrayListCity);
+        searchableSpinnerCategory.setSpinnerListItems(arrayListCategory);
+
+
+        // listener spinner
+        searchableSpinnerCity.setOnItemSelectListener(new OnItemSelectListener() {
+            @Override
+            public void setOnItemSelectListener(int position, @NotNull String selectedString) {
+                if (isTextInputLayoutClicked) {
+                    textInputLayoutSpinnerCity.getEditText().setText(selectedString);
+                    locationName = selectedString;
+                    showToast(ConsOther.TOAST_NORMAL, selectedString);
+                }
+
+
+            }
+        });
+
+
+        textInputLayoutSpinnerCity.getEditText().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isTextInputLayoutClicked = true;
+                searchableSpinnerCity.setHighlightSelectedItem(true);
+                searchableSpinnerCity.show();
+
+            }
+        });
+
+        searchableSpinnerCategory.setOnItemSelectListener(new OnItemSelectListener() {
+            @Override
+            public void setOnItemSelectListener(int position, @NotNull String selectedString) {
+                if (isTextInputLayoutClicked) {
+                    textInputLayoutSpinnerCategory.getEditText().setText(selectedString);
+                    categoryName = selectedString;
+                    showToast(ConsOther.TOAST_NORMAL, selectedString);
+                }
+
+
+            }
+        });
+
+
+        textInputLayoutSpinnerCategory.getEditText().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                isTextInputLayoutClicked = true;
+                searchableSpinnerCategory.setHighlightSelectedItem(true);
+                searchableSpinnerCategory.show();
+
+            }
+        });
+
+
         dialog.show();
 
 
-        // listener
-        spinnerLocation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                locationName = cityModelList.get(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
-
-        spinnerCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                categoryName = categoryModelList.get(i).toString();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         btnFilter.setOnClickListener(view -> {
             if (locationName == null) {
