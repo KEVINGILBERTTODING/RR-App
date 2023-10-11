@@ -19,7 +19,6 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.chivorn.smartmaterialspinner.SmartMaterialSpinner;
 import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.FragmentFieldAllBinding;
 import com.example.rumahraga.model.CategoryModel;

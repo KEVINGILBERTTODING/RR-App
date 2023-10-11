@@ -20,10 +20,12 @@ import com.example.rumahraga.databinding.FragmentTransactionDetailBinding;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.TransactionDetailModel;
 import com.example.rumahraga.ui.adapters.transactions.TransactionDetailAdapter;
+import com.example.rumahraga.ui.fragments.ticket.TicketFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
 import com.example.rumahraga.viewmodel.transaction.TransactionDetailViewModel;
 
+import java.io.Serializable;
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -34,7 +36,7 @@ import es.dmoral.toasty.Toasty;
 @AndroidEntryPoint
 public class TransactionDetailFragment extends Fragment {
     private SharedPreferences sharedPreferences;
-    private String userId, transactionCode, reason;
+    private String userId, transactionCode, reason, fieldName, fieldAddress;
     private int status;
     private TransactionDetailViewModel transactionDetailViewModel;
     private TransactionDetailAdapter transactionDetailAdapter;
@@ -69,6 +71,20 @@ public class TransactionDetailFragment extends Fragment {
             binding.fab.setVisibility(View.VISIBLE);
             // set animation
             binding.lottieAnimation.setAnimation(R.raw.success_anim);
+            binding.fab.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment = new TicketFragment();
+                    Bundle arf = new Bundle();
+                    arf.putString("transaction_code", transactionCode);
+                    arf.putString("field_name", fieldName);
+                    arf.putString("field_address", fieldAddress);
+                    arf.putInt("total_price", getArguments().getInt("total_price", 0));
+                    arf.putSerializable("transaction_detail", (Serializable) transactionDetailModelist);
+                    fragment.setArguments(arf);
+                    fragmentTransaction(fragment);
+                }
+            });
         }else if (status == 2) {
             binding.tvStatus.setText("Pembayaran sedang diproses");
             binding.fab.setVisibility(View.GONE);
@@ -135,6 +151,10 @@ public class TransactionDetailFragment extends Fragment {
                                 binding.rvItem.setLayoutManager(linearLayoutManager);
                                 binding.rvItem.setHasFixedSize(true);
 
+                                fieldName = listResponseModel.getData().get(0).getField_name();
+                                fieldAddress = listResponseModel.getData().get(0).getField_address();
+
+
                                 // rekayasa tampilan
                                 binding.shimmerMain.setVisibility(View.GONE);
                                 binding.lrMain.setVisibility(View.VISIBLE);
@@ -160,6 +180,12 @@ public class TransactionDetailFragment extends Fragment {
 
         }
     }
+
+    private void fragmentTransaction(Fragment fragment) {
+        getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameMain, fragment)
+                .commit();
+    }
+
 
 
 }

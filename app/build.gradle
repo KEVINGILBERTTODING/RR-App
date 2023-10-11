@@ -108,8 +108,13 @@ dependencies {
     implementation 'com.jsibbold:zoomage:1.3.1'
 
     // custom spinner
-    implementation 'com.github.chivorns:smartmaterialspinner:1.5.0'
     implementation 'com.github.leoncydsilva:SearchableSpinner:1.0.1'
+
+    // ticket view
+    implementation 'com.github.mreram:ticketview:1.0.0'
+
+    // qrcode generator
+    implementation 'com.github.androidmads:QRGenerator:1.0.1'
 
 
 }
