@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_5sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        app:cardBackgroundColor="@color/white"
+        app:contentPadding="@dimen/_10sdp"
+        app:strokeColor="@color/main"
+        app:strokeWidth="@dimen/_3sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:src="@color/main"
+                    android:id="@+id/ivProfile"
+                    android:layout_gravity="center_vertical|top"
+                    android:layout_height="@dimen/_30sdp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+
+                    android:layout_marginLeft="@dimen/_10sdp"
+                    android:orientation="vertical">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvUsername"
+                        android:text="Vanesia Putri Indah"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_13ssp"
+                        android:textColor="@color/black"
+                        android:includeFontPadding="false"
+                        android:layout_gravity="center_vertical"/>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="2023-02-02"
+                        android:id="@+id/tvDate"
+                        android:fontFamily="@font/popreg"
+                        android:textSize="@dimen/_10ssp"
+                        android:includeFontPadding="false"
+                        android:layout_gravity="center_vertical"/>
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+            <RatingBar
+                android:layout_width="wrap_content"
+                android:id="@+id/ratingBar"
+                android:stepSize="0.5"
+                android:layout_marginTop="@dimen/_10sdp"
+                style="?android:attr/ratingBarStyleSmall"
+                android:progressTint="@color/yellow"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Saya sangat puas"
+                android:id="@+id/tvTextReview"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:fontFamily="@font/popreg"
+                android:textSize="@dimen/_12ssp"
+                android:textColor="@color/black"
+                android:includeFontPadding="false"
+                android:layout_gravity="center_vertical"/>
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</RelativeLayout>

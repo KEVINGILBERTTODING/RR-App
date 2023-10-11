@@ -141,6 +141,11 @@ public interface ApiService {
             @Field("stars") float stars
     );
 
+    @GET("user/get_reviews")
+    Call<ResponseModel<List<ReviewModel>>> getReview(
+            @Query("id") int fieldId
+    );
+
 
 
 }

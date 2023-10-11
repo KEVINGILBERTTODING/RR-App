@@ -36,6 +36,7 @@ import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.booked.BookedAdapter;
 import com.example.rumahraga.ui.adapters.jam.JamAdapter;
 import com.example.rumahraga.ui.adapters.spinner.SpinnerPaymentMethodAdapter;
+import com.example.rumahraga.ui.fragments.review.ReviewsFragment;
 import com.example.rumahraga.ui.fragments.transaction.PaymentFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
@@ -122,6 +123,17 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
     private void listener() {
         binding.btnBack.setOnClickListener(view -> {
             getActivity().onBackPressed();
+        });
+
+        binding.tvRating.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment fragment = new ReviewsFragment();
+                Bundle arg = new Bundle();
+                arg.putInt("field_id",Integer.parseInt(fieldId));
+                fragment.setArguments(arg);
+                fragmentTransaction(fragment);
+            }
         });
         binding.ivField.setOnClickListener(view -> {
             if (image != null) {
@@ -427,6 +439,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                 jamModel.setIs_available(2);
                 jamAdapter.notifyItemChanged(postion);
                 jamAdapter.notifyItemRangeChanged(postion, jamAdapter.getItemCount());
+
                 // menambahkan daftar booked
                 bookedModelList.add(new BookedModel(date, transactionCode, jamModel.getJam_id(), rentPrice, jamModel.getJam(), fieldId, fieldName));
                 bookedAdapter.notifyDataSetChanged();

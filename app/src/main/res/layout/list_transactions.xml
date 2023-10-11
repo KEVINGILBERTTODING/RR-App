@@ -5,16 +5,18 @@
     android:padding="@dimen/_5sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         app:cardElevation="0dp"
+        app:strokeColor="@color/main"
+        app:strokeWidth="@dimen/_3sdp"
         app:cardCornerRadius="@dimen/_15sdp"
         android:layout_height="wrap_content">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_8sdp"
+            android:padding="@dimen/_10sdp"
             android:orientation="vertical">
 
             <TextView
@@ -47,6 +49,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@id/cvImage"
                     android:layout_marginLeft="@dimen/_10sdp"
                     android:orientation="vertical">
@@ -59,14 +62,29 @@
                         android:textSize="@dimen/_13ssp"
                         android:text="Tri lomba juang"/>
 
-                    <TextView
-                        android:id="@+id/tvDate"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:fontFamily="@font/popreg"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/_11ssp"
-                        android:text="2023-02-02  19:02:02"/>
+                        android:orientation="horizontal">
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_height="@dimen/_15sdp"
+                            android:src="@drawable/ic_time"
+                            android:tint="@color/main"/>
+                        <TextView
+                            android:id="@+id/tvDate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_5sdp"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/popreg"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11ssp"
+                            android:text="2023-02-02  19:02:02"/>
+                    </LinearLayout>
+
+
                 </LinearLayout>
 
             </RelativeLayout>
@@ -96,7 +114,7 @@
                     android:id="@+id/tvTotalPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/popreg"
+                    android:fontFamily="@font/popmed"
                     android:textColor="@color/main"
                     android:textSize="@dimen/_12ssp"
                     android:text="RP. 20000.000"/>
@@ -143,6 +161,6 @@
 
 
 
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 </RelativeLayout>

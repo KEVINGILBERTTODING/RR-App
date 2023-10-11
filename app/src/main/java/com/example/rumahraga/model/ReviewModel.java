@@ -1,5 +1,7 @@
 package com.example.rumahraga.model;
 
+import com.example.rumahraga.data.remote.ApiService;
+
 public class ReviewModel {
     private String review_id;
     private String user_id;
@@ -7,12 +9,13 @@ public class ReviewModel {
     private String title;
     private String review_text;
     private int status;
-    private int stars;
-
+    private float stars;
+    private String username;
+    private String profile_picture;
     private String created_at;
     private float total_rating;
 
-    public ReviewModel(String review_id, String user_id, String field_id, String title, String review_text, int status, int stars, String created_at, float total_rating) {
+    public ReviewModel(String review_id, String user_id, String field_id, String title, String review_text, int status, float stars, String username, String profile_picture, String created_at, float total_rating) {
         this.review_id = review_id;
         this.user_id = user_id;
         this.field_id = field_id;
@@ -20,6 +23,8 @@ public class ReviewModel {
         this.review_text = review_text;
         this.status = status;
         this.stars = stars;
+        this.username = username;
+        this.profile_picture = profile_picture;
         this.created_at = created_at;
         this.total_rating = total_rating;
     }
@@ -72,12 +77,29 @@ public class ReviewModel {
         this.status = status;
     }
 
-    public int getStars() {
+    public float getStars() {
         return stars;
     }
 
-    public void setStars(int stars) {
+    public void setStars(float stars) {
         this.stars = stars;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPhoto_profile() {
+
+        return ApiService.BASE_URL + "data/photo_profile/" + profile_picture;
+    }
+
+    public void setPhoto_profile(String profile_picture) {
+        this.profile_picture = profile_picture;
     }
 
     public String getCreated_at() {

@@ -4,15 +4,16 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/_10sdp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardElevation="0dp"
+        app:strokeWidth="@dimen/_3sdp"
+        app:strokeColor="@color/main"
         android:layout_height="wrap_content">
         <RelativeLayout
             android:layout_width="match_parent"
             android:padding="@dimen/_10sdp"
-            android:background="@drawable/card_stroke"
             android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvImage"
@@ -103,7 +104,7 @@
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+    </com.google.android.material.card.MaterialCardView>
 
 
 

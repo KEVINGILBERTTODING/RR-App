@@ -9,6 +9,8 @@ import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.ReviewModel;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
@@ -43,6 +45,16 @@ public class ReviewViewModel extends ViewModel {
             responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.ERROR_MESSAGE, null));
         }
 
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel<List<ReviewModel>>> getAllReviews(int fieldId) {
+        MutableLiveData<ResponseModel<List<ReviewModel>>> responseModelMutableLiveData = new MutableLiveData<>();
+        if (fieldId != 0) {
+            return reviewRepository.getReview(fieldId);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
+        }
         return responseModelMutableLiveData;
     }
 }
