@@ -9,7 +9,7 @@
         app:cardCornerRadius="@dimen/_10sdp"
         android:layout_width="match_parent"
         app:cardElevation="0dp"
-        android:layout_height="@dimen/_100sdp">
+        android:layout_height="@dimen/_90sdp">
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -17,7 +17,7 @@
                 android:id="@+id/ivField"
                 android:scaleType="fitXY"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_100sdp"/>
+                android:layout_height="@dimen/_90sdp"/>
 
 
             <TextView
@@ -31,10 +31,9 @@
                 android:gravity="end"
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:fontFamily="@font/popmed"
-                android:text="Lapangan Indah"
                 android:maxLength="30"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_13ssp" />
+                android:textSize="@dimen/_12ssp" />
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
 

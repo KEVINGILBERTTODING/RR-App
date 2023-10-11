@@ -65,6 +65,8 @@ public class TransactionDetailFragment extends Fragment {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         binding.tvFinalTotalTransaction.setText("Rp. " + decimalFormat.format(getArguments().getInt("total_price", 0)));
 
+
+
         if (status == 1) { // transaction success
             binding.tvStatus.setText("Pembayaran berhasil divalidasi!");
             binding.fab.setText("Lihat Tiket");
@@ -155,6 +157,8 @@ public class TransactionDetailFragment extends Fragment {
                                 fieldName = listResponseModel.getData().get(0).getField_name();
                                 fieldAddress = listResponseModel.getData().get(0).getField_address();
                                 createdAt = listResponseModel.getData().get(0).getTransaction_date();
+
+                                binding.tvTotalHour.setText(String.valueOf(transactionDetailModelist.size()) + " Jam");
 
 
                                 // rekayasa tampilan

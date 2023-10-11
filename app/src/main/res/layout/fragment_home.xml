@@ -46,6 +46,7 @@
                     android:textColor="@color/white"
                     android:fontFamily="@font/popreg"
                     android:textSize="@dimen/_10ssp"
+                    android:includeFontPadding="false"
                     android:layout_height="wrap_content"
                     android:text="Selamat datang," />
 
@@ -55,14 +56,15 @@
                     android:layout_alignParentStart="true"
                     android:textColor="@color/white"
                     android:fontFamily="@font/popmed"
-                    android:textSize="@dimen/_18ssp"
+                    android:textSize="@dimen/_15ssp"
+                    android:includeFontPadding="false"
                     android:layout_height="wrap_content"
                     android:text="Jhon Doe" />
 
                 <androidx.appcompat.widget.SearchView
                     android:layout_width="match_parent"
                     android:id="@+id/searchBar"
-                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginTop="@dimen/_10sdp"
                     app:queryHint="Semarang selatan"
                     app:queryBackground="@drawable/container_searchbar"
                     android:background="@drawable/container_searchbar"
