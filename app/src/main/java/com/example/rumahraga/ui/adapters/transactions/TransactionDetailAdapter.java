@@ -18,17 +18,15 @@ import java.util.List;
 
 public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDetailAdapter.ViewHolder> {
     private Context context;
-    private List<TransactionDetailModel> bookedModelList;
-    private ItemClickListener itemClickListener;
+    private List<TransactionDetailModel> detailTransactionModelList;
 
-    public TransactionDetailAdapter(Context context, List<TransactionDetailModel> bookedModelList) {
+
+    public TransactionDetailAdapter(Context context, List<TransactionDetailModel> detailTransactionModelList) {
         this.context = context;
-        this.bookedModelList = bookedModelList;
+        this.detailTransactionModelList = detailTransactionModelList;
     }
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
-    }
+
 
     @NonNull
     @Override
@@ -40,8 +38,18 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
     @Override
     public void onBindViewHolder(@NonNull TransactionDetailAdapter.ViewHolder holder, int position) {
 
-        holder.tvJam.setText(bookedModelList.get(holder.getBindingAdapterPosition()).getJam());
-        holder.tvDate.setText(bookedModelList.get(holder.getBindingAdapterPosition()).getOrder_date());
+        holder.tvJam.setText(detailTransactionModelList.get(holder.getBindingAdapterPosition()).getJam());
+        holder.tvDate.setText(detailTransactionModelList.get(holder.getBindingAdapterPosition()).getOrder_date());
+        holder.tvFieldName.setText(detailTransactionModelList.get(holder.getBindingAdapterPosition()).getField_name());
+
+        if (detailTransactionModelList.get(holder.getBindingAdapterPosition()).getStatus() == 1) {
+            holder.tvFieldName.setTextColor(context.getColor(R.color.main));
+        }else if (detailTransactionModelList.get(holder.getBindingAdapterPosition()).getStatus() == 2) {
+            holder.tvFieldName.setTextColor(context.getColor(R.color.yellow));
+        }else {
+            holder.tvFieldName.setTextColor(context.getColor(R.color.red));
+
+        }
 
 
 
@@ -49,15 +57,16 @@ public class TransactionDetailAdapter extends RecyclerView.Adapter<TransactionDe
 
     @Override
     public int getItemCount() {
-        return bookedModelList.size();
+        return detailTransactionModelList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvDate, tvJam;
+        private TextView tvDate, tvJam, tvFieldName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvJam = itemView.findViewById(R.id.tvJam);
+            tvFieldName = itemView.findViewById(R.id.tvFieldName);
 
         }
     }

@@ -47,14 +47,14 @@
                             android:text="Detail Transaksi"/>
 
                         <TextView
+                            android:id="@+id/tvTransactionCode"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:layout_centerVertical="true"
                             android:fontFamily="@font/popmed"
                             android:includeFontPadding="false"
-                            android:textSize="@dimen/_13ssp"
-                            android:text="TRX93209323"/>
+                            android:textSize="@dimen/_13ssp"/>
 
                     </LinearLayout>
 
@@ -76,10 +76,80 @@
                             android:orientation="vertical"
                             android:layout_height="wrap_content">
 
+                            <com.facebook.shimmer.ShimmerFrameLayout
+                                android:layout_width="match_parent"
+                                android:id="@+id/shimmerMain"
+                                android:layout_height="wrap_content">
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="@dimen/_70sdp"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        android:layout_gravity="center_horizontal"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_70sdp"/>
+
+
+
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_25sdp"
+                                        android:gravity="center"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:text="Klik gambar untuk memperbesar"
+                                        android:fontFamily="@font/popreg"
+                                        android:textSize="@dimen/_9ssp"/>
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_25sdp"
+                                        android:gravity="center"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:text="Klik gambar untuk memperbesar"
+                                        android:fontFamily="@font/popreg"
+                                        android:textSize="@dimen/_9ssp"/>
+
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_30sdp"
+                                        android:gravity="center"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:text="Klik gambar untuk memperbesar"
+                                        android:fontFamily="@font/popreg"
+                                        android:textSize="@dimen/_9ssp"/>
+
+
+
+
+                                    <androidx.cardview.widget.CardView
+                                        android:layout_width="match_parent"
+                                        app:cardCornerRadius="@dimen/_10sdp"
+                                        app:cardBackgroundColor="@color/background"
+                                        android:layout_height="@dimen/_40sdp"
+                                        android:gravity="center"
+                                        android:layout_marginTop="@dimen/_20sdp"
+                                        android:text="Klik gambar untuk memperbesar"
+                                        android:fontFamily="@font/popreg"
+                                        android:textSize="@dimen/_9ssp"/>
+
+                                </LinearLayout>
+                            </com.facebook.shimmer.ShimmerFrameLayout>
 
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:id="@+id/lrMain"
+                                android:visibility="gone"
                                 android:layout_height="wrap_content"
                                 android:orientation="vertical">
 
@@ -285,8 +355,8 @@
         <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Lihat tiket"
             android:id="@+id/fab"
+            android:visibility="gone"
             app:iconTint="@color/main"
             android:textColor="@color/white"
             android:layout_alignParentBottom="true"

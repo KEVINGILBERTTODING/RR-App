@@ -21,6 +21,8 @@ public class BookedAdapter extends RecyclerView.Adapter<BookedAdapter.ViewHolder
     private List<BookedModel> bookedModelList;
     private ItemClickListener itemClickListener;
 
+
+
     public BookedAdapter(Context context, List<BookedModel> bookedModelList) {
         this.context = context;
         this.bookedModelList = bookedModelList;
@@ -42,6 +44,8 @@ public class BookedAdapter extends RecyclerView.Adapter<BookedAdapter.ViewHolder
 
         holder.tvJam.setText(bookedModelList.get(holder.getBindingAdapterPosition()).getJam());
         holder.tvDate.setText(bookedModelList.get(holder.getBindingAdapterPosition()).getOrder_date());
+        holder.tvFieldName.setText(bookedModelList.get(holder.getBindingAdapterPosition()).getFieldName());
+
 
 
 
@@ -53,11 +57,12 @@ public class BookedAdapter extends RecyclerView.Adapter<BookedAdapter.ViewHolder
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvDate, tvJam;
+        private TextView tvDate, tvJam, tvFieldName;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDate = itemView.findViewById(R.id.tvDate);
             tvJam = itemView.findViewById(R.id.tvJam);
+            tvFieldName = itemView.findViewById(R.id.tvFieldName);
 
         }
     }

@@ -66,6 +66,7 @@ public class TransactionDetailFragment extends Fragment {
         if (status == 1) { // transaction success
             binding.tvStatus.setText("Pembayaran berhasil divalidasi!");
             binding.fab.setText("Lihat Tiket");
+            binding.fab.setVisibility(View.VISIBLE);
             // set animation
             binding.lottieAnimation.setAnimation(R.raw.success_anim);
         }else if (status == 2) {
@@ -80,6 +81,7 @@ public class TransactionDetailFragment extends Fragment {
 
             if (reason != null && !reason.equals("")) {
                 binding.fab.setText("Lihat alasan");
+                binding.fab.setVisibility(View.VISIBLE);
             }else {
                 binding.fab.setVisibility(View.GONE);
             }
@@ -87,6 +89,9 @@ public class TransactionDetailFragment extends Fragment {
             // set animation
             binding.lottieAnimation.setAnimation(R.raw.failed_animation);
         }
+
+
+         binding.tvTransactionCode.setText(transactionCode);
 
         getDetailTransaction();
 
@@ -115,6 +120,9 @@ public class TransactionDetailFragment extends Fragment {
 
     private void getDetailTransaction() {
         if (transactionCode != null) {
+            binding.shimmerMain.setVisibility(View.VISIBLE);
+            binding.shimmerMain.startShimmer();
+            binding.lrMain.setVisibility(View.GONE);
             transactionDetailViewModel.getDetailTransaction(transactionCode).observe(getViewLifecycleOwner(),
                     new Observer<ResponseModel<List<TransactionDetailModel>>>() {
                         @Override
@@ -126,6 +134,12 @@ public class TransactionDetailFragment extends Fragment {
                                 binding.rvItem.setAdapter(transactionDetailAdapter);
                                 binding.rvItem.setLayoutManager(linearLayoutManager);
                                 binding.rvItem.setHasFixedSize(true);
+
+                                // rekayasa tampilan
+                                binding.shimmerMain.setVisibility(View.GONE);
+                                binding.lrMain.setVisibility(View.VISIBLE);
+
+
 
                             }else {
                                 showToast(ConsOther.TOAST_ERR, listResponseModel.getMessage());

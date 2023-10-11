@@ -65,7 +65,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
     private FieldViewModel fieldViewModel;
     private ReviewViewModel reviewViewModel;
     private SharedPreferences sharedPreferences;
-    private String userId, fieldId, image, date, paymentId, mitraId, transactionCode;
+    private String userId, fieldId, image, date, paymentId, mitraId, transactionCode, fieldName;
     private JamViewModel jamViewModel;
     private JamAdapter jamAdapter;
     private BookedAdapter bookedAdapter;
@@ -239,6 +239,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                         image = fieldModelResponseModel.getData().getImage();
                         rentPrice = fieldModelResponseModel.getData().getPrice();
                         formatRupiah(binding.tvRentPrice, fieldModelResponseModel.getData().getPrice());
+                        fieldName = fieldModelResponseModel.getData().getName();
 
 
 
@@ -250,8 +251,8 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                             binding.tvAddress.setText("-");
                         }
 
-                        if (!fieldModelResponseModel.getData().getName().isEmpty()) {
-                            binding.tvFieldName.setText(fieldModelResponseModel.getData().getName());
+                        if (!fieldName.equals("")) {
+                            binding.tvFieldName.setText(fieldName);
 
                         }else {
                             binding.tvFieldName.setText("-");
@@ -427,7 +428,7 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
                 jamAdapter.notifyItemChanged(postion);
                 jamAdapter.notifyItemRangeChanged(postion, jamAdapter.getItemCount());
                 // menambahkan daftar booked
-                bookedModelList.add(new BookedModel(date, transactionCode, jamModel.getJam_id(), rentPrice, jamModel.getJam(), fieldId));
+                bookedModelList.add(new BookedModel(date, transactionCode, jamModel.getJam_id(), rentPrice, jamModel.getJam(), fieldId, fieldName));
                 bookedAdapter.notifyDataSetChanged();
 
                 // refresh item

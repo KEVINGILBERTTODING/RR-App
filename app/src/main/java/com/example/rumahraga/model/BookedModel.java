@@ -10,13 +10,16 @@ public class BookedModel implements Serializable {
     private int price;
     private String jam;
 
-    public BookedModel(String order_date, String transaction_code, String jam_id, int price, String jam, String field_id) {
+    private String fieldName;
+    public BookedModel(String order_date, String transaction_code, String jam_id, int price, String jam, String field_id,
+                       String fieldName) {
         this.order_date = order_date;
         this.transaction_code = transaction_code;
         this.jam_id = jam_id;
         this.price = price;
         this.jam = jam;
         this.field_id = field_id;
+        this.fieldName = fieldName;
     }
 
     public String getOrder_date() {
@@ -64,5 +67,13 @@ public class BookedModel implements Serializable {
 
     public void setField_id(String field_id) {
         this.field_id = field_id;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
     }
 }

@@ -196,7 +196,7 @@ public class PaymentFragment extends Fragment {
 
     private void formatRupiah(TextView textView, int nominal) {
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        textView.setText("Rp. "+decimalFormat.format(nominal));
+        textView.setText("Rp. " +decimalFormat.format(nominal));
     }
 
     private void initBottomSheetPayment() {

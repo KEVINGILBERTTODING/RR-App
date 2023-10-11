@@ -8,9 +8,10 @@ public class TransactionDetailModel {
     private String order_date;
     private String jam;
     private String field_name;
+    private int status;
 
     public TransactionDetailModel(int detail_id, String transaction_code, int jam_id, int price, String order_date,
-                                  String jam, String field_name) {
+                                  String jam, String field_name, int status) {
         this.detail_id = detail_id;
         this.transaction_code = transaction_code;
         this.jam_id = jam_id;
@@ -18,6 +19,7 @@ public class TransactionDetailModel {
         this.order_date = order_date;
         this.jam = jam;
         this.field_name = field_name;
+        this.status = status;
     }
 
     public int getDetail_id() {
@@ -75,5 +77,9 @@ public class TransactionDetailModel {
 
     public void setField_name(String field_name) {
         this.field_name = field_name;
+    }
+
+    public int getStatus() {
+        return status;
     }
 }
