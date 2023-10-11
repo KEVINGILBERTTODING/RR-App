@@ -60,6 +60,18 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/_13ssp"/>
 
+
+                            <TextView
+                                android:id="@+id/tvDate"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="end"
+                                android:layout_marginTop="@dimen/_10sdp"
+                                android:text="Lapangan tri lomba juang"
+                                android:fontFamily="@font/popreg"
+                                android:textColor="@color/gray"
+                                android:textSize="@dimen/_11ssp"/>
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_marginTop="@dimen/_10sdp"

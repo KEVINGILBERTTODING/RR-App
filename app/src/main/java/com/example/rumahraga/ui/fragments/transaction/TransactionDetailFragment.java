@@ -36,7 +36,7 @@ import es.dmoral.toasty.Toasty;
 @AndroidEntryPoint
 public class TransactionDetailFragment extends Fragment {
     private SharedPreferences sharedPreferences;
-    private String userId, transactionCode, reason, fieldName, fieldAddress;
+    private String transactionCode, reason, fieldName, fieldAddress, createdAt;
     private int status;
     private TransactionDetailViewModel transactionDetailViewModel;
     private TransactionDetailAdapter transactionDetailAdapter;
@@ -81,6 +81,7 @@ public class TransactionDetailFragment extends Fragment {
                     arf.putString("field_address", fieldAddress);
                     arf.putInt("total_price", getArguments().getInt("total_price", 0));
                     arf.putSerializable("transaction_detail", (Serializable) transactionDetailModelist);
+                    arf.putSerializable("transaction_date", createdAt);
                     fragment.setArguments(arf);
                     fragmentTransaction(fragment);
                 }
@@ -118,7 +119,7 @@ public class TransactionDetailFragment extends Fragment {
     }
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(ConsSharedPref.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-        userId = sharedPreferences.getString(ConsSharedPref.USER_ID, null);
+
 
         transactionCode = getArguments().getString("transaction_code", null);
         status = getArguments().getInt("status", 0);
@@ -153,6 +154,7 @@ public class TransactionDetailFragment extends Fragment {
 
                                 fieldName = listResponseModel.getData().get(0).getField_name();
                                 fieldAddress = listResponseModel.getData().get(0).getField_address();
+                                createdAt = listResponseModel.getData().get(0).getTransaction_date();
 
 
                                 // rekayasa tampilan

@@ -61,6 +61,7 @@ public class TicketFragment extends Fragment {
         binding.tvEmail.setText(email);
         binding.tvAddress.setText(getArguments().getString("field_address", "-"));
         binding.tvFieldName.setText(getArguments().getString("field_name", "-"));
+        binding.tvDate.setText(getArguments().getString("transaction_date", "-"));
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         binding.tvTotalPrice.setText("Rp. " + decimalFormat.format(getArguments().getInt("total_price", 0)));
         setQrcode();
