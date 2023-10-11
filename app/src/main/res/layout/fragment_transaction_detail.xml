@@ -85,6 +85,7 @@
 
                                 <com.airbnb.lottie.LottieAnimationView
                                     android:layout_width="match_parent"
+                                    android:id="@+id/lottieAnimation"
                                     android:layout_height="@dimen/_100sdp"
                                     android:layout_centerInParent="true"
                                     android:layout_gravity="center"
@@ -101,7 +102,7 @@
                                     android:layout_marginTop="@dimen/_5sdp"
                                     android:fontFamily="@font/popmed"
                                     android:textColor="@color/black"
-                                    android:textSize="@dimen/_12ssp"/>
+                                    android:textSize="@dimen/_13ssp"/>
 
                                 <View
                                     android:layout_width="match_parent"

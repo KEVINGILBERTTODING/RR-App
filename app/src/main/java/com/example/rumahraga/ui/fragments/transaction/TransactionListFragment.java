@@ -192,6 +192,6 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
         arg.putInt("total_price", transactionModel.getTotal_price());
         arg.putString("reason", transactionModel.getReason());
         fragment.setArguments(arg);
-        fragmentTransaction(new TransactionDetailFragment());
+        fragmentTransaction(fragment);
     }
 }
