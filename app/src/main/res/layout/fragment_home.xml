@@ -368,7 +368,7 @@
 
 
 
-<!--        Relative layout show location picker-->
+<!--        Bottom sheet show location picker-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:id="@+id/rlLocation"

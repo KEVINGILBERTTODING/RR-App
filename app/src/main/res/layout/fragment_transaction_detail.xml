@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:background="@color/main"
@@ -8,363 +8,489 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.transaction.TransactionDetailFragment">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:layout_marginTop="@dimen/_40sdp"
+                        android:layout_height="wrap_content">
+                        <ImageButton
+                            android:id="@+id/btnBack"
+                            android:layout_alignParentStart="true"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_height="@dimen/_25sdp"
+                            android:background="@drawable/ic_back"/>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_10sdp"
+                            android:layout_toRightOf="@id/btnBack"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/popmed"
+                                android:includeFontPadding="false"
+                                android:textSize="@dimen/_16ssp"
+                                android:text="Detail Transaksi"/>
+
+                            <TextView
+                                android:id="@+id/tvTransactionCode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="@color/white"
+                                android:layout_centerVertical="true"
+                                android:fontFamily="@font/popmed"
+                                android:includeFontPadding="false"
+                                android:textSize="@dimen/_13ssp"/>
+
+                        </LinearLayout>
+
+
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="@dimen/_15sdp"
+                        android:padding="@dimen/_14sdp"
+                        android:background="@drawable/container_transaction_detail"
+                        android:layout_height="match_parent">
+                        <androidx.core.widget.NestedScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:orientation="vertical"
+                                android:layout_height="wrap_content">
+
+                                <com.facebook.shimmer.ShimmerFrameLayout
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/shimmerMain"
+                                    android:layout_height="wrap_content">
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="vertical">
+
+                                        <androidx.cardview.widget.CardView
+                                            android:layout_width="@dimen/_70sdp"
+                                            app:cardCornerRadius="@dimen/_10sdp"
+                                            android:layout_gravity="center_horizontal"
+                                            app:cardBackgroundColor="@color/background"
+                                            android:layout_height="@dimen/_70sdp"/>
+
+
+
+
+                                        <androidx.cardview.widget.CardView
+                                            android:layout_width="match_parent"
+                                            app:cardCornerRadius="@dimen/_10sdp"
+                                            app:cardBackgroundColor="@color/background"
+                                            android:layout_height="@dimen/_25sdp"
+                                            android:gravity="center"
+                                            android:layout_marginTop="@dimen/_20sdp"
+                                            android:text="Klik gambar untuk memperbesar"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_9ssp"/>
+
+                                        <androidx.cardview.widget.CardView
+                                            android:layout_width="match_parent"
+                                            app:cardCornerRadius="@dimen/_10sdp"
+                                            app:cardBackgroundColor="@color/background"
+                                            android:layout_height="@dimen/_25sdp"
+                                            android:gravity="center"
+                                            android:layout_marginTop="@dimen/_20sdp"
+                                            android:text="Klik gambar untuk memperbesar"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_9ssp"/>
+
+
+                                        <androidx.cardview.widget.CardView
+                                            android:layout_width="match_parent"
+                                            app:cardCornerRadius="@dimen/_10sdp"
+                                            app:cardBackgroundColor="@color/background"
+                                            android:layout_height="@dimen/_30sdp"
+                                            android:gravity="center"
+                                            android:layout_marginTop="@dimen/_20sdp"
+                                            android:text="Klik gambar untuk memperbesar"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_9ssp"/>
+
+
+
+
+                                        <androidx.cardview.widget.CardView
+                                            android:layout_width="match_parent"
+                                            app:cardCornerRadius="@dimen/_10sdp"
+                                            app:cardBackgroundColor="@color/background"
+                                            android:layout_height="@dimen/_40sdp"
+                                            android:gravity="center"
+                                            android:layout_marginTop="@dimen/_20sdp"
+                                            android:text="Klik gambar untuk memperbesar"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_9ssp"/>
+
+                                    </LinearLayout>
+                                </com.facebook.shimmer.ShimmerFrameLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:id="@+id/lrMain"
+                                    android:visibility="gone"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical">
+
+                                    <com.airbnb.lottie.LottieAnimationView
+                                        android:layout_width="match_parent"
+                                        android:id="@+id/lottieAnimation"
+                                        android:layout_height="@dimen/_100sdp"
+                                        android:layout_centerInParent="true"
+                                        android:layout_gravity="center"
+                                        app:lottie_autoPlay="true"
+                                        app:lottie_loop="true"
+                                        app:lottie_rawRes="@raw/failed_animation" />
+
+                                    <TextView
+                                        android:id="@+id/tvStatus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Menunggu validasi"
+                                        android:layout_gravity="center_horizontal"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/popmed"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_13ssp"/>
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:background="@color/background"
+                                        android:layout_marginTop="@dimen/_10sdp"
+                                        android:layout_height="@dimen/_1sdp"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Metode Pembayaran"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/popreg"
+                                        android:textColor="@color/main"
+                                        android:textSize="@dimen/_12ssp"/>
+
+                                    <TextView
+                                        android:id="@+id/tvMetodePembayaran"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Bank BRI"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/popreg"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_11ssp"/>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:background="@color/background"
+                                        android:layout_marginTop="@dimen/_10sdp"
+                                        android:layout_height="@dimen/_1sdp"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Tanggal transaksi"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/popreg"
+                                        android:textColor="@color/main"
+                                        android:textSize="@dimen/_12ssp"/>
+
+                                    <TextView
+                                        android:id="@+id/tvDate"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="2023-02-02"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/popreg"
+                                        android:textColor="@color/black"
+                                        android:textSize="@dimen/_11ssp"/>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:background="@color/background"
+                                        android:layout_marginTop="@dimen/_10sdp"
+                                        android:layout_height="@dimen/_1sdp"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Rincian pembayaran"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/popreg"
+                                        android:textColor="@color/main"
+                                        android:textSize="@dimen/_12ssp"/>
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_11ssp"
+                                            android:textColor="@color/black"
+                                            android:layout_alignParentStart="true"
+                                            android:text="Total Jam"/>
+
+                                        <TextView
+                                            android:id="@+id/tvTotalHour"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_11ssp"
+                                            android:textColor="@color/black"
+                                            android:layout_alignParentEnd="true"
+                                            android:text="Total Jam"/>
+
+                                    </RelativeLayout>
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:layout_height="wrap_content">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_11ssp"
+                                            android:textColor="@color/black"
+                                            android:layout_alignParentStart="true"
+                                            android:text="Biaya Tambahan"/>
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_11ssp"
+                                            android:textColor="@color/black"
+                                            android:layout_alignParentEnd="true"
+                                            android:text="Rp. 2.500"/>
+
+                                    </RelativeLayout>
+
+
+                                    <RelativeLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:layout_height="wrap_content">
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/popreg"
+                                            android:textSize="@dimen/_11ssp"
+                                            android:id="@+id/tv1"
+                                            android:textColor="@color/black"
+                                            android:layout_alignParentStart="true"
+                                            android:text="Total Pembayaran"/>
+
+                                        <TextView
+                                            android:id="@+id/tvFinalTotalTransaction"
+                                            android:layout_width="wrap_content"
+                                            android:layout_toRightOf="@id/tv1"
+                                            android:gravity="end"
+                                            android:layout_height="wrap_content"
+                                            android:fontFamily="@font/popmed"
+                                            android:textSize="@dimen/_12ssp"
+                                            android:textColor="@color/main"
+                                            android:layout_alignParentEnd="true"
+                                            android:text="RP. 200.000000000"/>
+
+
+
+                                    </RelativeLayout>
+
+
+                                    <View
+                                        android:layout_width="match_parent"
+                                        android:background="@color/background"
+                                        android:layout_marginTop="@dimen/_10sdp"
+                                        android:layout_height="@dimen/_1sdp"/>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Daftar Pesananan"
+                                        android:layout_marginTop="@dimen/_5sdp"
+                                        android:fontFamily="@font/popreg"
+                                        android:textColor="@color/main"
+                                        android:textSize="@dimen/_12ssp"/>
+
+                                    <androidx.recyclerview.widget.RecyclerView
+                                        android:id="@+id/rvItem"
+                                        tools:listitem="@layout/list_booked"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"/>
+
+
+
+                                </LinearLayout>
+                            </LinearLayout>
+                        </androidx.core.widget.NestedScrollView>
+
+
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fab"
+                android:visibility="gone"
+                app:iconTint="@color/main"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:layout_marginRight="@dimen/_14sdp"
+                app:backgroundTint="@color/main"
+                android:fontFamily="@font/popmed"
+                android:textSize="@dimen/_12ssp"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/vOverlay"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_width="match_parent"
+                android:clickable="true"
+                android:focusable="true"
+                android:background="@color/overlay"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/bottomSheetAlasan"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/container_main"
                 android:orientation="vertical">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_marginLeft="@dimen/_14sdp"
-                    android:layout_marginTop="@dimen/_40sdp"
-                    android:layout_height="wrap_content">
-                    <ImageButton
-                        android:id="@+id/btnBack"
-                        android:layout_alignParentStart="true"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:background="@drawable/ic_back"/>
+                <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:tint="@color/white"
+                    android:layout_height="wrap_content"/>
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_marker"/>
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_10sdp"
-                        android:layout_toRightOf="@id/btnBack"
+                        android:layout_marginLeft="@dimen/_5sdp"
                         android:orientation="vertical">
-
                         <TextView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/popmed"
                             android:includeFontPadding="false"
-                            android:textSize="@dimen/_16ssp"
-                            android:text="Detail Transaksi"/>
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popmed"
+                            android:layout_height="wrap_content"
+                            android:text="Alasan Penolakan"/>
 
-                        <TextView
-                            android:id="@+id/tvTransactionCode"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:layout_centerVertical="true"
-                            android:fontFamily="@font/popmed"
-                            android:includeFontPadding="false"
-                            android:textSize="@dimen/_13ssp"/>
 
                     </LinearLayout>
 
 
+                </LinearLayout>
 
-                </RelativeLayout>
 
-                <RelativeLayout
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_marginTop="@dimen/_15sdp"
-                    android:padding="@dimen/_14sdp"
-                    android:background="@drawable/container_transaction_detail"
-                    android:layout_height="match_parent">
-                    <androidx.core.widget.NestedScrollView
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/login_container"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-                        <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etReason"
                             android:layout_width="match_parent"
-                            android:orientation="vertical"
-                            android:layout_height="wrap_content">
-
-                            <com.facebook.shimmer.ShimmerFrameLayout
-                                android:layout_width="match_parent"
-                                android:id="@+id/shimmerMain"
-                                android:layout_height="wrap_content">
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical">
-
-                                    <androidx.cardview.widget.CardView
-                                        android:layout_width="@dimen/_70sdp"
-                                        app:cardCornerRadius="@dimen/_10sdp"
-                                        android:layout_gravity="center_horizontal"
-                                        app:cardBackgroundColor="@color/background"
-                                        android:layout_height="@dimen/_70sdp"/>
+                            android:layout_height="wrap_content"
+                            android:lines="5"
+                            android:enabled="false"
+                            android:gravity="start"
+                            android:fontFamily="@font/popreg"
+                            android:hint="Alasan"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_11sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
 
 
-                                    <androidx.cardview.widget.CardView
-                                        android:layout_width="match_parent"
-                                        app:cardCornerRadius="@dimen/_10sdp"
-                                        app:cardBackgroundColor="@color/background"
-                                        android:layout_height="@dimen/_25sdp"
-                                        android:gravity="center"
-                                        android:layout_marginTop="@dimen/_20sdp"
-                                        android:text="Klik gambar untuk memperbesar"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_9ssp"/>
-
-                                    <androidx.cardview.widget.CardView
-                                        android:layout_width="match_parent"
-                                        app:cardCornerRadius="@dimen/_10sdp"
-                                        app:cardBackgroundColor="@color/background"
-                                        android:layout_height="@dimen/_25sdp"
-                                        android:gravity="center"
-                                        android:layout_marginTop="@dimen/_20sdp"
-                                        android:text="Klik gambar untuk memperbesar"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_9ssp"/>
-
-
-                                    <androidx.cardview.widget.CardView
-                                        android:layout_width="match_parent"
-                                        app:cardCornerRadius="@dimen/_10sdp"
-                                        app:cardBackgroundColor="@color/background"
-                                        android:layout_height="@dimen/_30sdp"
-                                        android:gravity="center"
-                                        android:layout_marginTop="@dimen/_20sdp"
-                                        android:text="Klik gambar untuk memperbesar"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_9ssp"/>
+                </LinearLayout>
 
 
 
 
-                                    <androidx.cardview.widget.CardView
-                                        android:layout_width="match_parent"
-                                        app:cardCornerRadius="@dimen/_10sdp"
-                                        app:cardBackgroundColor="@color/background"
-                                        android:layout_height="@dimen/_40sdp"
-                                        android:gravity="center"
-                                        android:layout_marginTop="@dimen/_20sdp"
-                                        android:text="Klik gambar untuk memperbesar"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_9ssp"/>
 
-                                </LinearLayout>
-                            </com.facebook.shimmer.ShimmerFrameLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:id="@+id/lrMain"
-                                android:visibility="gone"
-                                android:layout_height="wrap_content"
-                                android:orientation="vertical">
-
-                                <com.airbnb.lottie.LottieAnimationView
-                                    android:layout_width="match_parent"
-                                    android:id="@+id/lottieAnimation"
-                                    android:layout_height="@dimen/_100sdp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_gravity="center"
-                                    app:lottie_autoPlay="true"
-                                    app:lottie_loop="true"
-                                    app:lottie_rawRes="@raw/failed_animation" />
-
-                                <TextView
-                                    android:id="@+id/tvStatus"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Menunggu validasi"
-                                    android:layout_gravity="center_horizontal"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:fontFamily="@font/popmed"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/_13ssp"/>
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/background"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_1sdp"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Metode Pembayaran"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:fontFamily="@font/popreg"
-                                    android:textColor="@color/main"
-                                    android:textSize="@dimen/_12ssp"/>
-
-                                <TextView
-                                    android:id="@+id/tvMetodePembayaran"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Bank BRI"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:fontFamily="@font/popreg"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/_11ssp"/>
-
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/background"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_1sdp"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Tanggal transaksi"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:fontFamily="@font/popreg"
-                                    android:textColor="@color/main"
-                                    android:textSize="@dimen/_12ssp"/>
-
-                                <TextView
-                                    android:id="@+id/tvDate"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="2023-02-02"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:fontFamily="@font/popreg"
-                                    android:textColor="@color/black"
-                                    android:textSize="@dimen/_11ssp"/>
-
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/background"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_1sdp"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Rincian pembayaran"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:fontFamily="@font/popreg"
-                                    android:textColor="@color/main"
-                                    android:textSize="@dimen/_12ssp"/>
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_11ssp"
-                                        android:textColor="@color/black"
-                                        android:layout_alignParentStart="true"
-                                        android:text="Total Jam"/>
-
-                                    <TextView
-                                        android:id="@+id/tvTotalHour"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_11ssp"
-                                        android:textColor="@color/black"
-                                        android:layout_alignParentEnd="true"
-                                        android:text="Total Jam"/>
-
-                                </RelativeLayout>
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:layout_height="wrap_content">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_11ssp"
-                                        android:textColor="@color/black"
-                                        android:layout_alignParentStart="true"
-                                        android:text="Biaya Tambahan"/>
-
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_11ssp"
-                                        android:textColor="@color/black"
-                                        android:layout_alignParentEnd="true"
-                                        android:text="Rp. 2.500"/>
-
-                                </RelativeLayout>
-
-
-                                <RelativeLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:layout_height="wrap_content">
-                                    <TextView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/popreg"
-                                        android:textSize="@dimen/_11ssp"
-                                        android:id="@+id/tv1"
-                                        android:textColor="@color/black"
-                                        android:layout_alignParentStart="true"
-                                        android:text="Total Pembayaran"/>
-
-                                    <TextView
-                                        android:id="@+id/tvFinalTotalTransaction"
-                                        android:layout_width="wrap_content"
-                                        android:layout_toRightOf="@id/tv1"
-                                        android:gravity="end"
-                                        android:layout_height="wrap_content"
-                                        android:fontFamily="@font/popmed"
-                                        android:textSize="@dimen/_12ssp"
-                                        android:textColor="@color/main"
-                                        android:layout_alignParentEnd="true"
-                                        android:text="RP. 200.000000000"/>
-
-
-
-                                </RelativeLayout>
-
-
-                                <View
-                                    android:layout_width="match_parent"
-                                    android:background="@color/background"
-                                    android:layout_marginTop="@dimen/_10sdp"
-                                    android:layout_height="@dimen/_1sdp"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Daftar Pesananan"
-                                    android:layout_marginTop="@dimen/_5sdp"
-                                    android:fontFamily="@font/popreg"
-                                    android:textColor="@color/main"
-                                    android:textSize="@dimen/_12ssp"/>
-
-                                <androidx.recyclerview.widget.RecyclerView
-                                    android:id="@+id/rvItem"
-                                    tools:listitem="@layout/list_booked"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"/>
-
-
-
-                            </LinearLayout>
-                        </LinearLayout>
-                    </androidx.core.widget.NestedScrollView>
-
-
-                </RelativeLayout>
             </LinearLayout>
-        </LinearLayout>
 
-        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/fab"
-            android:visibility="gone"
-            app:iconTint="@color/main"
-            android:textColor="@color/white"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="@dimen/_14sdp"
-            android:layout_marginRight="@dimen/_14sdp"
-            app:backgroundTint="@color/main"
-            android:fontFamily="@font/popmed"
-            android:textSize="@dimen/_12ssp"/>
-    </RelativeLayout>
+
+
+
+
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 </layout>

@@ -24,6 +24,7 @@ import com.example.rumahraga.ui.fragments.ticket.TicketFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
 import com.example.rumahraga.viewmodel.transaction.TransactionDetailViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.io.Serializable;
 import java.text.DecimalFormat;
@@ -41,6 +42,7 @@ public class TransactionDetailFragment extends Fragment {
     private TransactionDetailViewModel transactionDetailViewModel;
     private TransactionDetailAdapter transactionDetailAdapter;
     private List<TransactionDetailModel> transactionDetailModelist;
+    private BottomSheetBehavior bottomSheetReason;
 
 
     private FragmentTransactionDetailBinding binding;
@@ -64,6 +66,8 @@ public class TransactionDetailFragment extends Fragment {
         binding.tvDate.setText(getArguments().getString("order_date", null));
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         binding.tvFinalTotalTransaction.setText("Rp. " + decimalFormat.format(getArguments().getInt("total_price", 0)));
+        initBottomSheetReason();
+        bottomSheetReason.setState(BottomSheetBehavior.STATE_HIDDEN);
 
 
 
@@ -101,12 +105,26 @@ public class TransactionDetailFragment extends Fragment {
             if (reason != null && !reason.equals("")) {
                 binding.fab.setText("Lihat alasan");
                 binding.fab.setVisibility(View.VISIBLE);
+                binding.etReason.setText(reason);
+                binding.fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        showBottomSheetReason();
+                    }
+                });
+
+                showBottomSheetReason();
+
             }else {
                 binding.fab.setVisibility(View.GONE);
+                binding.etReason.setText("Tidak ada alasan");
             }
             binding.tvFinalTotalTransaction.setTextColor(getContext().getColor(R.color.red));
             // set animation
             binding.lottieAnimation.setAnimation(R.raw.failed_animation);
+
+
+
         }
 
 
@@ -135,7 +153,14 @@ public class TransactionDetailFragment extends Fragment {
         binding.btnBack.setOnClickListener(view -> {
             getActivity().onBackPressed();
         });
+        binding.vOverlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBottomSheetReason();
+            }
+        });
     }
+
 
     private void getDetailTransaction() {
         if (transactionCode != null) {
@@ -174,6 +199,34 @@ public class TransactionDetailFragment extends Fragment {
                         }
                     });
         }
+    }
+
+    private void initBottomSheetReason() {
+        bottomSheetReason = BottomSheetBehavior.from(binding.bottomSheetAlasan);
+        bottomSheetReason.setHideable(true);
+        bottomSheetReason.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBottomSheetReason();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    private void showBottomSheetReason() {
+        bottomSheetReason.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+    }
+
+    private void hideBottomSheetReason() {
+        bottomSheetReason.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
     }
 
     private void showToast(String type, String message) {
