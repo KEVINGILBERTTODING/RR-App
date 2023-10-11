@@ -60,14 +60,20 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
             }
             holder.tvStatus.setTextColor(context.getColor(R.color.main));
 
+            holder.tvTotalPrice.setTextColor(context.getColor(R.color.main));
+
+
         }else if (transactionModels.get(holder.getBindingAdapterPosition()).getStatus() == 2) {
             holder.tvStatus.setText("Menunggu Validasi");
             holder.tvStatus.setTextColor(context.getColor(R.color.yellow));
+            holder.tvTotalPrice.setTextColor(context.getColor(R.color.yellow));
             holder.lrReview.setVisibility(View.GONE);
         }else if (transactionModels.get(holder.getBindingAdapterPosition()).getStatus() == 0) {
             holder.tvStatus.setText("Gagal");
             holder.tvStatus.setTextColor(context.getColor(R.color.red));
             holder.lrReview.setVisibility(View.GONE);
+            holder.tvTotalPrice.setTextColor(context.getColor(R.color.red));
+
 
         }
 

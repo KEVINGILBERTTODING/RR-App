@@ -12,15 +12,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:padding="@dimen/_10sdp"
-            android:background="@drawable/card_stroke"
             android:layout_height="wrap_content">
             <androidx.cardview.widget.CardView
                 android:id="@+id/cvImage"
                 android:layout_centerVertical="true"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:cardElevation="0dp"
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_80sdp">
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_60sdp">
                 <ImageView
                     android:id="@+id/ivField"
                     android:src="@color/background"
@@ -60,14 +59,6 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:layout_height="@dimen/_20sdp"/>
 
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="@dimen/_150sdp"
-                    app:cardBackgroundColor="@color/background"
-                    app:cardCornerRadius="@dimen/_10sdp"
-                    app:cardElevation="0dp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:layout_height="@dimen/_20sdp"/>
 
             </LinearLayout>
         </RelativeLayout>

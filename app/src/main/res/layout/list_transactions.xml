@@ -35,7 +35,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cvImage"
-                    android:layout_width="@dimen/_60sdp"
+                    android:layout_width="@dimen/_80sdp"
                     app:cardCornerRadius="@dimen/_10sdp"
                     app:cardElevation="0dp"
                     android:layout_height="@dimen/_60sdp">
@@ -122,8 +122,8 @@
 
             <LinearLayout
                 android:id="@+id/lrReview"
-                android:visibility="gone"
                 android:layout_width="match_parent"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 <View
@@ -143,8 +143,9 @@
                         android:textSize="@dimen/_10ssp"
                         android:fontFamily="@font/popreg"
                         android:textColor="@color/black"
+                        android:layout_centerVertical="true"
                         android:layout_height="wrap_content"
-                        android:text="Berikan review dan penilaian tentang kepuasan Anda."/>
+                        android:text="Berikan ulasan tentang kepuasan Anda."/>
 
                     <com.google.android.material.button.MaterialButton
 

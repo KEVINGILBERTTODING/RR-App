@@ -178,6 +178,8 @@ public class FieldAllFragment extends Fragment implements ItemClickListener {
                     binding.shimmer.setVisibility(View.GONE);
                     if (listResponseModel.isStatus() == true) {
                         if (listResponseModel.getData().size() > 0) {
+
+                            FieldMainAdapter fieldMainAdapter = new FieldMainAdapter(getContext(), listResponseModel.getData());
                             fieldModelList = listResponseModel.getData();
                             fieldMainAdapter = new FieldMainAdapter(getContext(), fieldModelList);
                             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);

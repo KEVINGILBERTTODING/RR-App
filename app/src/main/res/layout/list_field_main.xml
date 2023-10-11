@@ -20,8 +20,8 @@
                 android:layout_centerVertical="true"
                 app:cardCornerRadius="@dimen/_10sdp"
                 app:cardElevation="0dp"
-                android:layout_width="@dimen/_90sdp"
-                android:layout_height="@dimen/_70sdp">
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_60sdp">
                 <ImageView
                     android:id="@+id/ivField"
                     android:src="@color/main"
@@ -91,7 +91,7 @@
                         android:includeFontPadding="false"
                         android:fontFamily="@font/popsem"
                         android:textColor="@color/black"
-                        android:textSize="@dimen/_14ssp"
+                        android:textSize="@dimen/_13ssp"
                         android:text="100.000"/>
 
                     <TextView
@@ -99,7 +99,7 @@
                         android:layout_height="wrap_content"
                         android:includeFontPadding="false"
                         android:fontFamily="@font/popsem"
-                        android:textSize="@dimen/_14ssp"
+                        android:textSize="@dimen/_13ssp"
                         android:text=" /Jam"/>
                 </LinearLayout>
             </LinearLayout>

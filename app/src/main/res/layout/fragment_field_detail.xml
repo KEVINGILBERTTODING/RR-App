@@ -117,7 +117,19 @@
                                             android:textColor="@color/black"
                                             android:fontFamily="@font/popsem"
                                             android:gravity="center_horizontal"
-                                            android:textSize="@dimen/_12ssp"/>
+                                            android:textSize="@dimen/_13ssp"/>
+
+
+                                        <TextView
+                                            android:id="@+id/tvTotalReviews"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:includeFontPadding="false"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="@dimen/_5sdp"
+                                            android:fontFamily="@font/popreg"
+                                            android:gravity="center_horizontal"
+                                            android:textSize="@dimen/_13ssp"/>
                                     </LinearLayout>
 
                                     <LinearLayout

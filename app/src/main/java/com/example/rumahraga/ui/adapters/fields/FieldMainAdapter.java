@@ -24,6 +24,7 @@ public class FieldMainAdapter extends RecyclerView.Adapter<FieldMainAdapter.VH> 
     private Context context;
     private List<FieldModel> fieldModelList;
     private ItemClickListener itemClickListener;
+    private List<String> ratinglist;
 
 
     public FieldMainAdapter(Context context, List<FieldModel> fieldModelList) {

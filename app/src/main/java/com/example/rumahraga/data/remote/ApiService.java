@@ -146,6 +146,11 @@ public interface ApiService {
             @Query("id") int fieldId
     );
 
+    @GET("user/get_total_review")
+    Call<ResponseModel<ReviewModel>> getTotalReview(
+            @Query("id") int fieldId
+    );
+
 
 
 }

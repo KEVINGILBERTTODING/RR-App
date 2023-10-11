@@ -194,7 +194,7 @@
                             android:textColor="@color/white"
                             android:fontFamily="@font/popmed"
                             android:layout_height="wrap_content"
-                            android:text="Review"/>
+                            android:text="Ulasan dan penilaian"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:includeFontPadding="false"
@@ -202,7 +202,7 @@
                             android:textColor="@color/white"
                             android:fontFamily="@font/popreg"
                             android:layout_height="wrap_content"
-                            android:text="Berikan penilaian tentang kepuasan Anda"/>
+                            android:text="Berikan ulasan tentang kepuasan Anda"/>
 
                     </LinearLayout>
 

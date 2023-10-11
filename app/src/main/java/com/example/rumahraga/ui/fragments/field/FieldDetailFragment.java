@@ -100,8 +100,11 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
         initBottomSheetCheckout();
         countTotalTransaction();
         getPaymentMethod();
+        getTotalReview();
+
+
         bottomSheetBehaviorCheckOut.setState(BottomSheetBehavior.STATE_HIDDEN);
-        // init transaction code
+        // create transaction code
         String timeStamp = String.valueOf(System.currentTimeMillis());
         transactionCode = "TRX" + userId + timeStamp;
     }
@@ -311,6 +314,21 @@ public class FieldDetailFragment extends Fragment implements ItemClickListener {
        }catch (Exception e) {
            showToast(ConsOther.TOAST_ERR, ConsResponse.SERVER_ERROR);
        }
+    }
+
+    private void getTotalReview() {
+        reviewViewModel.getTotalReview(Integer.parseInt(fieldId)).observe(getViewLifecycleOwner(), new Observer<ResponseModel<ReviewModel>>() {
+            @Override
+            public void onChanged(ResponseModel<ReviewModel> reviewModelResponseModel) {
+                if (reviewModelResponseModel.isStatus() == true) {
+                    binding.tvTotalReviews.setText("(" + String.valueOf(reviewModelResponseModel.getData().getTotal_review()) + " Ulasan)");
+
+                }else {
+                    binding.tvTotalReviews.setText("Belum ada ulasan");
+
+                }
+            }
+        });
     }
 
     private void getHour(String date) {

@@ -57,4 +57,14 @@ public class ReviewViewModel extends ViewModel {
         }
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel<ReviewModel>> getTotalReview(int fieldId) {
+        MutableLiveData<ResponseModel<ReviewModel>> responseModelMutableLiveData = new MutableLiveData<>();
+        if (fieldId != 0) {
+            return reviewRepository.getTotalReview(fieldId);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+        return responseModelMutableLiveData;
+    }
 }

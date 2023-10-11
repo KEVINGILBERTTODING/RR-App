@@ -14,8 +14,10 @@ public class ReviewModel {
     private String profile_picture;
     private String created_at;
     private float total_rating;
+    private int total_review;
 
-    public ReviewModel(String review_id, String user_id, String field_id, String title, String review_text, int status, float stars, String username, String profile_picture, String created_at, float total_rating) {
+    public ReviewModel(String review_id, String user_id, String field_id, String title, String review_text, int status, float stars, String username,
+                       String profile_picture, String created_at, float total_rating, int total_review) {
         this.review_id = review_id;
         this.user_id = user_id;
         this.field_id = field_id;
@@ -27,6 +29,7 @@ public class ReviewModel {
         this.profile_picture = profile_picture;
         this.created_at = created_at;
         this.total_rating = total_rating;
+        this.total_review = total_review;
     }
 
     public String getReview_id() {
@@ -116,5 +119,21 @@ public class ReviewModel {
 
     public void setTotal_rating(float total_rating) {
         this.total_rating = total_rating;
+    }
+
+    public String getProfile_picture() {
+        return profile_picture;
+    }
+
+    public void setProfile_picture(String profile_picture) {
+        this.profile_picture = profile_picture;
+    }
+
+    public int getTotal_review() {
+        return total_review;
+    }
+
+    public void setTotal_review(int total_review) {
+        this.total_review = total_review;
     }
 }
