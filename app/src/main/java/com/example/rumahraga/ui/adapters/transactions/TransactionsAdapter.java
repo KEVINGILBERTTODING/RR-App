@@ -5,6 +5,7 @@ import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -51,8 +52,14 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
 
         if (transactionModels.get(holder.getBindingAdapterPosition()).getStatus() == 1) {
             holder.tvStatus.setText("Berhasil");
+
+            if (transactionModels.get(holder.getBindingAdapterPosition()).getReview_id() != null) {
+                holder.lrReview.setVisibility(View.GONE);
+            }else{
+                holder.lrReview.setVisibility(View.VISIBLE);
+            }
             holder.tvStatus.setTextColor(context.getColor(R.color.main));
-            holder.lrReview.setVisibility(View.VISIBLE);
+
         }else if (transactionModels.get(holder.getBindingAdapterPosition()).getStatus() == 2) {
             holder.tvStatus.setText("Menunggu Validasi");
             holder.tvStatus.setTextColor(context.getColor(R.color.yellow));
@@ -88,6 +95,7 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
         TextView tvFieldName, tvStatus, tvDate, tvTotalPrice;
         ImageView ivField;
         LinearLayout lrReview;
+        private Button btnReview;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvFieldName = itemView.findViewById(R.id.tvFieldName);
@@ -96,6 +104,15 @@ public class TransactionsAdapter extends RecyclerView.Adapter<TransactionsAdapte
             tvTotalPrice = itemView.findViewById(R.id.tvTotalPrice);
             ivField = itemView.findViewById(R.id.ivField);
             lrReview = itemView.findViewById(R.id.lrReview);
+            btnReview = itemView.findViewById(R.id.btnReview);
+
+            btnReview.setOnClickListener(view -> {
+                if (itemClickListener != null) {
+                    itemClickListener.onItemClickListener("review", getBindingAdapterPosition(), transactionModels.get(getBindingAdapterPosition()));
+                }
+            });
+
+
 
             itemView.setOnClickListener(view -> {
                 if (itemClickListener != null) {

@@ -33,4 +33,16 @@ public class ReviewViewModel extends ViewModel {
 
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel> insertReview(int transactionId, String userId, String reviewText, int fieldId,
+                                                float stars) {
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        if (transactionId != 0 && userId != null && reviewText != null && fieldId != 0 && stars != 0) {
+            return reviewRepository.insertReview(transactionId, userId, reviewText, fieldId, stars);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+
+        return responseModelMutableLiveData;
+    }
 }

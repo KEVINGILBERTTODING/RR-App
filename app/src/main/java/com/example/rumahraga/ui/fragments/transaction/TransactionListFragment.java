@@ -13,9 +13,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.FragmentTransactionListBinding;
@@ -24,8 +26,11 @@ import com.example.rumahraga.model.TransactionModel;
 import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.transactions.TransactionsAdapter;
 import com.example.rumahraga.util.constans.other.ConsOther;
+import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
+import com.example.rumahraga.viewmodel.review.ReviewViewModel;
 import com.example.rumahraga.viewmodel.transaction.TransactionViewModel;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,6 +49,8 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
     private String userId;
     private List<TransactionModel> transactionModels;
     private TransactionsAdapter transactionsAdapter;
+    private ReviewViewModel reviewViewModel;
+    private BottomSheetBehavior bottomSheetReview;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -62,6 +69,8 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
         super.onViewCreated(view, savedInstanceState);
         getMyTransactions();
         listener();
+        initBottomSheetReview();
+        bottomSheetReview.setState(BottomSheetBehavior.STATE_HIDDEN);
 
     }
 
@@ -69,6 +78,7 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
         sharedPreferences = getContext().getSharedPreferences(ConsSharedPref.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         userId = sharedPreferences.getString(ConsSharedPref.USER_ID, null);
         transactionViewModel = new ViewModelProvider(this).get(TransactionViewModel.class);
+        reviewViewModel = new ViewModelProvider(this).get(ReviewViewModel.class);
     }
 
     private void listener() {
@@ -98,6 +108,10 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
                 getMyTransactions();
                 binding.swipeRefresh.setRefreshing(false);
             }
+        });
+
+        binding.vOverlay.setOnClickListener(view -> {
+            hideBottomSheet();
         });
     }
 
@@ -163,6 +177,71 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
 
     }
 
+    private void insertReview(int transactionId, int fieldId, TransactionModel transactionModel) {
+
+        if (transactionId != 0 && fieldId != 0 && userId != null) {
+            if (binding.ratingBar.getRating() == 0) {
+                showToast(ConsOther.TOAST_ERR, "Anda belum memberi rating");
+            }else if (binding.etReviewText.getText().toString().isEmpty()) {
+                showToast(ConsOther.TOAST_ERR, "Penilaian tidak boleh kosong");
+            }else {
+                reviewViewModel.insertReview(transactionId, userId, binding.etReviewText.getText().toString(), fieldId, binding.ratingBar.getRating())
+                        .observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                            @Override
+                            public void onChanged(ResponseModel responseModel) {
+                                if (responseModel.isStatus() == true) {
+                                    hideBottomSheet();
+                                    transactionModel.setReview_id("12");
+                                    transactionsAdapter.notifyDataSetChanged();
+                                    showToast(ConsOther.TOAST_NORMAL, "Berhasil memberikan review");
+
+                                }else {
+                                    showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+                                }
+                            }
+                        });
+            }
+
+        }else {
+            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+        }
+
+
+
+
+
+    }
+
+    private void initBottomSheetReview() {
+        bottomSheetReview = BottomSheetBehavior.from(binding.bottomSheetReview);
+        bottomSheetReview.setHideable(true);
+        bottomSheetReview.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBottomSheet();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    private void showBottomSheet() {
+        bottomSheetReview.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+    }
+
+    private void hideBottomSheet() {
+        bottomSheetReview.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
+        binding.etReviewText.setText("");
+        binding.ratingBar.setRating(0);
+    }
+
     private void showToast(String type, String message) {
         if (type.equals(ConsOther.TOAST_SUCCESS)) {
             Toasty.success(getContext(), message, Toasty.LENGTH_SHORT).show();
@@ -183,15 +262,31 @@ public class TransactionListFragment extends Fragment implements ItemClickListen
     @Override
     public void onItemClickListener(String type, int positon, Object object) {
         TransactionModel transactionModel = (TransactionModel) object;
-        Fragment fragment = new TransactionDetailFragment();
-        Bundle arg = new Bundle();
-        arg.putString("transaction_code", transactionModel.getTransaction_code());
-        arg.putString("payment_name", transactionModel.getPayment_name());
-        arg.putString("order_date", transactionModel.getCreated_at());
-        arg.putInt("status", transactionModel.getStatus());
-        arg.putInt("total_price", transactionModel.getTotal_price());
-        arg.putString("reason", transactionModel.getReason());
-        fragment.setArguments(arg);
-        fragmentTransaction(fragment);
+
+        if (transactionModel != null) {
+            if (type.equals("transaction")) { // item clik
+                Fragment fragment = new TransactionDetailFragment();
+                Bundle arg = new Bundle();
+                arg.putString("transaction_code", transactionModel.getTransaction_code());
+                arg.putString("payment_name", transactionModel.getPayment_name());
+                arg.putString("order_date", transactionModel.getCreated_at());
+                arg.putInt("status", transactionModel.getStatus());
+                arg.putInt("total_price", transactionModel.getTotal_price());
+                arg.putString("reason", transactionModel.getReason());
+                fragment.setArguments(arg);
+                fragmentTransaction(fragment);
+            }else if (type.equals("review")) { // button review
+                showBottomSheet();
+                binding.btnReviewSend.setOnClickListener(view -> {
+                    insertReview(transactionModel.getTransaction_id(), transactionModel.getField_id(), transactionModel);
+                });
+
+            }
+        }else {
+            showToast(ConsOther.TOAST_ERR, ConsOther.TOAST_ERR);
+        }
+
+
+
     }
 }

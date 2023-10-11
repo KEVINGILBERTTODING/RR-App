@@ -14,6 +14,7 @@ import javax.inject.Inject;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Field;
 
 public class ReviewRepository {
 
@@ -48,5 +49,30 @@ public class ReviewRepository {
         });
 
         return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> insertReview(int transactionId, String userId, String reviewText, int fieldId,
+                                                float stars){
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        apiService.insertReview(transactionId, userId, reviewText, fieldId, stars).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    responseModelMutableLiveData.setValue(new ResponseModel(true, ConsResponse.SUCCESS_MESSAGE, null));
+                }else {
+                    Gson gson = new Gson();
+                    ResponseModel responseModel = gson.fromJson(response.errorBody().charStream(), ResponseModel.class);
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, responseModel.getMessage(), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.SERVER_ERROR, null));
+
+            }
+        });
+        return responseModelMutableLiveData;
+
     }
  }

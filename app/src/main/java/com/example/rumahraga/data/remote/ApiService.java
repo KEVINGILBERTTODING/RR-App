@@ -131,6 +131,16 @@ public interface ApiService {
     Call<ResponseModel<List<TransactionDetailModel>>> getDetailTransaction(
             @Query("id") String transactionCode);
 
+    @FormUrlEncoded
+    @POST("user/insert_review")
+    Call<ResponseModel> insertReview(
+            @Field("transaction_id") int transactionId,
+            @Field("user_id") String userId,
+            @Field("review_text") String reviewText,
+            @Field("field_id") int fieldId,
+            @Field("stars") float stars
+    );
+
 
 
 }

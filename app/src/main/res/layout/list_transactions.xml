@@ -14,8 +14,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_14sdp"
-            android:background="@drawable/card_stroke"
+            android:padding="@dimen/_8sdp"
             android:orientation="vertical">
 
             <TextView
@@ -127,7 +126,7 @@
                         android:fontFamily="@font/popreg"
                         android:textColor="@color/black"
                         android:layout_height="wrap_content"
-                        android:text="Berikan review dan penilaian tentang kepuasan lapangan."/>
+                        android:text="Berikan review dan penilaian tentang kepuasan Anda."/>
 
                     <com.google.android.material.button.MaterialButton
 

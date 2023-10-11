@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,134 +8,273 @@
         android:layout_height="match_parent"
         tools:context=".ui.fragments.transaction.TransactionListFragment">
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <RelativeLayout
+            android:layout_height="wrap_content">
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:paddingTop="@dimen/_40sdp"
-                android:paddingBottom="@dimen/_14sdp"
-                android:paddingLeft="@dimen/_14sdp"
-                android:background="@drawable/main_header"
-                android:paddingRight="@dimen/_14sdp"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:paddingTop="@dimen/_40sdp"
+                    android:paddingBottom="@dimen/_14sdp"
+                    android:paddingLeft="@dimen/_14sdp"
+                    android:background="@drawable/main_header"
+                    android:paddingRight="@dimen/_14sdp"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tvCategories"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Riwayat Transaksi"
+                                android:layout_centerVertical="true"
+                                android:layout_toLeftOf="@id/btnFilter"
+                                android:layout_marginLeft="@dimen/_7sdp"
+                                android:includeFontPadding="false"
+                                android:layout_marginTop="@dimen/_5sdp"
+                                android:fontFamily="@font/popsem"
+                                android:layout_marginRight="@dimen/_7sdp"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_18ssp"/>
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentEnd="true"
+                                android:orientation="horizontal">
+
+                                <androidx.cardview.widget.CardView
+                                    android:layout_width="@dimen/_30sdp"
+                                    android:layout_height="@dimen/_30sdp"
+                                    app:cardElevation="0dp"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    app:cardBackgroundColor="@color/main3"
+                                    android:id="@+id/btnShort"
+                                    app:cardCornerRadius="@dimen/_5sdp">
+                                    <ImageView
+                                        android:layout_width="@dimen/_20sdp"
+                                        android:layout_height="@dimen/_20sdp"
+                                        android:layout_gravity="center_vertical|center_horizontal"
+                                        android:src="@drawable/ic_short"/>
+                                </androidx.cardview.widget.CardView>
+
+                            </LinearLayout>
+
+
+                        </RelativeLayout>
+
+
+
+                        <androidx.appcompat.widget.SearchView
+                            android:layout_width="match_parent"
+                            android:layout_marginTop="@dimen/_10sdp"
+                            app:queryHint="Nama lapangan"
+                            android:id="@+id/searchBar"
+                            app:queryBackground="@drawable/container_searchbar"
+                            app:iconifiedByDefault="false"
+                            android:background="@drawable/container_searchbar"
+                            android:layout_height="wrap_content"/>
+
+
+                    </LinearLayout>
+
+
+
+                </RelativeLayout>
+
+                <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                    android:layout_width="match_parent"
+                    android:paddingLeft="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_14sdp"
+                    android:paddingRight="@dimen/_14sdp"
+                    android:id="@+id/swipeRefresh"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <com.facebook.shimmer.ShimmerFrameLayout
+                            android:id="@+id/shimmer"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical">
+                                <include layout="@layout/placeholder_list_transactions"/>
+                                <include layout="@layout/placeholder_list_transactions"/>
+                                <include layout="@layout/placeholder_list_transactions"/>
+                                <include layout="@layout/placeholder_list_transactions"/>
+                            </LinearLayout>
+                        </com.facebook.shimmer.ShimmerFrameLayout>
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rvTransactions"
+                            tools:listitem="@layout/list_transactions"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+
+                    </LinearLayout>
+                </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/tvEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tidak ada data"
+                android:visibility="gone"
+                android:fontFamily="@font/popmed"
+                android:textSize="@dimen/_13ssp"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"/>
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/vOverlay"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            android:background="@color/overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </RelativeLayout>
+
+
+        <!--        Relative layout show location picker-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/bottomSheetReview"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/container_main"
+                android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
-
-
-                    <RelativeLayout
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_start_off"/>
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
 
+                        android:orientation="vertical">
                         <TextView
-                            android:id="@+id/tvCategories"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Riwayat Transaksi"
-                            android:layout_centerVertical="true"
-                            android:layout_toLeftOf="@id/btnFilter"
-                            android:layout_marginLeft="@dimen/_7sdp"
-                            android:includeFontPadding="false"
-                            android:layout_marginTop="@dimen/_5sdp"
-                            android:fontFamily="@font/popsem"
-                            android:layout_marginRight="@dimen/_7sdp"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_18ssp"/>
-
-                        <LinearLayout
                             android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popmed"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:orientation="horizontal">
+                            android:text="Review"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_11ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popreg"
+                            android:layout_height="wrap_content"
+                            android:text="Berikan penilaian tentang kepuasan Anda"/>
 
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_30sdp"
-                                android:layout_height="@dimen/_30sdp"
-                                app:cardElevation="0dp"
-                                android:layout_marginLeft="@dimen/_10sdp"
-                                app:cardBackgroundColor="@color/main3"
-                                android:id="@+id/btnShort"
-                                app:cardCornerRadius="@dimen/_5sdp">
-                                <ImageView
-                                    android:layout_width="@dimen/_20sdp"
-                                    android:layout_height="@dimen/_20sdp"
-                                    android:layout_gravity="center_vertical|center_horizontal"
-                                    android:src="@drawable/ic_short"/>
-                            </androidx.cardview.widget.CardView>
-
-                        </LinearLayout>
-
-
-                    </RelativeLayout>
-
-
-
-                    <androidx.appcompat.widget.SearchView
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="@dimen/_10sdp"
-                        app:queryHint="Nama lapangan"
-                        android:id="@+id/searchBar"
-                        app:queryBackground="@drawable/container_searchbar"
-                        app:iconifiedByDefault="false"
-                        android:background="@drawable/container_searchbar"
-                        android:layout_height="wrap_content"/>
+                    </LinearLayout>
 
 
                 </LinearLayout>
 
 
 
-            </RelativeLayout>
-
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-                android:layout_width="match_parent"
-                android:paddingLeft="@dimen/_14sdp"
-                android:layout_marginTop="@dimen/_14sdp"
-                android:paddingRight="@dimen/_14sdp"
-                android:id="@+id/swipeRefresh"
-                android:layout_height="wrap_content">
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_height="wrap_content">
-                    <com.facebook.shimmer.ShimmerFrameLayout
-                        android:id="@+id/shimmer"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/login_container"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:layout_width="wrap_content"
+                        android:progressTint="@color/yellow"
+                        android:stepSize="0.5"
+                        android:layout_height="wrap_content"/>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <LinearLayout
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etReviewText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
-                            <include layout="@layout/placeholder_list_transactions"/>
-                            <include layout="@layout/placeholder_list_transactions"/>
-                            <include layout="@layout/placeholder_list_transactions"/>
-                            <include layout="@layout/placeholder_list_transactions"/>
-                        </LinearLayout>
-                    </com.facebook.shimmer.ShimmerFrameLayout>
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvTransactions"
-                        tools:listitem="@layout/list_transactions"
+                            android:fontFamily="@font/popreg"
+                            android:lines="4"
+                            android:gravity="start"
+                            android:hint="Penilaian Anda"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.button.MaterialButton
                         android:layout_width="match_parent"
+                        android:text="Simpan"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:id="@+id/btnReviewSend"
+                        android:layout_marginTop="@dimen/_20sdp"
                         android:layout_height="wrap_content"/>
 
                 </LinearLayout>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvEmpty"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tidak ada data"
-            android:visibility="gone"
-            android:fontFamily="@font/popmed"
-            android:textSize="@dimen/_13ssp"
-            android:textColor="@color/black"
-            android:layout_centerInParent="true"/>
 
-    </RelativeLayout>
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
