@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.rumahraga.data.repository.user.UserRepository;
 import com.example.rumahraga.model.ResponseModel;
+import com.example.rumahraga.model.UserModel;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 
 import javax.inject.Inject;
@@ -28,6 +29,17 @@ public class UserViewModel extends ViewModel {
             return userRepository.updateLocation(userId, cityName);
         }else {
             responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel<UserModel>> getUser(String userId) {
+        MutableLiveData<ResponseModel<UserModel>> responseModelMutableLiveData = new MutableLiveData<>();
+        if (userId != null) {
+            return userRepository.getUser(userId);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
         }
 
         return responseModelMutableLiveData;

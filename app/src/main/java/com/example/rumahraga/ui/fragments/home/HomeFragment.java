@@ -364,8 +364,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
                             binding.shimmerField.setVisibility(View.GONE);
                             binding.lrFieldEmpty.setVisibility(View.VISIBLE);
                             binding.tvFieldEmpty.setText("Tidak ada lapangan terdekat");
-                            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
-                            showToast(ConsResponse.ERROR_MESSAGE, listResponseModel.getMessage());
+
                         }
                     }
                 });

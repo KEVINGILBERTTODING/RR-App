@@ -1,11 +1,14 @@
 package com.example.rumahraga.model;
 
+import com.example.rumahraga.data.remote.ApiService;
+
 public class UserModel {
     private String user_id;
     private String username;
     private String email;
     private String profile_picture;
     private String name;
+    private String city_name;
 
     public UserModel(String user_id, String username, String email, String profile_picture, String name) {
         this.user_id = user_id;
@@ -40,7 +43,7 @@ public class UserModel {
     }
 
     public String getProfile_picture() {
-        return profile_picture;
+        return ApiService.BASE_URL + "data/photo_profile/" + profile_picture;
     }
 
     public void setProfile_picture(String profile_picture) {

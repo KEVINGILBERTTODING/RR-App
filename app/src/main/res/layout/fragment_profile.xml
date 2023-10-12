@@ -1,0 +1,390 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/background"
+        tools:context=".ui.fragments.profile.ProfileFragment">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:layout_width="match_parent"
+            android:id="@+id/swipeReresh"
+            android:layout_height="match_parent">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:background="@drawable/main_header"
+                    android:layout_height="@dimen/_170sdp"/>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/rlHeader"
+                    android:layout_height="@dimen/_210sdp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_above="@id/profile_image"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:fontFamily="@font/popreg"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12ssp"
+                            android:layout_marginTop="@dimen/_40sdp"
+                            android:layout_marginLeft="@dimen/_14sdp"
+                            android:layout_marginRight="@dimen/_14sdp"
+                            android:layout_height="wrap_content"
+                            android:text="Profil"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:id="@+id/tvUsername"
+                            android:fontFamily="@font/popsem"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_18ssp"
+                            android:layout_marginLeft="@dimen/_14sdp"
+                            android:layout_marginRight="@dimen/_14sdp"
+                            android:layout_height="wrap_content"
+                            android:text="Vanessia Dwi Putri"/>
+
+                    </LinearLayout>
+
+
+                    <ImageView
+                        android:layout_width="@dimen/_170sdp"
+                        android:src="@drawable/iv_header_bg"
+                        android:layout_alignParentRight="true"
+                        android:scaleType="fitXY"
+                        android:layout_height="@dimen/_100sdp"/>
+
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/shimmer"
+                        android:layout_alignParentBottom="true"
+                        android:layout_height="wrap_content">
+                        <de.hdodenhof.circleimageview.CircleImageView
+
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_100sdp"
+                            android:src="@color/white"
+                            android:layout_alignParentBottom="true"
+                            android:layout_gravity="center_horizontal"
+                            app:civ_border_width="@dimen/_4sdp"
+                            app:civ_border_color="@color/background"/>
+
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profile_image"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="@dimen/_100sdp"
+                        android:src="@color/white"
+                        android:visibility="gone"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        app:civ_border_width="@dimen/_4sdp"
+                        app:civ_border_color="@color/background"/>
+
+
+                </RelativeLayout>
+
+                <androidx.core.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="@dimen/_14sdp"
+                    android:layout_marginRight="@dimen/_14sdp"
+                    android:layout_marginTop="@dimen/_20sdp"
+                    android:layout_below="@id/rlHeader"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            app:strokeWidth="@dimen/_3sdp"
+                            android:id="@+id/cvCity"
+                            app:cardElevation="0dp"
+                            app:strokeColor="@color/main"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:contentPadding="@dimen/_10sdp"
+                            android:layout_height="wrap_content">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:id="@+id/icLocation"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:src="@drawable/ic_marker2"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    android:layout_height="@dimen/_20sdp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/popmed"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_toRightOf="@id/icLocation"
+                                    android:textColor="@color/black"
+                                    android:gravity="center_vertical"
+                                    android:layout_centerVertical="true"
+                                    android:includeFontPadding="false"
+                                    android:textSize="@dimen/_14ssp"
+                                    android:text="Ubah lokasi"/>
+
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:src="@drawable/ic_arrow_right"
+                                    android:layout_alignParentEnd="true"
+                                    android:tint="@color/black"
+                                    android:layout_height="@dimen/_20sdp"/>
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            app:strokeWidth="@dimen/_3sdp"
+                            app:strokeColor="@color/main"
+                            app:cardElevation="0dp"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:contentPadding="@dimen/_10sdp"
+                            android:layout_height="wrap_content">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:id="@+id/icUsername"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:src="@drawable/ic_profile"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    android:layout_height="@dimen/_20sdp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/popmed"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_toRightOf="@id/icUsername"
+                                    android:textColor="@color/black"
+                                    android:gravity="center_vertical"
+                                    android:layout_centerVertical="true"
+                                    android:includeFontPadding="false"
+                                    android:textSize="@dimen/_14ssp"
+                                    android:text="Ubah username"/>
+
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:src="@drawable/ic_arrow_right"
+                                    android:layout_alignParentEnd="true"
+                                    android:tint="@color/black"
+                                    android:layout_height="@dimen/_20sdp"/>
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent"
+                            app:strokeWidth="@dimen/_3sdp"
+                            app:strokeColor="@color/main"
+                            app:cardElevation="0dp"
+                            android:layout_marginTop="@dimen/_20sdp"
+                            app:cardCornerRadius="@dimen/_10sdp"
+                            app:contentPadding="@dimen/_10sdp"
+                            android:layout_height="wrap_content">
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:id="@+id/icPassword"
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:src="@drawable/ic_password"
+                                    android:layout_centerVertical="true"
+                                    android:tint="@color/black"
+                                    android:layout_height="@dimen/_20sdp"/>
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:fontFamily="@font/popmed"
+                                    android:layout_marginLeft="@dimen/_10sdp"
+                                    android:layout_toRightOf="@id/icPassword"
+                                    android:textColor="@color/black"
+                                    android:gravity="center_vertical"
+                                    android:layout_centerVertical="true"
+                                    android:includeFontPadding="false"
+                                    android:textSize="@dimen/_14ssp"
+                                    android:text="Ubah kata sandi"/>
+
+                                <ImageView
+                                    android:layout_width="@dimen/_20sdp"
+                                    android:src="@drawable/ic_arrow_right"
+                                    android:layout_alignParentEnd="true"
+                                    android:tint="@color/black"
+                                    android:layout_height="@dimen/_20sdp"/>
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+                    </LinearLayout>
+
+
+                </androidx.core.widget.NestedScrollView>
+
+                <ImageView
+                    android:layout_width="@dimen/_200sdp"
+                    android:src="@drawable/iv_bottom_backgroudn"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:scaleType="fitXY"
+                    android:layout_height="@dimen/_120sdp"/>
+
+
+
+            </RelativeLayout>
+
+
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/vOverlay"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_width="match_parent"
+                android:focusable="true"
+                android:background="@color/overlay"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+
+
+
+        <!--        Bottom sheet show location picker-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/bottomSheetCity"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/container_main"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_marker"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popmed"
+                            android:layout_height="wrap_content"
+                            android:text="Simpan lokasi Anda"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_11ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popreg"
+                            android:layout_height="wrap_content"
+                            android:text="Anda dapat mengubah lokasi pada menu profile"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/login_container"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textInputSpinnerCity"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:hint="Pilih Kota Anda"
+                        android:layout_marginEnd="5dp"
+                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusBottomStart="10dp"
+                        app:boxCornerRadiusTopEnd="10dp"
+                        app:boxCornerRadiusTopStart="10dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="text"
+                            android:maxLines="1" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:text="Simpan lokasi saya"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:id="@+id/btnSaveMyLocation"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

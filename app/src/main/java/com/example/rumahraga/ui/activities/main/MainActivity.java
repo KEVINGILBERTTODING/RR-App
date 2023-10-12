@@ -15,6 +15,7 @@ import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.ActivityMainBinding;
 import com.example.rumahraga.ui.fragments.field.FieldAllFragment;
 import com.example.rumahraga.ui.fragments.home.HomeFragment;
+import com.example.rumahraga.ui.fragments.profile.ProfileFragment;
 import com.example.rumahraga.ui.fragments.transaction.TransactionListFragment;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         fragmentTransaction(new TransactionListFragment());
+                        break;
+                    case 3:
+                        fragmentTransaction(new ProfileFragment());
                         break;
 
                 }

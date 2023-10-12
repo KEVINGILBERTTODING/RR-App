@@ -164,6 +164,8 @@ public interface ApiService {
             @Field("user_id") String userId
     );
 
-
+    @GET("user/get_user")
+    Call<ResponseModel<UserModel>> getUser(
+            @Query("user_id") String userId);
 
 }
