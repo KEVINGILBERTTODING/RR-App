@@ -172,7 +172,7 @@ public class ProfileFragment extends Fragment {
         cityViewModel.getAllCity().observe(getViewLifecycleOwner(), new Observer<ResponseModel<List<CityModel>>>() {
             @Override
             public void onChanged(ResponseModel<List<CityModel>> listResponseModel) {
-                if (listResponseModel.isStatus() == true) {
+                if (listResponseModel.isStatus() == true && listResponseModel != null) {
                     for (CityModel item : listResponseModel.getData()) {
                         arrayListCity.add(item.getNama());
                     }
@@ -328,7 +328,9 @@ public class ProfileFragment extends Fragment {
             showToast(ConsOther.TOAST_ERR, "Username tidak boleh kosong");
         }else if (binding.etUsername.getText().toString().matches("[0-9]+")) {
             showToast(ConsOther.TOAST_ERR, "Username tidak boleh mengandung angka");
-        } else {
+         }else if (userId == null) {
+            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+         }  else {
             userViewModel.updateUsername(binding.etUsername.getText().toString(), userId)
                     .observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                         @Override
@@ -354,6 +356,8 @@ public class ProfileFragment extends Fragment {
         }else if (binding.etNewPassword.getText().toString().isEmpty()){
             showToast(ConsOther.TOAST_ERR, "Kata sandi baru tidak boleh kosong");
 
+        }else if (userId == null) {
+            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
         }else {
             userViewModel.updatePassword(
                     userId, binding.etOldPassword.getText().toString(),
