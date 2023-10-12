@@ -55,4 +55,15 @@ public class UserViewModel extends ViewModel {
 
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel> updatePassword(String userId, String oldPassword, String newPassword) {
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        if (userId != null && oldPassword != null && newPassword != null) {
+            return userRepository.updatePassword(userId, oldPassword, newPassword);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+
+        return responseModelMutableLiveData;
+    }
 }

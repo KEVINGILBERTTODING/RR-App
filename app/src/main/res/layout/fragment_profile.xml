@@ -197,6 +197,7 @@
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent"
                             app:strokeWidth="@dimen/_3sdp"
+                            android:id="@+id/cvPwdUpdate"
                             app:strokeColor="@color/main"
                             app:cardElevation="0dp"
                             android:layout_marginTop="@dimen/_20sdp"
@@ -435,7 +436,7 @@
                             android:textColor="@color/white"
                             android:fontFamily="@font/popreg"
                             android:layout_height="wrap_content"
-                            android:text="Pastikan Anda meningat username baru Anda"/>
+                            android:text="Pastikan Anda mengingat username baru Anda"/>
 
                     </LinearLayout>
 
@@ -481,6 +482,142 @@
                         android:textSize="@dimen/_12ssp"
                         android:layout_marginBottom="@dimen/_20sdp"
                         android:id="@+id/btnUpdateUsername"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+        <!--        Bottom sheet update password-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/bottomUpdatePassword"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/container_main"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_password"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popmed"
+                            android:layout_height="wrap_content"
+                            android:text="Ubah kata sandi Anda"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_11ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popreg"
+                            android:layout_height="wrap_content"
+                            android:text="Pastikan Anda mengingat kata sandi baru Anda"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/login_container"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etOldPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Password lama"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etNewPassword"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Password baru"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:text="Ubah kata sandi"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:id="@+id/btnUpdatePassword"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_height="wrap_content"/>
 

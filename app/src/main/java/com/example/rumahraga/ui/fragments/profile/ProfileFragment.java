@@ -50,7 +50,7 @@ public class ProfileFragment extends Fragment {
     private String userId, username, name, cityName;
     private UserViewModel userViewModel;
     private List<CityModel> cityModelList;
-    private BottomSheetBehavior bottomSheetBehaviorCity, bottomSheetBehaviorUpdtUsername;
+    private BottomSheetBehavior bottomSheetBehaviorCity, bottomSheetBehaviorUpdtUsername, bottomSheetBehaviorUpdtPwd;
     private CityViewModel cityViewModel;
     private SearchableSpinner searchableSpinnerCity;
     private ArrayList<String> arrayListCity = new ArrayList<>();
@@ -84,8 +84,10 @@ public class ProfileFragment extends Fragment {
         // init bottom sheet
         initBottomSheetCity();
         initBottomSheetUpdtUsernme();
+        initBottomSheetUpdtPwd();
         bottomSheetBehaviorCity.setState(BottomSheetBehavior.STATE_HIDDEN);
         bottomSheetBehaviorUpdtUsername.setState(BottomSheetBehavior.STATE_HIDDEN);
+        bottomSheetBehaviorUpdtPwd.setState(BottomSheetBehavior.STATE_HIDDEN);
         listener();
     }
 
@@ -117,10 +119,20 @@ public class ProfileFragment extends Fragment {
             updateUsername();
         });
 
+        binding.cvPwdUpdate.setOnClickListener(view -> {
+            showBtmSheetUpdtPwd();
+        });
+
+        binding.btnUpdatePassword.setOnClickListener(view -> {
+            updatePassword();
+        });
+
 
 
 
     }
+
+
 
     private void init() {
         sharedPreferences = getContext().getSharedPreferences(ConsSharedPref.SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -232,6 +244,37 @@ public class ProfileFragment extends Fragment {
         binding.vOverlay.setVisibility(View.GONE);
     }
 
+
+    private void initBottomSheetUpdtPwd() {
+        bottomSheetBehaviorUpdtPwd = BottomSheetBehavior.from(binding.bottomUpdatePassword);
+        bottomSheetBehaviorUpdtPwd.setHideable(true);
+        bottomSheetBehaviorUpdtPwd.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBtmSheetUpdtPwd();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    private void showBtmSheetUpdtPwd() {
+        bottomSheetBehaviorUpdtPwd.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+    }
+
+    private void hideBtmSheetUpdtPwd() {
+        bottomSheetBehaviorUpdtPwd.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
+        binding.etNewPassword.setText("");
+        binding.etOldPassword.setText("");
+    }
+
     private void initSpinnerLocation() {
 
 
@@ -302,6 +345,30 @@ public class ProfileFragment extends Fragment {
                         }
                     });
 
+        }
+    }
+
+    private void updatePassword() {
+        if (binding.etOldPassword.getText().toString().isEmpty()) {
+            showToast(ConsOther.TOAST_ERR, "Kata sandi lama tidak boleh kosong");
+        }else if (binding.etNewPassword.getText().toString().isEmpty()){
+            showToast(ConsOther.TOAST_ERR, "Kata sandi baru tidak boleh kosong");
+
+        }else {
+            userViewModel.updatePassword(
+                    userId, binding.etOldPassword.getText().toString(),
+                    binding.etNewPassword.getText().toString()
+            ).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    if (responseModel.isStatus() == true) {
+                        hideBtmSheetUpdtPwd();
+                        showToast(ConsOther.TOAST_SUCCESS, "Berhasil mengubah kata sandi");
+                    }else {
+                        showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+                    }
+                }
+            });
         }
     }
 

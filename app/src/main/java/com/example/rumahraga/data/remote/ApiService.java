@@ -175,4 +175,12 @@ public interface ApiService {
             @Field("user_id") String userId
     );
 
+    @FormUrlEncoded
+    @POST("user/update_password")
+    Call<ResponseModel> updatePassword(
+            @Field("user_id") String userId,
+            @Field("old_password") String oldPassword,
+            @Field("new_password") String newPassword
+    );
+
 }
