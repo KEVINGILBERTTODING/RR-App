@@ -44,4 +44,15 @@ public class UserViewModel extends ViewModel {
 
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel> updateUsername(String username, String userId) {
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        if (userId != null && username != null) {
+            return userRepository.updateUsername(username, userId);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+
+        return responseModelMutableLiveData;
+    }
 }

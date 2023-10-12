@@ -157,6 +157,7 @@
                             app:strokeWidth="@dimen/_3sdp"
                             app:strokeColor="@color/main"
                             app:cardElevation="0dp"
+                            android:id="@+id/cvUpdateUsername"
                             android:layout_marginTop="@dimen/_20sdp"
                             app:cardCornerRadius="@dimen/_10sdp"
                             app:contentPadding="@dimen/_10sdp"
@@ -369,6 +370,117 @@
                         android:textSize="@dimen/_12ssp"
                         android:layout_marginBottom="@dimen/_20sdp"
                         android:id="@+id/btnSaveMyLocation"
+                        android:layout_marginTop="@dimen/_20sdp"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+        <!--        Bottom sheet update username-->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/bottomUpdateUsername"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/container_main"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_profile"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_12ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popmed"
+                            android:layout_height="wrap_content"
+                            android:text="Ubah username Anda"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_11ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popreg"
+                            android:layout_height="wrap_content"
+                            android:text="Pastikan Anda meningat username baru Anda"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_10sdp"
+                    android:background="@drawable/login_container"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_marginTop="@dimen/_10sdp"
+                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_5sdp"
+                        android:textColor="@color/black"
+                        app:boxCornerRadiusBottomEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusBottomStart="@dimen/_10sdp"
+                        app:boxCornerRadiusTopEnd="@dimen/_10sdp"
+                        app:boxCornerRadiusTopStart="@dimen/_10sdp">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etUsername"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/popmed"
+                            android:hint="Username"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_12sdp">
+                        </com.google.android.material.textfield.TextInputEditText>
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.button.MaterialButton
+                        android:layout_width="match_parent"
+                        android:text="Ubah username"
+                        android:padding="@dimen/_10sdp"
+                        android:textSize="@dimen/_12ssp"
+                        android:layout_marginBottom="@dimen/_20sdp"
+                        android:id="@+id/btnUpdateUsername"
                         android:layout_marginTop="@dimen/_20sdp"
                         android:layout_height="wrap_content"/>
 

@@ -50,7 +50,7 @@ public class ProfileFragment extends Fragment {
     private String userId, username, name, cityName;
     private UserViewModel userViewModel;
     private List<CityModel> cityModelList;
-    private BottomSheetBehavior bottomSheetBehaviorCity;
+    private BottomSheetBehavior bottomSheetBehaviorCity, bottomSheetBehaviorUpdtUsername;
     private CityViewModel cityViewModel;
     private SearchableSpinner searchableSpinnerCity;
     private ArrayList<String> arrayListCity = new ArrayList<>();
@@ -75,12 +75,17 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getUserData();
+        getCity();
+
 
         binding.tvUsername.setText(username);
+        binding.etUsername.setText(username);
 
+        // init bottom sheet
         initBottomSheetCity();
+        initBottomSheetUpdtUsernme();
         bottomSheetBehaviorCity.setState(BottomSheetBehavior.STATE_HIDDEN);
-        getCity();
+        bottomSheetBehaviorUpdtUsername.setState(BottomSheetBehavior.STATE_HIDDEN);
         listener();
     }
 
@@ -102,6 +107,17 @@ public class ProfileFragment extends Fragment {
                 saveMyLocation();
             }
         });
+
+        binding.cvUpdateUsername.setOnClickListener(view -> {
+            showBtmSheetUpdtUsernmae();
+        });
+
+
+        binding.btnUpdateUsername.setOnClickListener(view -> {
+            updateUsername();
+        });
+
+
 
 
     }
@@ -187,6 +203,35 @@ public class ProfileFragment extends Fragment {
         binding.vOverlay.setVisibility(View.GONE);
     }
 
+
+    private void initBottomSheetUpdtUsernme() {
+        bottomSheetBehaviorUpdtUsername = BottomSheetBehavior.from(binding.bottomUpdateUsername);
+        bottomSheetBehaviorUpdtUsername.setHideable(true);
+        bottomSheetBehaviorUpdtUsername.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+            @Override
+            public void onStateChanged(@NonNull View bottomSheet, int newState) {
+                if (newState == BottomSheetBehavior.STATE_HIDDEN) {
+                    hideBtmSheetUpdtUsernmae();
+                }
+            }
+
+            @Override
+            public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+
+            }
+        });
+    }
+
+    private void showBtmSheetUpdtUsernmae() {
+        bottomSheetBehaviorUpdtUsername.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        binding.vOverlay.setVisibility(View.VISIBLE);
+    }
+
+    private void hideBtmSheetUpdtUsernmae() {
+        bottomSheetBehaviorUpdtUsername.setState(BottomSheetBehavior.STATE_HIDDEN);
+        binding.vOverlay.setVisibility(View.GONE);
+    }
+
     private void initSpinnerLocation() {
 
 
@@ -233,6 +278,31 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
+    }
+
+    private void updateUsername() {
+        if (binding.etUsername.getText().toString().isEmpty()) {
+            showToast(ConsOther.TOAST_ERR, "Username tidak boleh kosong");
+        }else if (binding.etUsername.getText().toString().matches("[0-9]+")) {
+            showToast(ConsOther.TOAST_ERR, "Username tidak boleh mengandung angka");
+        } else {
+            userViewModel.updateUsername(binding.etUsername.getText().toString(), userId)
+                    .observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                        @Override
+                        public void onChanged(ResponseModel responseModel) {
+                            if (responseModel.isStatus() == true) {
+                                saveSharedPref(ConsSharedPref.USERNAME, binding.etUsername.getText().toString());
+                                binding.tvUsername.setText(binding.etUsername.getText().toString());
+                                binding.etUsername.setText(binding.etUsername.getText().toString());
+                                hideBtmSheetUpdtUsernmae();
+                                showToast(ConsOther.TOAST_SUCCESS, "Berhasil mengubah username");
+                            }else {
+                                showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+                            }
+                        }
+                    });
+
+        }
     }
 
 

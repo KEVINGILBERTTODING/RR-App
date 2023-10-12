@@ -69,4 +69,30 @@ public class UserRepository {
         });
         return responseModelMutableLiveData;
     }
+
+
+    public LiveData<ResponseModel> updateUsername(String username, String userId) {
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        apiService.updateUsername(username, userId).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    responseModelMutableLiveData.setValue(new ResponseModel(true, ConsResponse.SUCCESS_MESSAGE, null));
+                }else {
+                    Gson gson = new Gson();
+                    ResponseModel responseModel = gson.fromJson(response.errorBody().charStream(), ResponseModel.class);
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, responseModel.getMessage(), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.SERVER_ERROR, null));
+
+
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
 }

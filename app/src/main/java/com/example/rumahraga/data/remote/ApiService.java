@@ -168,4 +168,11 @@ public interface ApiService {
     Call<ResponseModel<UserModel>> getUser(
             @Query("user_id") String userId);
 
+    @FormUrlEncoded
+    @POST("user/update_username")
+    Call<ResponseModel> updateUsername(
+            @Field("username") String username,
+            @Field("user_id") String userId
+    );
+
 }
