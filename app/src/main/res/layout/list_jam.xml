@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/_5sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/tvJam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/popmed"
+            android:textSize="@dimen/_11ssp"
+            android:textColor="@color/black"
+            android:includeFontPadding="false"
+            android:text="08:00"/>
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cvStatus"
+            android:layout_width="@dimen/_8sdp"
+            app:cardBackgroundColor="@color/main2"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_marginLeft="@dimen/_5sdp"
+            app:cardCornerRadius="@dimen/_50sdp"/>
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

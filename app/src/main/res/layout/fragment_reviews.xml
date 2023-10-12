@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:background="@color/background"
+        android:layout_height="match_parent"
+        tools:context=".ui.fragments.review.ReviewsFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvEmpty"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tidak ada data"
+                android:visibility="gone"
+                android:fontFamily="@font/popmed"
+                android:textSize="@dimen/_13ssp"
+                android:textColor="@color/black"
+                android:layout_centerInParent="true"/>
+
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:paddingTop="@dimen/_40sdp"
+                android:paddingBottom="@dimen/_14sdp"
+                android:paddingLeft="@dimen/_14sdp"
+                android:background="@drawable/main_header"
+                android:paddingRight="@dimen/_14sdp"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageButton
+                            android:layout_width="@dimen/_25sdp"
+                            android:id="@+id/btnBack"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/ic_back"
+                            android:layout_height="@dimen/_25sdp"/>
+
+                        <TextView
+                            android:id="@+id/tvCategories"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ulasan"
+                            android:layout_toRightOf="@id/btnBack"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@id/btnFilter"
+                            android:layout_marginLeft="@dimen/_7sdp"
+                            android:includeFontPadding="false"
+                            android:layout_marginTop="@dimen/_5sdp"
+                            android:fontFamily="@font/popsem"
+                            android:layout_marginRight="@dimen/_7sdp"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_18ssp"/>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            app:cardElevation="0dp"
+                            android:layout_alignParentEnd="true"
+                            app:cardBackgroundColor="@color/main3"
+                            android:id="@+id/btnFilter"
+                            app:cardCornerRadius="@dimen/_5sdp">
+                            <ImageView
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:src="@drawable/ic_filter"/>
+                        </androidx.cardview.widget.CardView>
+
+
+
+                    </RelativeLayout>
+
+
+
+
+                </LinearLayout>
+
+
+
+            </RelativeLayout>
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:layout_width="match_parent"
+                android:padding="@dimen/_14sdp"
+                android:id="@+id/swipeRefresh"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="vertical"
+                    android:layout_height="wrap_content">
+                    <com.facebook.shimmer.ShimmerFrameLayout
+                        android:id="@+id/shimmer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+                            <include layout="@layout/placeholder_list_review"/>
+                            <include layout="@layout/placeholder_list_review"/>
+                            <include layout="@layout/placeholder_list_review"/>
+                            <include layout="@layout/placeholder_list_review"/>
+                        </LinearLayout>
+                    </com.facebook.shimmer.ShimmerFrameLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:id="@+id/rvReviews"
+                        android:visibility="gone"
+                        android:layout_height="wrap_content"/>
+
+
+                </LinearLayout>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+
+
+
+        <RelativeLayout
+            android:id="@+id/vOverlay"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <View
+                android:layout_width="match_parent"
+                android:focusable="true"
+                android:background="@color/overlay"
+                android:layout_height="match_parent"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:id="@+id/bottomSheetFilter"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@drawable/container_main"
+                android:orientation="vertical">
+
+                <com.google.android.material.bottomsheet.BottomSheetDragHandleView
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    app:tint="@color/white"
+                    android:layout_height="wrap_content"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_10sdp"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:layout_gravity="center_vertical"
+                        android:tint="@color/white"
+                        android:src="@drawable/ic_filter"/>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:includeFontPadding="false"
+                            android:textSize="@dimen/_14ssp"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popmed"
+                            android:layout_height="wrap_content"
+                            android:text="Filter Ulasan"/>
+
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:padding="@dimen/_15sdp"
+                    android:background="@drawable/login_container"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <HorizontalScrollView
+                        android:layout_width="match_parent"
+                        android:scrollbars="none"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                app:icon="@drawable/ic_star"
+                                android:id="@+id/btnStar1"
+                                android:text="1"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                app:icon="@drawable/ic_star"
+                                android:id="@+id/btnStar2"
+                                android:text="2"/>
+
+
+                            <com.google.android.material.button.MaterialButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                app:icon="@drawable/ic_star"
+                                android:id="@+id/btnStar3"
+                                android:text="3"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                app:icon="@drawable/ic_star"
+                                android:id="@+id/btnStar4"
+                                android:text="4"/>
+
+                            <com.google.android.material.button.MaterialButton
+                                android:layout_width="wrap_content"
+                                android:layout_marginLeft="@dimen/_10sdp"
+                                android:layout_height="wrap_content"
+                                app:icon="@drawable/ic_star"
+                                android:id="@+id/btnStar5"
+                                android:text="5"/>
+
+                        </LinearLayout>
+
+                    </HorizontalScrollView>
+
+
+
+
+
+
+
+
+
+
+
+
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+
+
+
+
+        </RelativeLayout>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>

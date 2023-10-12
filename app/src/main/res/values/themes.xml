@@ -1,0 +1,31 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.RumahRaga" parent="Theme.Material3.Light.NoActionBar">
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="colorPrimary">@color/main</item>
+
+
+    </style>
+
+    <style name="Theme.RumahRaga" parent="Base.Theme.RumahRaga" />
+
+    <style name="SplashTheme" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <item name="android:navigationBarColor">@color/main</item>
+        <item name="colorPrimary">@color/main</item>
+    </style>
+
+    <style name="RatingBar" parent="Theme.AppCompat">
+        <item name="colorControlNormal">@color/gray</item>
+        <item name="colorControlActivated">@color/yellow</item>
+    </style>
+
+    <style name="filterDropDown" parent="Theme.Material3.Light.NoActionBar">
+        <item name="fontFamily">@font/popmed</item>
+
+    </style>
+
+
+</resources>

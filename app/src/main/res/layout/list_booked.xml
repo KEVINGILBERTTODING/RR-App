@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:contentPadding="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_15sdp"
+        app:cardUseCompatPadding="true"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvFieldName"
+                    android:layout_width="wrap_content"
+                    android:text="Lapangan Tri Lomba Juang"
+                    android:textSize="@dimen/_12ssp"
+                    android:textColor="@color/main"
+                    android:includeFontPadding="false"
+                    android:fontFamily="@font/popmed"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="@color/gray"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/ic_time"
+                        android:tint="@color/main"/>
+                    <TextView
+                        android:id="@+id/tvJam"
+                        android:layout_width="wrap_content"
+                        android:text="00:00"
+                        android:layout_gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:textSize="@dimen/_10ssp"
+                        android:fontFamily="@font/popmed"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:layout_width="@dimen/_15sdp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="@dimen/_15sdp"
+                        android:src="@drawable/ic_calendar"
+                        android:layout_marginRight="@dimen/_5sdp"
+                        android:tint="@color/main"/>
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:text="2023-02-02"
+                        android:layout_gravity="center_vertical"
+                        android:includeFontPadding="false"
+                        android:textSize="@dimen/_10ssp"
+                        android:fontFamily="@font/popmed"
+                        android:layout_height="wrap_content"/>
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

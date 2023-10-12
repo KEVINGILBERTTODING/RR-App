@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#202020</color>
+    <color name="gray">#AAAAAA</color>
+    <color name="ightgray">#E6E5E5</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="overlay">#88000000</color>
+    <color name="background">#CCE5C8</color>
+    <color name="main">#27C386</color>
+    <color name="main2">#80EB58</color>
+    <color name="main3">#79CEAC</color>
+    <color name="yellow">#FFB300</color>
+    <color name="red">#FA112D</color>
+</resources>

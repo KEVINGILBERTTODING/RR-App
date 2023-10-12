@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/menu_home"
+        android:icon="@drawable/ic_selector_home"
+        android:title="Home"
+        />
+
+    <item android:id="@+id/menu_pitch"
+        android:icon="@drawable/ic_field"
+        android:title="Lapangan"
+        />
+
+    <item android:id="@+id/menu_history"
+        android:icon="@drawable/ic_history"
+        android:title="Riwayat"
+        />
+
+    <item android:id="@+id/menu_profile"
+        android:icon="@drawable/ic_selector_profile"
+        android:title="Profile"
+        />
+</menu>
