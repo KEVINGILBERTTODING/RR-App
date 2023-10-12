@@ -2,4 +2,11 @@
     <string name="app_name">Rumah Raga</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="notif_success">Selamat transaksi Anda telah terkonfirmasi, silahkan
+        cek tiket Anda pada detail transaksi.
+    </string>
+
+    <string name="notif_failed">
+        Mohon maaf transaksi Anda tidak dapat diproses, silahkan lihat alasan penolakan pada detail transaksi.
+    </string>
 </resources>

@@ -82,12 +82,9 @@ public class ReviewsFragment extends Fragment {
         });
 
         binding.btnFilter.setOnClickListener(view -> {
-            if (reviewModelList != null && reviewModelList.size() > 0) {
-                showBottomsheetFilter();
-            }else {
-                showToast(ConsOther.TOAST_ERR, "Tidak ada ulasan");
-            }
+            showBottomsheetFilter();
         });
+
 
         binding.vOverlay.setOnClickListener(view -> {
             hideBottomsheetFilter();
@@ -181,30 +178,30 @@ public class ReviewsFragment extends Fragment {
     }
 
     private void filter(float rating) {
-        ArrayList<ReviewModel> filteredList = new ArrayList<>();
-        float tolerance = 0.5f; // Toleransi kesalahan dalam perbandingan
-        for (ReviewModel item : reviewModelList) {
-            if (item != null && Math.abs(item.getStars() - rating) <= tolerance) {
-                filteredList.add(item);
+        if (reviewModelList != null) {
+            ArrayList<ReviewModel> filteredList = new ArrayList<>();
+            float tolerance = 0.5f; // Toleransi kesalahan dalam perbandingan
+            for (ReviewModel item : reviewModelList) {
+                if (item != null && Math.abs(item.getStars() - rating) <= tolerance) {
+                    filteredList.add(item);
+                }
             }
-        }
 
-        reviewAdapter.filterRating(filteredList);
-
-        if (!filteredList.isEmpty()) {
-            binding.tvEmpty.setVisibility(View.GONE);
             reviewAdapter.filterRating(filteredList);
 
+            if (!filteredList.isEmpty()) {
+                binding.tvEmpty.setVisibility(View.GONE);
+                reviewAdapter.filterRating(filteredList);
+
+            } else {
+                binding.tvEmpty.setText("Tidak ada rating");
+                binding.tvEmpty.setVisibility(View.VISIBLE);
+            }
         } else {
-            binding.tvEmpty.setText("Tidak ada rating");
-            binding.tvEmpty.setVisibility(View.VISIBLE);
+            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
         }
+
     }
-
-
-
-
-
 
 
 

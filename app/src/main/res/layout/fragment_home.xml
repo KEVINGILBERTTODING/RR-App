@@ -39,27 +39,72 @@
                 android:layout_marginLeft="@dimen/_14sdp"
                 android:layout_marginRight="@dimen/_14sdp"
                 android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="match_parent"
 
-                    android:layout_alignParentStart="true"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/popreg"
-                    android:textSize="@dimen/_10ssp"
-                    android:includeFontPadding="false"
-                    android:layout_height="wrap_content"
-                    android:text="Selamat datang," />
-
-                <TextView
-                    android:id="@+id/tvUsername"
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_alignParentStart="true"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/popmed"
-                    android:textSize="@dimen/_15ssp"
-                    android:includeFontPadding="false"
-                    android:layout_height="wrap_content"
-                    android:text="Jhon Doe" />
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_toLeftOf="@id/rlNotification"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popreg"
+                            android:textSize="@dimen/_10ssp"
+                            android:includeFontPadding="false"
+                            android:layout_height="wrap_content"
+                            android:text="Selamat datang," />
+
+                        <TextView
+                            android:id="@+id/tvUsername"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:textColor="@color/white"
+                            android:fontFamily="@font/popmed"
+                            android:textSize="@dimen/_15ssp"
+                            android:includeFontPadding="false"
+                            android:layout_height="wrap_content"
+                            android:text="Jhon Doe" />
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlNotification"
+                        android:layout_alignParentEnd="true"
+                        android:layout_width="@dimen/_40sdp"
+                        android:layout_height="@dimen/_40sdp">
+
+
+                        <ImageButton
+                            android:id="@+id/btnNotification"
+                            android:layout_width="@dimen/_25sdp"
+                            android:layout_centerInParent="true"
+                            android:backgroundTint="@color/black"
+                            android:layout_height="@dimen/_25sdp"
+                            android:background="@drawable/ic_notification"/>
+
+                        <RelativeLayout
+                            android:id="@+id/rlTotalNotification"
+                            android:layout_width="wrap_content"
+                            android:padding="@dimen/_3sdp"
+                            android:visibility="gone"
+                            android:layout_alignParentEnd="true"
+                            android:layout_marginTop="@dimen/_2sdp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/container_notification">
+                            <TextView
+                                android:id="@+id/tvNotification"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/popreg"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_10ssp"/>
+                        </RelativeLayout>
+                    </RelativeLayout>
+                </RelativeLayout>
 
                 <androidx.appcompat.widget.SearchView
                     android:layout_width="match_parent"

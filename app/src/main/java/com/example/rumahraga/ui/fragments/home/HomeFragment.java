@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import com.example.rumahraga.model.BannerModel;
 import com.example.rumahraga.model.CategoryModel;
 import com.example.rumahraga.model.CityModel;
 import com.example.rumahraga.model.FieldModel;
+import com.example.rumahraga.model.NotificationModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.listener.ItemClickListener;
 import com.example.rumahraga.ui.adapters.category.HomeCategoryAdapter;
@@ -32,6 +35,7 @@ import com.example.rumahraga.ui.adapters.slider.BannerSliderAdapter;
 import com.example.rumahraga.ui.fragments.field.FieldCategoryFragment;
 import com.example.rumahraga.ui.fragments.field.FieldDetailFragment;
 import com.example.rumahraga.ui.fragments.field.FieldNearbyFragment;
+import com.example.rumahraga.ui.fragments.notification.NotificationFragment;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
@@ -39,6 +43,7 @@ import com.example.rumahraga.viewmodel.banner.BannerViewModel;
 import com.example.rumahraga.viewmodel.category.CategoryViewModel;
 import com.example.rumahraga.viewmodel.city.CityViewModel;
 import com.example.rumahraga.viewmodel.field.FieldViewModel;
+import com.example.rumahraga.viewmodel.notification.NotificationViewModel;
 import com.example.rumahraga.viewmodel.user.UserViewModel;
 import com.google.android.material.textfield.TextInputLayout;
 import com.leo.searchablespinner.SearchableSpinner;
@@ -68,6 +73,8 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private ArrayList arrayListCity;
     private Boolean isTextInputLayoutClicked = false;
     private SharedPreferences.Editor editor;
+    private NotificationViewModel notificationViewModel;
+    private List<NotificationModel> notificationModelList;
 
 
     @Override
@@ -89,6 +96,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         getCategory();
         getCity();
         getFieldCloser();
+        getRealtimeNotification();
 
 
 
@@ -98,7 +106,10 @@ public class HomeFragment extends Fragment implements ItemClickListener {
             binding.searchBar.setQueryHint(cityName);
         }else {
             binding.searchBar.setQueryHint("Cari nama kota");
+
         }
+
+
 
     }
 
@@ -112,6 +123,7 @@ public class HomeFragment extends Fragment implements ItemClickListener {
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
         userId = sharedPreferences.getString(ConsSharedPref.USER_ID, "");
         editor = sharedPreferences.edit();
+        notificationViewModel = new ViewModelProvider(this).get(NotificationViewModel.class);
 
     }
 
@@ -149,6 +161,15 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 
         binding.tvSeeAllField.setOnClickListener(view -> {
             fragmentTransaction(new FieldNearbyFragment());
+        });
+
+
+        binding.btnNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fragmentTransaction(new NotificationFragment());
+                setReadNotification();
+            }
         });
 
     }
@@ -362,6 +383,36 @@ public class HomeFragment extends Fragment implements ItemClickListener {
 
     }
 
+    private void getNotification() {
+
+        notificationViewModel.getAllNotification(userId, 0).observe(this, new Observer<ResponseModel<List<NotificationModel>>>() {
+            @Override
+            public void onChanged(ResponseModel<List<NotificationModel>> listResponseModel) {
+                if (listResponseModel.isStatus() == true && listResponseModel != null) {
+
+                        notificationModelList = listResponseModel.getData();
+                        binding.rlTotalNotification.setVisibility(View.VISIBLE);
+                        binding.tvNotification.setText(String.valueOf(notificationModelList.size()));
+
+                }else {
+                    binding.rlTotalNotification.setVisibility(View.GONE);
+
+                }
+            }
+        });
+    }
+
+    private void setReadNotification() {
+        notificationViewModel.updateNotification(userId).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            @Override
+            public void onChanged(ResponseModel responseModel) {
+                if (responseModel.isStatus() == true) {
+
+                }
+            }
+        });
+    }
+
 
 
     private void showToast(String type, String message) {
@@ -378,6 +429,19 @@ public class HomeFragment extends Fragment implements ItemClickListener {
     private void fragmentTransaction(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction().addToBackStack(null).replace(R.id.frameMain, fragment)
                 .commit();
+    }
+
+    private void getRealtimeNotification() {
+
+
+        final Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getNotification();
+                getRealtimeNotification();
+            }
+        }, 1000L);
     }
 
 

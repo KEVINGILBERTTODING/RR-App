@@ -1,5 +1,6 @@
 package com.example.rumahraga.data.remote;
 
+import com.example.rumahraga.model.NotificationModel;
 import com.example.rumahraga.model.TransactionDetailModel;
 import com.example.rumahraga.model.TransactionModel;
 import com.example.rumahraga.model.BannerModel;
@@ -149,6 +150,18 @@ public interface ApiService {
     @GET("user/get_total_review")
     Call<ResponseModel<ReviewModel>> getTotalReview(
             @Query("id") int fieldId
+    );
+
+    @GET("user/get_notification")
+    Call<ResponseModel<List<NotificationModel>>> getNotification(
+            @Query("user_id") String userId,
+            @Query("is_read") int isRead
+    );
+
+    @FormUrlEncoded
+    @POST("user/update_notification")
+    Call<ResponseModel> updateNotification(
+            @Field("user_id") String userId
     );
 
 
