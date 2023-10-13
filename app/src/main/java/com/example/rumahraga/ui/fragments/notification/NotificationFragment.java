@@ -39,6 +39,7 @@ public class NotificationFragment extends Fragment implements ItemClickListener 
     private NotificationViewModel notificationViewModel;
     private SharedPreferences sharedPreferences;
     private String userId;
+    private List<NotificationModel> notificationModelList;
 
 
 
@@ -61,6 +62,17 @@ public class NotificationFragment extends Fragment implements ItemClickListener 
 
     private void listener() {
 
+        binding.btnBack.setOnClickListener(view -> {
+            getActivity().onBackPressed();
+        });
+
+        binding.btnDelete.setOnClickListener(view -> {
+            if (notificationModelList != null) {
+                deleteNotification();
+            }else {
+                showToast(ConsOther.TOAST_NORMAL, "Tidak ada notifikasi");
+            }
+        });
 
     }
 
@@ -79,7 +91,8 @@ public class NotificationFragment extends Fragment implements ItemClickListener 
             @Override
             public void onChanged(ResponseModel<List<NotificationModel>> listResponseModel) {
                 if (listResponseModel.isStatus() == true) {
-                    NotificationAdapter notificationAdapter = new NotificationAdapter(getContext(), listResponseModel.getData());
+                    notificationModelList = listResponseModel.getData();
+                    NotificationAdapter notificationAdapter = new NotificationAdapter(getContext(), notificationModelList);
                     LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
                     binding.rvNotif.setLayoutManager(linearLayoutManager);
                     binding.rvNotif.setAdapter(notificationAdapter);
@@ -89,7 +102,10 @@ public class NotificationFragment extends Fragment implements ItemClickListener 
                     binding.shimmer.setVisibility(View.GONE);
 
                 }else {
-                    binding.tvEmpty.setText(listResponseModel.getMessage());
+                    binding.tvEmpty.setText("Tidak ada notifikasi");
+                    binding.tvEmpty.setVisibility(View.VISIBLE);
+                    binding.shimmer.setVisibility(View.GONE);
+                    binding.rvNotif.setVisibility(View.GONE);
                     showToast(ConsOther.TOAST_ERR, listResponseModel.getMessage());
                 }
             }
@@ -107,10 +123,29 @@ public class NotificationFragment extends Fragment implements ItemClickListener 
         }
     }
 
+
+    private void deleteNotification() {
+        binding.rvNotif.setAdapter(null);
+        binding.rvNotif.setVisibility(View.GONE);
+        binding.tvEmpty.setVisibility(View.VISIBLE);
+        binding.tvEmpty.setText("Tidak ada notifikasi");
+        notificationViewModel.deleteNotification(userId).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+            @Override
+            public void onChanged(ResponseModel responseModel) {
+                if (responseModel.isStatus() == true) {
+
+                }else {
+
+                }
+            }
+        });
+    }
     private void fragmentTransaction(Fragment fragment) {
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.frameMain, fragment)
                 .commit();
     }
+
+
 
     @Override
     public void onItemClickListener(String type, int positon, Object object) {

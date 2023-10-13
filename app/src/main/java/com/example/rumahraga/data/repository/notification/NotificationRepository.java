@@ -72,4 +72,28 @@ public class NotificationRepository {
         });
         return responseModelMutableLiveData;
     }
+
+    public LiveData<ResponseModel> deleteNotification(String id) {
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        apiService.deleteNotification(id).enqueue(new Callback<ResponseModel>() {
+            @Override
+            public void onResponse(Call<ResponseModel> call, Response<ResponseModel> response) {
+                if (response.isSuccessful()) {
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, response.body().getMessage(), null));
+                }else {
+                    Gson gson = new Gson();
+                    ResponseModel responseModel = gson.fromJson(response.errorBody().charStream(), ResponseModel.class);
+                    responseModelMutableLiveData.setValue(new ResponseModel(false, responseModel.getMessage(), null));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseModel> call, Throwable t) {
+                responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.SERVER_ERROR, null));
+
+            }
+        });
+
+        return responseModelMutableLiveData;
+    }
 }

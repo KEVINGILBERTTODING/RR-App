@@ -5,6 +5,7 @@
         android:layout_width="match_parent"
         android:background="@color/background"
         android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         tools:context=".ui.fragments.notification.NotificationFragment">
 
         <LinearLayout
@@ -50,6 +51,24 @@
                             android:layout_marginRight="@dimen/_7sdp"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18ssp"/>
+
+                        <androidx.cardview.widget.CardView
+                            android:layout_width="@dimen/_30sdp"
+                            android:layout_alignParentEnd="true"
+                            android:layout_height="@dimen/_30sdp"
+                            app:cardElevation="0dp"
+                            app:cardBackgroundColor="@color/main3"
+                            android:id="@+id/btnDelete"
+                            app:cardCornerRadius="@dimen/_5sdp">
+                            <ImageView
+                                android:layout_width="@dimen/_20sdp"
+                                android:layout_height="@dimen/_20sdp"
+                                android:layout_gravity="center_vertical|center_horizontal"
+                                android:src="@drawable/ic_delete"/>
+                        </androidx.cardview.widget.CardView>
+
+
+
 
 
 

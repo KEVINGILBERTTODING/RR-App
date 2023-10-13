@@ -13,7 +13,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.hilt.android.AndroidEntryPoint;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 
@@ -43,6 +42,16 @@ public class NotificationViewModel extends ViewModel {
             return notificationRepository.updateNotification(userId);
         }else{
             responseModelMutableLiveData.setValue(new ResponseModel<>(false,ConsResponse.ERROR_MESSAGE, null));
+        }
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> deleteNotification(String id) {
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        if (id != null) {
+            return notificationRepository.deleteNotification(id);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.ERROR_MESSAGE, null));
         }
         return responseModelMutableLiveData;
     }

@@ -190,4 +190,10 @@ public interface ApiService {
             @Part MultipartBody.Part filePart
     );
 
+    @FormUrlEncoded
+    @POST("user/delete_notification")
+    Call<ResponseModel> deleteNotification(
+            @Field("id") String id
+    );
+
 }
