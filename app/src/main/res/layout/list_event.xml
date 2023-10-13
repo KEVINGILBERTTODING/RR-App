@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_10sdp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardElevation="0dp"
+        app:strokeWidth="@dimen/_3sdp"
+        app:strokeColor="@color/main"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:padding="@dimen/_10sdp"
+            android:layout_height="wrap_content">
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cvImage"
+                android:layout_centerVertical="true"
+                app:cardCornerRadius="@dimen/_10sdp"
+                app:cardElevation="0dp"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_60sdp">
+                <ImageView
+                    android:id="@+id/ivEvent"
+                    android:layout_width="match_parent"
+                    android:scaleType="fitXY"
+                    android:layout_height="match_parent"/>
+            </androidx.cardview.widget.CardView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_toRightOf="@+id/cvImage"
+                android:orientation="vertical">
+                <TextView
+                    android:id="@+id/tvEventName"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/popmed"
+                    android:includeFontPadding="false"
+                    android:textSize="@dimen/_13ssp"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:id="@+id/tvEventCategories"
+                    android:layout_width="match_parent"
+                    android:fontFamily="@font/popreg"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:textSize="@dimen/_11ssp"
+                    android:textColor="@color/main"
+                    android:includeFontPadding="false"
+                    android:layout_height="wrap_content"/>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <ImageView
+                        android:id="@+id/ivCalendar"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:tint="@color/main"
+                        android:src="@drawable/ic_calendar"/>
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="@dimen/_5sdp"
+                        android:fontFamily="@font/popmed"
+                        android:textSize="@dimen/_12ssp"
+                        android:includeFontPadding="false"
+                        android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</RelativeLayout>

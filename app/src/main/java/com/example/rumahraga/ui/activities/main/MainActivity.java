@@ -13,6 +13,7 @@ import android.provider.Settings;
 
 import com.example.rumahraga.R;
 import com.example.rumahraga.databinding.ActivityMainBinding;
+import com.example.rumahraga.ui.fragments.events.EventsFragments;
 import com.example.rumahraga.ui.fragments.field.FieldAllFragment;
 import com.example.rumahraga.ui.fragments.home.HomeFragment;
 import com.example.rumahraga.ui.fragments.profile.ProfileFragment;
@@ -47,10 +48,14 @@ public class MainActivity extends AppCompatActivity {
                     case 1:
                         fragmentTransaction(new FieldAllFragment());
                         break;
+
                     case 2:
-                        fragmentTransaction(new TransactionListFragment());
+                        fragmentTransaction(new EventsFragments());
                         break;
                     case 3:
+                        fragmentTransaction(new TransactionListFragment());
+                        break;
+                    case 4:
                         fragmentTransaction(new ProfileFragment());
                         break;
 

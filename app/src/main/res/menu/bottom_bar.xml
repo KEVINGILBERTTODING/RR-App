@@ -11,6 +11,12 @@
         android:title="Lapangan"
         />
 
+
+    <item android:id="@+id/menu_event"
+        android:icon="@drawable/ic_calendar"
+        android:title="Events"
+        />
+
     <item android:id="@+id/menu_history"
         android:icon="@drawable/ic_history"
         android:title="Riwayat"

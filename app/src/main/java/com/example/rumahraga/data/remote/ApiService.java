@@ -1,5 +1,6 @@
 package com.example.rumahraga.data.remote;
 
+import com.example.rumahraga.model.EventModel;
 import com.example.rumahraga.model.NotificationModel;
 import com.example.rumahraga.model.TransactionDetailModel;
 import com.example.rumahraga.model.TransactionModel;
@@ -195,5 +196,8 @@ public interface ApiService {
     Call<ResponseModel> deleteNotification(
             @Field("id") String id
     );
+
+    @GET("user/get_event")
+    Call<ResponseModel<List<EventModel>>> getEvents();
 
 }
