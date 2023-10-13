@@ -50,7 +50,7 @@ public class HomeCategoryAdapter extends RecyclerView.Adapter<HomeCategoryAdapte
 
     @Override
     public int getItemCount() {
-        return 5;
+        return categoryModels.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

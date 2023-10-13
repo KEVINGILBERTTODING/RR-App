@@ -11,9 +11,10 @@
 
         <ImageView
             android:layout_width="@dimen/_170sdp"
-            android:src="@drawable/main_heaer2"
+            android:src="@drawable/iv_header_bg"
             android:layout_alignParentRight="true"
             android:scaleType="fitXY"
+            android:tint="@color/main"
             android:layout_height="@dimen/_100sdp"/>
 
         <LinearLayout
