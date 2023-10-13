@@ -78,7 +78,12 @@ public class LoginFragment extends Fragment {
             binding.etUsername.setError("Tidak boleh kosong");
         }else if (binding.etPassword.getText().toString().isEmpty()) {
             binding.etUsername.setError("Tidak boleh kosong");
-
+        } else if (binding.etUsername.getText().toString().length() < 8) {
+            binding.etUsername.setError("Tidak boleh kurang dari 8 karakter");
+        }else if (binding.etPassword.getText().toString().length() < 8) {
+            binding.etPassword.setError("Tidak boleh kurang dari 8 karakter");
+        } else if (binding.etUsername.getText().toString().matches("[0-9]+")) {
+            binding.etUsername.setError("Username tidak boleh mengandung angka");
         }else {
             authViewModel.login(binding.etUsername.getText().toString(), binding.etPassword.getText().toString())
                     .observe(getViewLifecycleOwner(), new Observer<ResponseModel<UserModel>>() {

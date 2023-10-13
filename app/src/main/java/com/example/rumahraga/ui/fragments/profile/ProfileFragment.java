@@ -398,7 +398,9 @@ public class ProfileFragment extends Fragment {
             showToast(ConsOther.TOAST_ERR, "Username tidak boleh kosong");
         }else if (binding.etUsername.getText().toString().matches("[0-9]+")) {
             showToast(ConsOther.TOAST_ERR, "Username tidak boleh mengandung angka");
-         }else if (userId == null) {
+        }else if (binding.etUsername.getText().toString().length() < 8) {
+            showToast(ConsOther.TOAST_ERR, "Tidak boleh kurang dari 8 karakter");
+        }else if (userId == null) {
             showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
          }  else {
             showDialogUploading();
@@ -428,6 +430,8 @@ public class ProfileFragment extends Fragment {
         }else if (binding.etNewPassword.getText().toString().isEmpty()){
             showToast(ConsOther.TOAST_ERR, "Kata sandi baru tidak boleh kosong");
 
+        }else if (binding.etNewPassword.getText().toString().length() < 8) {
+            showToast(ConsOther.TOAST_ERR, "Tidak boleh kurang dari 8 karakter");
         }else if (userId == null) {
             showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
         }else {

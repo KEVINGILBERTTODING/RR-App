@@ -71,9 +71,13 @@ public class RegisterFragment extends Fragment {
         }
         else if (binding.etPassword.getText().toString().isEmpty()) {
             binding.etUsername.setError("Tidak boleh kosong");
-
-        }
-        else {
+        } else if (binding.etUsername.getText().toString().length() < 8) {
+            binding.etUsername.setError("Tidak boleh kurang dari 8 karakter");
+        }else if (binding.etPassword.getText().toString().length() < 8) {
+            binding.etPassword.setError("Tidak boleh kurang dari 8 karakter");
+        } else if (binding.etUsername.getText().toString().matches("[0-9]+")) {
+            binding.etUsername.setError("Username tidak boleh mengandung angka");
+        }else {
             authViewModel.register(
                     binding.etUsername.getText().toString(),
                             binding.etEmail.getText().toString(),
