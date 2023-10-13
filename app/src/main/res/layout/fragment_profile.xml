@@ -35,6 +35,8 @@
                         android:layout_above="@id/profile_image"
                         android:orientation="vertical">
 
+
+
                         <TextView
                             android:layout_width="match_parent"
                             android:fontFamily="@font/popreg"

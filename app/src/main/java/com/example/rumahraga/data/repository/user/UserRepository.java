@@ -9,11 +9,15 @@ import com.example.rumahraga.model.UserModel;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.google.gson.Gson;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 
+import okhttp3.MultipartBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.http.Multipart;
 
 public class UserRepository {
     private ApiService apiService;
@@ -119,5 +123,31 @@ public class UserRepository {
         });
 
         return responseModelMutableLiveData;
+
+
+    }
+
+    public LiveData<ResponseModel> updateProfilePhoto(HashMap map, MultipartBody.Part filePart) {
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+       apiService.updateProfilePhoto(map, filePart).enqueue(new Callback() {
+           @Override
+           public void onResponse(Call call, Response response) {
+               if (response.isSuccessful()) {
+                   responseModelMutableLiveData.setValue(new ResponseModel(true, ConsResponse.SUCCESS_MESSAGE, null));
+               }else {
+                   Gson gson = new Gson();
+                   ResponseModel responseModel = gson.fromJson(response.errorBody().charStream(), ResponseModel.class);
+                   responseModelMutableLiveData.setValue(new ResponseModel(false, responseModel.getMessage(), null));
+               }
+           }
+
+           @Override
+           public void onFailure(Call call, Throwable t) {
+               responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.SERVER_ERROR, null));
+
+           }
+       });
+
+       return responseModelMutableLiveData;
     }
 }

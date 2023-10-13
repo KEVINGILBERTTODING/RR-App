@@ -183,4 +183,11 @@ public interface ApiService {
             @Field("new_password") String newPassword
     );
 
+    @Multipart
+    @POST("user/update_profile_photo")
+    Call<ResponseModel> updateProfilePhoto(
+            @PartMap Map<String, RequestBody> textData,
+            @Part MultipartBody.Part filePart
+    );
+
 }

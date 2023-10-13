@@ -9,9 +9,12 @@ import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.UserModel;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 
+import java.util.HashMap;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import okhttp3.MultipartBody;
 
 @HiltViewModel
 
@@ -62,6 +65,17 @@ public class UserViewModel extends ViewModel {
             return userRepository.updatePassword(userId, oldPassword, newPassword);
         }else {
             responseModelMutableLiveData.setValue(new ResponseModel<>(false, ConsResponse.ERROR_MESSAGE, null));
+        }
+
+        return responseModelMutableLiveData;
+    }
+
+    public LiveData<ResponseModel> updateProfilePhoto(HashMap map, MultipartBody.Part filePart) {
+        MutableLiveData<ResponseModel> responseModelMutableLiveData = new MutableLiveData<>();
+        if (map != null && filePart != null) {
+            return userRepository.updateProfilePhoto(map, filePart);
+        }else {
+            responseModelMutableLiveData.setValue(new ResponseModel(false, ConsResponse.ERROR_MESSAGE, null));
         }
 
         return responseModelMutableLiveData;

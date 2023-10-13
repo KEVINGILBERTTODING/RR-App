@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="match_parent">
+
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        app:cardElevation="0dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_marginTop="@dimen/_50sdp"
+        app:cardCornerRadius="@dimen/_20sdp"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_20sdp"
+            android:orientation="vertical">
+
+            <ImageButton
+                android:layout_width="@dimen/_25sdp"
+                android:layout_height="@dimen/_25sdp"
+                android:backgroundTint="@color/black"
+                android:layout_gravity="end"
+                android:id="@+id/btnDialogClose"
+                android:background="@drawable/ic_close"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/ivUpdateProfile"
+                android:layout_width="@dimen/_100sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:layout_height="@dimen/_100sdp"
+                android:src="@drawable/ic_picture"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="center_horizontal"
+                app:civ_border_width="@dimen/_4sdp"
+                app:civ_border_color="@color/background"/>
+
+
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:text="Klik untuk memilih gambar"
+                android:id="@+id/tvTitle"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:fontFamily="@font/popreg"
+                android:layout_gravity="center_horizontal"
+                android:textColor="@color/gray"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/_11sdp"
+                android:layout_height="wrap_content"/>
+
+
+
+            <com.google.android.material.button.MaterialButton
+                android:layout_marginTop="@dimen/_10sdp"
+                android:id="@+id/btnUpdatePhotoProfile"
+                android:text="Simpan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+=
+
+
+        </LinearLayout>
+
+
+
+
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</RelativeLayout>

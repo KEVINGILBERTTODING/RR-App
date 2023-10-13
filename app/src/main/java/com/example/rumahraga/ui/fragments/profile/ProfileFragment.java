@@ -1,20 +1,33 @@
 package com.example.rumahraga.ui.fragments.profile;
 
+import android.Manifest;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.provider.OpenableColumns;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -34,11 +47,20 @@ import com.leo.searchablespinner.interfaces.OnItemSelectListener;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 import es.dmoral.toasty.Toasty;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 
 @AndroidEntryPoint
 public class ProfileFragment extends Fragment {
@@ -55,6 +77,11 @@ public class ProfileFragment extends Fragment {
     private SearchableSpinner searchableSpinnerCity;
     private ArrayList<String> arrayListCity = new ArrayList<>();
     private Boolean isTextInputLayoutClicked = false;
+    private File file;
+    private ImageView imagePicker;
+    private boolean isFile;
+
+    private Dialog dialogUploading, dialogUpdatePhotoProfile;
 
 
 
@@ -127,6 +154,21 @@ public class ProfileFragment extends Fragment {
             updatePassword();
         });
 
+        binding.vOverlay.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                hideBtmSheetCity();
+                hideBtmSheetUpdtPwd();
+                hideBtmSheetUpdtUsernmae();
+            }
+        });
+
+        binding.profileImage.setOnClickListener(view -> {
+            showUpadateProfileDialog();
+        });
+
+
+
 
 
 
@@ -157,6 +199,8 @@ public class ProfileFragment extends Fragment {
                     Glide.with(getContext()).load(userModelResponseModel.getData().getProfile_picture())
                             .diskCacheStrategy(DiskCacheStrategy.ALL).skipMemoryCache(true)
                             .into(binding.profileImage);
+
+
                     binding.shimmer.setVisibility(View.GONE);
                     binding.profileImage.setVisibility(View.VISIBLE);
 
@@ -323,6 +367,32 @@ public class ProfileFragment extends Fragment {
         });
     }
 
+    private void showUpadateProfileDialog(){
+        dialogUpdatePhotoProfile = new Dialog(getContext());
+        dialogUpdatePhotoProfile.setContentView(R.layout.dialog_update_photo_profile);
+        dialogUpdatePhotoProfile.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        imagePicker = dialogUpdatePhotoProfile.findViewById(R.id.ivUpdateProfile);
+        final ImageButton btnClose  = dialogUpdatePhotoProfile.findViewById(R.id.btnDialogClose);
+        final Button btnUpdatePhotoProfile = dialogUpdatePhotoProfile.findViewById(R.id.btnUpdatePhotoProfile);
+
+        dialogUpdatePhotoProfile.show();
+
+        // listener
+        imagePicker.setOnClickListener(view -> {
+            checkPermissionExternalStorage();
+        });
+
+        btnClose.setOnClickListener(view -> {
+            dialogUpdatePhotoProfile.dismiss();
+        });
+
+        btnUpdatePhotoProfile.setOnClickListener(view -> {
+            updatePhotoProfile();
+        });
+
+
+    }
+
     private void updateUsername() {
         if (binding.etUsername.getText().toString().isEmpty()) {
             showToast(ConsOther.TOAST_ERR, "Username tidak boleh kosong");
@@ -331,10 +401,12 @@ public class ProfileFragment extends Fragment {
          }else if (userId == null) {
             showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
          }  else {
+            showDialogUploading();
             userViewModel.updateUsername(binding.etUsername.getText().toString(), userId)
                     .observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                         @Override
                         public void onChanged(ResponseModel responseModel) {
+                            dialogUploading.dismiss();
                             if (responseModel.isStatus() == true) {
                                 saveSharedPref(ConsSharedPref.USERNAME, binding.etUsername.getText().toString());
                                 binding.tvUsername.setText(binding.etUsername.getText().toString());
@@ -359,12 +431,14 @@ public class ProfileFragment extends Fragment {
         }else if (userId == null) {
             showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
         }else {
+            showDialogUploading();
             userViewModel.updatePassword(
                     userId, binding.etOldPassword.getText().toString(),
                     binding.etNewPassword.getText().toString()
             ).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
                 @Override
                 public void onChanged(ResponseModel responseModel) {
+                    dialogUploading.dismiss();
                     if (responseModel.isStatus() == true) {
                         hideBtmSheetUpdtPwd();
                         showToast(ConsOther.TOAST_SUCCESS, "Berhasil mengubah kata sandi");
@@ -376,8 +450,39 @@ public class ProfileFragment extends Fragment {
         }
     }
 
+    private void updatePhotoProfile() {
+        if (userId != null && file != null && isFile == true) {
+            showDialogUploading();
 
-        private void showToast(String type, String message) {
+
+            HashMap map = new HashMap();
+            map.put("user_id", RequestBody.create(MediaType.parse("text/plain"), userId));
+            RequestBody requestBody = RequestBody.create(MediaType.parse("image/*"), file);
+            MultipartBody.Part filePart = MultipartBody.Part.createFormData("image", file.getName(), requestBody);
+
+
+            userViewModel.updateProfilePhoto(map, filePart).observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
+                @Override
+                public void onChanged(ResponseModel responseModel) {
+                    dialogUploading.dismiss();
+                    if (responseModel.isStatus() == true) {
+                        showToast(ConsOther.TOAST_SUCCESS, "Berhasil mengubah foto profil");
+                        dialogUpdatePhotoProfile.dismiss();
+                        getUserData();
+                    }else {
+                        showToast(ConsOther.TOAST_ERR, responseModel.getMessage());
+
+                    }
+                }
+            });
+        }else{
+            showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+        }
+
+    }
+
+
+    private void showToast(String type, String message) {
         if (type.equals(ConsOther.TOAST_SUCCESS)) {
             Toasty.success(getContext(), message, Toasty.LENGTH_SHORT).show();
         }else if (type.equals(ConsOther.TOAST_NORMAL)){
@@ -387,8 +492,106 @@ public class ProfileFragment extends Fragment {
 
         }
     }
+
     private void saveSharedPref(String sharedName, String value) {
         editor.putString(sharedName, value);
         editor.apply();
     }
+
+    private void showDialogUploading() {
+        dialogUploading = new Dialog(getContext());
+        dialogUploading.setContentView(R.layout.dialog_uploading);
+        dialogUploading.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialogUploading.show();
+    }
+
+
+    private void checkPermissionExternalStorage() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+            getContentLauncher.launch("image/*");
+        } else {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showToast( ConsOther.TOAST_ERR,"Izin dibutuhkan untuk mengakses galeri");
+            }
+            // Meminta izin READ_EXTERNAL_STORAGE.
+            ActivityCompat.requestPermissions(requireActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        }
+    }
+
+
+    private ActivityResultLauncher<String> getContentLauncher = registerForActivityResult(
+            new ActivityResultContracts.GetContent(),
+            result -> {
+                if (result != null) {
+                    Uri uri = result;
+                    String pdfPath = getRealPathFromUri(uri);
+                    file = new File(pdfPath);
+                    imagePicker.setVisibility(View.VISIBLE);
+                    imagePicker.setImageURI(uri);
+                    isFile = true;
+
+
+
+                } else {
+                    showToast(ConsOther.TOAST_ERR, ConsResponse.ERROR_MESSAGE);
+                    isFile = false;
+
+                }
+            }
+    );
+
+    public String getRealPathFromUri(Uri uri) {
+        String filePath = "";
+        if (getContext().getContentResolver() != null) {
+            try {
+                InputStream inputStream = getContext().getContentResolver().openInputStream(uri);
+                File file = new File(getContext().getCacheDir(), getFileName(uri));
+                writeFile(inputStream, file);
+                filePath = file.getAbsolutePath();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return filePath;
+    }
+
+    private String getFileName(Uri uri) {
+        String result = null;
+        if (uri.getScheme().equals("content")) {
+            Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+            try {
+                if (cursor != null && cursor.moveToFirst()) {
+                    int displayNameIndex = cursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+                    if (displayNameIndex != -1) {
+                        result = cursor.getString(displayNameIndex);
+                    }
+                }
+            } finally {
+                if (cursor != null) {
+                    cursor.close();
+                }
+            }
+        }
+        if (result == null) {
+            result = uri.getPath();
+            int cut = result.lastIndexOf('/');
+            if (cut != -1) {
+                result = result.substring(cut + 1);
+            }
+        }
+        return result;
+    }
+
+    private void writeFile(InputStream inputStream, File file) throws IOException {
+        OutputStream outputStream = new FileOutputStream(file);
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) > 0) {
+            outputStream.write(buffer, 0, length);
+        }
+        outputStream.flush();
+        outputStream.close();
+        inputStream.close();
+    }
+
 }
