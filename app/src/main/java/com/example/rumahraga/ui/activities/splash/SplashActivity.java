@@ -8,6 +8,7 @@ import android.os.Handler;
 
 import com.example.rumahraga.R;
 import com.example.rumahraga.ui.activities.auth.AuthActivity;
+import com.example.rumahraga.ui.activities.onboarding.OnBoardingActivity;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -19,7 +20,7 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, AuthActivity.class));
+                startActivity(new Intent(SplashActivity.this, OnBoardingActivity.class));
                 finish();
             }
         }, 1200L);

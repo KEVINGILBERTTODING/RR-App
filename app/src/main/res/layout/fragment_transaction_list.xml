@@ -98,6 +98,7 @@
                     android:paddingLeft="@dimen/_14sdp"
                     android:layout_marginTop="@dimen/_14sdp"
                     android:paddingRight="@dimen/_14sdp"
+                    android:paddingBottom="@dimen/_14sdp"
                     android:id="@+id/swipeRefresh"
                     android:layout_height="wrap_content">
                     <LinearLayout

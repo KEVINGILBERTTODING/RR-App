@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent"
+        tools:context=".ui.activities.onboarding.OnBoardingActivity">
+
+
+        <ImageView
+            android:layout_width="@dimen/_170sdp"
+            android:src="@drawable/main_heaer2"
+            android:layout_alignParentRight="true"
+            android:scaleType="fitXY"
+            android:layout_height="@dimen/_100sdp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_centerVertical="true"
+            android:padding="@dimen/_14sdp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_250sdp"
+                android:src="@drawable/iv_onboarding1"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/_20ssp"
+                android:textColor="@color/black"
+                android:text="Temukan dan sewa lapangan terdekat dengan aplikasi Rumah Raga"
+                android:fontFamily="@font/popsem"/>
+
+
+
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Daftar sekarang"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/_14sdp"
+            android:layout_gravity="end"
+            android:id="@+id/btnDaftar"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:fontFamily="@font/popmed"
+            android:textSize="@dimen/_13ssp"/>
+
+
+    </RelativeLayout>
+</layout>
