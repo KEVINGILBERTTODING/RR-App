@@ -3,6 +3,7 @@ package com.example.rumahraga.ui.fragments.profile;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -36,6 +37,7 @@ import com.example.rumahraga.databinding.FragmentProfileBinding;
 import com.example.rumahraga.model.CityModel;
 import com.example.rumahraga.model.ResponseModel;
 import com.example.rumahraga.model.UserModel;
+import com.example.rumahraga.ui.activities.auth.AuthActivity;
 import com.example.rumahraga.util.constans.other.ConsOther;
 import com.example.rumahraga.util.constans.response.ConsResponse;
 import com.example.rumahraga.util.constans.sharedpref.ConsSharedPref;
@@ -165,6 +167,10 @@ public class ProfileFragment extends Fragment {
 
         binding.profileImage.setOnClickListener(view -> {
             showUpadateProfileDialog();
+        });
+
+        binding.cvLogOut.setOnClickListener(view -> {
+            logOut();
         });
 
 
@@ -509,6 +515,12 @@ public class ProfileFragment extends Fragment {
         dialogUploading.show();
     }
 
+    private void logOut() {
+        editor.clear();
+        editor.apply();
+        startActivity(new Intent(getContext(), AuthActivity.class));
+        getActivity().finish();
+    }
 
     private void checkPermissionExternalStorage() {
         if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
