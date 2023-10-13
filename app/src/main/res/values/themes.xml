@@ -13,8 +13,9 @@
 
     <style name="SplashTheme" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="android:navigationBarColor">@color/main</item>
-        <item name="colorPrimary">@color/main</item>
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowBackground">@drawable/splash_screen_logo</item>
     </style>
 
     <style name="RatingBar" parent="Theme.AppCompat">
