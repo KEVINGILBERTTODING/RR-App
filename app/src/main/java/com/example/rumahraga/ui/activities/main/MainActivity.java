@@ -46,11 +46,11 @@ public class MainActivity extends AppCompatActivity {
                         fragmentTransaction(new HomeFragment());
                         break;
                     case 1:
-                        fragmentTransaction(new FieldAllFragment());
+                        fragmentTransaction(new EventsFragments());
                         break;
 
                     case 2:
-                        fragmentTransaction(new EventsFragments());
+                        fragmentTransaction(new FieldAllFragment());
                         break;
                     case 3:
                         fragmentTransaction(new TransactionListFragment());

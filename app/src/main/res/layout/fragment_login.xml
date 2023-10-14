@@ -9,13 +9,12 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:background="@color/main"
-            android:layout_height="@dimen/_240sdp">
+            android:background="@drawable/bglogin3"
+            android:layout_height="@dimen/_300sdp">
 
             <ImageView
                 android:layout_width="@dimen/_400sdp"
                 android:visibility="gone"
-
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
@@ -25,7 +24,7 @@
             android:layout_height="match_parent"
             android:padding="@dimen/_14sdp"
             android:background="@drawable/login_container"
-            android:layout_marginTop="@dimen/_170sdp"
+            android:layout_marginTop="@dimen/_200sdp"
             android:orientation="vertical">
 
             <TextView

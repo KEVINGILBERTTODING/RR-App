@@ -5,12 +5,22 @@
 
 
     <item
-    android:width="@dimen/_150sdp"
+    android:width="@dimen/_120sdp"
     android:right="@dimen/_50sdp"
     android:left="@dimen/_50sdp"
-    android:height="@dimen/_100sdp"
+    android:height="@dimen/_80sdp"
     android:drawable="@drawable/ic_main_icon"
     android:gravity="center" />
+
+
+    <item
+        android:width="@dimen/_90sdp"
+        android:right="@dimen/_50sdp"
+        android:left="@dimen/_50sdp"
+        android:height="@dimen/_35sdp"
+        android:bottom="@dimen/_60sdp"
+        android:drawable="@drawable/footer_splash"
+        android:gravity="center_horizontal|bottom" />
 
 
 

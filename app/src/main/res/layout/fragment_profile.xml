@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:background="@color/background"
+        android:background="@color/white"
         tools:context=".ui.fragments.profile.ProfileFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
@@ -80,7 +80,7 @@
                             android:layout_alignParentBottom="true"
                             android:layout_gravity="center_horizontal"
                             app:civ_border_width="@dimen/_4sdp"
-                            app:civ_border_color="@color/background"/>
+                            app:civ_border_color="@color/white"/>
 
                     </com.facebook.shimmer.ShimmerFrameLayout>
 
@@ -93,7 +93,7 @@
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
                         app:civ_border_width="@dimen/_4sdp"
-                        app:civ_border_color="@color/background"/>
+                        app:civ_border_color="@color/white"/>
 
 
                 </RelativeLayout>
@@ -158,7 +158,7 @@
                             app:strokeColor="@color/main"
                             app:cardElevation="0dp"
                             android:id="@+id/cvUpdateUsername"
-                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             app:cardCornerRadius="@dimen/_10sdp"
                             app:contentPadding="@dimen/_10sdp"
                             android:layout_height="wrap_content">
@@ -200,7 +200,7 @@
                             android:id="@+id/cvPwdUpdate"
                             app:strokeColor="@color/main"
                             app:cardElevation="0dp"
-                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             app:cardCornerRadius="@dimen/_10sdp"
                             app:contentPadding="@dimen/_10sdp"
                             android:layout_height="wrap_content">
@@ -242,7 +242,7 @@
                             android:id="@+id/cvLogOut"
                             app:strokeColor="@color/main"
                             app:cardElevation="0dp"
-                            android:layout_marginTop="@dimen/_20sdp"
+                            android:layout_marginTop="@dimen/_10sdp"
                             app:cardCornerRadius="@dimen/_10sdp"
                             app:contentPadding="@dimen/_10sdp"
                             android:layout_height="wrap_content">
