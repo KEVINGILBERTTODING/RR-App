@@ -1,5 +1,5 @@
 # Rumah-Raga-App
-Aplikasi penyewaan lapangan terdekat berbasis Android
+Aplikasi penyewaan lapangan olahraga terdekat berbasis Android
 <br><br>
 
 ![Slide 16_9 - 1](https://github.com/KEVINGILBERTTODING/Rumah-Raga-App/assets/79959818/113f4869-ec6a-41ef-94a5-7c98372a8b90)
