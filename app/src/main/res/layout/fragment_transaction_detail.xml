@@ -6,7 +6,7 @@
         android:background="@color/main"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.transaction.TransactionDetailFragment">
+        tools:context="id.co.rumahraga.ui.fragments.transaction.TransactionDetailFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -288,7 +288,7 @@
                                             android:textSize="@dimen/_11ssp"
                                             android:textColor="@color/black"
                                             android:layout_alignParentEnd="true"
-                                            android:text="Rp. 2.500"/>
+                                            android:text="Rp. 6.500"/>
 
                                     </RelativeLayout>
 

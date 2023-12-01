@@ -5,6 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main"
-    tools:context=".ui.activities.splash.SplashActivity">
+    tools:context="id.co.rumahraga.ui.activities.splash.SplashActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

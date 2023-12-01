@@ -5,11 +5,11 @@ plugins {
 }
 
 android {
-    namespace 'com.example.rumahraga'
+    namespace 'id.co.rumahraga'
     compileSdk 34
 
     defaultConfig {
-        applicationId "com.example.rumahraga"
+        applicationId "id.co.rumahraga"
         minSdk 25
         targetSdk 34
         versionCode 1

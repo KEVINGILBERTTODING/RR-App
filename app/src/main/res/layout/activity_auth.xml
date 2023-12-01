@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activities.auth.AuthActivity">
+        tools:context="id.co.rumahraga.ui.activities.auth.AuthActivity">
         <FrameLayout
             android:id="@+id/frameAuth"
             android:layout_width="match_parent"

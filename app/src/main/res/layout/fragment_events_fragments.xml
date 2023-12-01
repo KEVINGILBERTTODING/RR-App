@@ -6,7 +6,7 @@
         android:background="@color/white"
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        tools:context=".ui.fragments.events.EventsFragments">
+        tools:context="id.co.rumahraga.ui.fragments.events.EventsFragments">
 
         <LinearLayout
             android:layout_width="match_parent"

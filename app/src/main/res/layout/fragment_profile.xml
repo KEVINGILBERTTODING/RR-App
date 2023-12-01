@@ -6,7 +6,7 @@
         android:layout_height="match_parent"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/white"
-        tools:context=".ui.fragments.profile.ProfileFragment">
+        tools:context="id.co.rumahraga.ui.fragments.profile.ProfileFragment">
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:layout_width="match_parent"

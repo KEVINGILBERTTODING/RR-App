@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:background="@color/white"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.field.FieldDetailFragment">
+        tools:context="id.co.rumahraga.ui.fragments.field.FieldDetailFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -607,7 +607,7 @@
                                 android:textSize="@dimen/_11ssp"
                                 android:textColor="@color/black"
                                 android:layout_alignParentEnd="true"
-                                android:text="Rp. 2.500"/>
+                                android:text="Rp. 6.500"/>
 
                         </RelativeLayout>
 

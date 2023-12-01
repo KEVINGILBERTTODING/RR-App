@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/main"
-        tools:context=".ui.fragments.transaction.PaymentFragment">
+        tools:context="id.co.rumahraga.ui.fragments.transaction.PaymentFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"

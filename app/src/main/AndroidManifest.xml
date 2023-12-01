@@ -10,7 +10,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
-        android:name=".di.app.RumahRagaApp"
+        android:name="id.co.rumahraga.di.app.RumahRagaApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -22,17 +22,17 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ui.activities.onboarding.OnBoardingActivity"
+            android:name="id.co.rumahraga.ui.activities.onboarding.OnBoardingActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.main.MainActivity"
+            android:name="id.co.rumahraga.ui.activities.main.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.activities.auth.AuthActivity"
+            android:name="id.co.rumahraga.ui.activities.auth.AuthActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.activities.splash.SplashActivity"
+            android:name="id.co.rumahraga.ui.activities.splash.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">

@@ -6,7 +6,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/white"
         android:layout_height="match_parent"
-        tools:context=".ui.fragments.transaction.TransactionListFragment">
+        tools:context="id.co.rumahraga.ui.fragments.transaction.TransactionListFragment">
 
         <RelativeLayout
             android:layout_width="match_parent"

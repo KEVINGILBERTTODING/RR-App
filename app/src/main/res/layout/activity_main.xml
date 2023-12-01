@@ -5,7 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.activities.main.MainActivity">
+        tools:context="id.co.rumahraga.ui.activities.main.MainActivity">
 
         <FrameLayout
             android:id="@+id/frameMain"

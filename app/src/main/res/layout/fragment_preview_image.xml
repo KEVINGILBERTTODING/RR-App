@@ -5,7 +5,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black"
-        tools:context=".ui.fragments.field.PreviewImageFragment">
+        tools:context="id.co.rumahraga.ui.fragments.field.PreviewImageFragment">
 
         <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/imageView"

@@ -8,7 +8,7 @@
         android:paddingRight="@dimen/_14sdp"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:background="@color/background"
-        tools:context=".ui.fragments.ticket.TicketFragment">
+        tools:context="id.co.rumahraga.ui.fragments.ticket.TicketFragment">
 
         <LinearLayout
             android:layout_width="match_parent"
