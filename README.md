@@ -1,4 +1,4 @@
-# Rumah-Raga-App
+# RR-App
 Aplikasi penyewaan lapangan olahraga terdekat berbasis Android
 <br><br>
 
